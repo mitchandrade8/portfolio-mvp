@@ -1,0 +1,11 @@
+# macOS system files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# VS Code workspace settings
+.vscode/
+
+# Temporary files
+*.tmp
+*.log
