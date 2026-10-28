@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mitchell Andrade | Software Engineer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header class="glass-nav">
+        <nav class="container">
+            <div class="logo">Mitchell Andrade</div>
+            <ul class="nav-links">
+                <li><a href="#about" class="active">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#skills">Skills</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="about" class="container hero">
+            <div class="hero-content">
+                <span class="location-badge">Available in CO, NY, and TX</span>
+                <h1>Mitchell Andrade.</h1>
+                <h2 class="gradient-text">Engineer. Architect. Builder.</h2>
+                <p class="bio">
+                    I am a software engineer focused on building robust backend systems and AI-driven applications.
+                    Drawing from a foundation in finance and rigorous computer science training, I bridge the gap
+                    between technical architecture and business objectives. I thrive in collaborative environments where
+                    cross-functional teamwork and rapid problem-solving drive scalable products.
+                </p>
+                <div class="hero-actions">
+                    <a href="mailto:mitchandrade8@gmail.com" class="btn btn-primary">Contact Me</a>
+                    <a href="assets/resume.pdf" class="btn btn-secondary" target="_blank">View Resume</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="container">
+            <h2 class="section-title">Selected Work</h2>
+
+            <!-- Project 1: LockedIn -->
+            <div class="card featured-card">
+                <div class="card-content">
+                    <div class="card-header">
+                        <h3>LockedIn</h3>
+                        <span class="badge">Edge-AI Sports Analytics</span>
+                    </div>
+                    <p class="tech-stack">C++ &nbsp;•&nbsp; Python &nbsp;•&nbsp; PyTorch &nbsp;•&nbsp; Edge Computing
+                    </p>
+                    <p class="project-desc">An edge-AI hardware and software solution designed to automate basketball
+                        tracking and deliver real-time analytics locally, bypassing cloud latency.</p>
+
+                    <div class="phases-container">
+                        <div class="phase active-phase">
+                            <div class="phase-indicator"></div>
+                            <div class="phase-details">
+                                <h4>Phase 1: Hardware Architecture</h4>
+                                <p>Configuring the physical inference engine and stereoscopic vision pipeline to process
+                                    high-speed court data locally.</p>
+
+                                <div class="hardware-showcase">
+                                    <div class="hardware-item">
+                                        <div class="img-wrapper" style="background-image: url('assets/images/lockedin/jetsonnano_ssd.jpg');"></div>
+                                        <p>Jetson Orin Nano SSD</p>
+                                    </div>
+                                    <div class="hardware-item">
+                                        <div class="img-wrapper" style="background-image: url('assets/images/lockedin/jetsonnano_cameras.jpg');"></div>
+                                        <p>Dual IMX477 Cameras</p>
+                                    </div>
+                                    <div class="hardware-item">
+                                        <div class="img-wrapper" style="background-image: url('assets/images/lockedin/jetsonnano_camera_ribbons.jpg');">
+                                        </div>
+                                        <p>MIPI CSI Connections</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="phase future-phase">
+                            <div class="phase-indicator"></div>
+                            <div class="phase-details">
+                                <h4>Phase 2: Vision Model Optimization</h4>
+                                <p>Deploying local object detection models using PyTorch and TensorRT to track
+                                    trajectory and mechanics in real-time.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="container">
+            <h2 class="section-title">Technical Expertise</h2>
+            <div class="skills-wrapper">
+                <div class="skill-group card">
+                    <h3>Languages</h3>
+                    <p>Python, C++, Java, Swift, Scala, SQL</p>
+                </div>
+                <div class="skill-group card">
+                    <h3>Infrastructure</h3>
+                    <p>AWS, Docker, Kubernetes, Terraform</p>
+                </div>
+                <div class="skill-group card">
+                    <h3>Data & ML</h3>
+                    <p>PostgreSQL, MySQL, Supabase, PyTorch, TensorFlow</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="container">
+        <div class="footer-content card">
+            <h2>Let's build something great.</h2>
+            <p>I am actively seeking software engineering roles and eager to contribute to a collaborative team.</p>
+            <div class="footer-actions">
+                <a href="mailto:mitchandrade8@gmail.com" class="btn btn-primary">Email Me</a>
+                <!-- Update to your actual LinkedIn URL -->
+                <a href="https://linkedin.com/in/yourprofile" class="btn btn-secondary" target="_blank">LinkedIn</a>
+            </div>
+            <p class="copyright">© 2026 Mitchell Andrade.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
