@@ -324,6 +324,152 @@ h3 {
     font-weight: 500;
 }
 
+/* Vision & Brainstorming Section */
+.project-vision {
+    margin-bottom: 5rem;
+    border-bottom: 1px solid var(--border-subtle);
+    padding-bottom: 4rem;
+}
+
+.project-vision:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.vision-text {
+    max-width: 800px;
+    margin: 0 auto 2.5rem auto;
+    text-align: center;
+}
+
+.vision-text h3 {
+    font-size: 2rem;
+    color: var(--text-primary);
+    margin-bottom: 1rem;
+}
+
+.vision-text p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+}
+
+.vision-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.vision-gallery img {
+    width: 100%;
+    height: auto;
+    border-radius: 16px;
+    /* Matched to Apple card styling */
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.04);
+    transition: transform 0.3s ease;
+    border: 1px solid var(--border-subtle);
+}
+
+.vision-gallery img:hover {
+    transform: scale(1.02);
+}
+
+/* CliftonStrengths Section (Dark Theme) */
+.clifton-strengths-wrapper {
+    background-color: #121212;
+    color: #e0e0e0;
+    padding: 4rem 2rem;
+    margin-top: 2rem;
+    border-radius: 24px;
+    /* Soft edges to match your layout */
+}
+
+.strengths-container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.strengths-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+}
+
+.strengths-subtitle {
+    font-size: 1.1rem;
+    color: #a0a0a0;
+    margin-bottom: 3rem;
+}
+
+.strengths-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.strength-card {
+    background-color: #1e1e1e;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-left: 5px solid #444;
+}
+
+.strength-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.4);
+}
+
+.strength-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+}
+
+.strength-number {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #ffffff;
+    background-color: #2a2a2a;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.strength-name {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0;
+}
+
+.strength-desc {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #cccccc;
+    margin: 0;
+}
+
+/* Gallup Theme Color Accents */
+.strength-card.strategic-thinking {
+    border-left-color: #007A33;
+}
+
+.strength-card.influencing {
+    border-left-color: #D38027;
+}
+
+.strength-card.executing {
+    border-left-color: #73225B;
+}
+
 /* Skills */
 .skills-wrapper {
     display: grid;
