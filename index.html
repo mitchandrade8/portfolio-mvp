@@ -41,6 +41,69 @@
             </div>
         </section>
 
+        <!-- CliftonStrengths Section -->
+        <section class="container" style="margin-bottom: 4rem;">
+            <div class="clifton-strengths-wrapper">
+                <div class="strengths-container">
+                    <h2 class="strengths-title">CliftonStrengths Top 5</h2>
+                    <p class="strengths-subtitle">Dominant traits shaping my approach to software engineering and
+                        problem-solving.</p>
+
+                    <div class="strengths-grid">
+                        <div class="strength-card strategic-thinking">
+                            <div class="strength-header">
+                                <span class="strength-number">1</span>
+                                <h3 class="strength-name">Strategic</h3>
+                            </div>
+                            <p class="strength-desc">You create alternative ways to proceed. Faced with any given
+                                scenario, you can quickly spot the relevant patterns and issues.</p>
+                        </div>
+
+                        <div class="strength-card influencing">
+                            <div class="strength-header">
+                                <span class="strength-number">2</span>
+                                <h3 class="strength-name">Competition</h3>
+                            </div>
+                            <p class="strength-desc">You measure your progress against the performance of others. You
+                                strive to win first place and revel in contests.</p>
+                        </div>
+
+                        <div class="strength-card executing">
+                            <div class="strength-header">
+                                <span class="strength-number">3</span>
+                                <h3 class="strength-name">Achiever</h3>
+                            </div>
+                            <p class="strength-desc">You work hard and possess a great deal of stamina. You take immense
+                                satisfaction in being busy and productive.</p>
+                        </div>
+
+                        <div class="strength-card strategic-thinking">
+                            <div class="strength-header">
+                                <span class="strength-number">4</span>
+                                <h3 class="strength-name">Learner</h3>
+                            </div>
+                            <p class="strength-desc">You have a great desire to learn and want to continuously improve.
+                                The process of learning, rather than the outcome, excites you.</p>
+                        </div>
+
+                        <div class="strength-card executing">
+                            <div class="strength-header">
+                                <span class="strength-number">5</span>
+                                <h3 class="strength-name">Focus</h3>
+                            </div>
+                            <p class="strength-desc">You can take a direction, follow through and make the corrections
+                                necessary to stay on track. You prioritize, then act.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Divider -->
+        <div class="container">
+            <hr style="border: 0; height: 1px; background: #e5e7eb; margin: 2rem 0 4rem 0;">
+        </div>
+
         <!-- Personal Projects Section -->
         <section id="projects" class="container">
             <h2 class="section-title">Personal Projects</h2>
@@ -58,10 +121,43 @@
                         tracking and deliver real-time analytics locally, bypassing cloud latency.</p>
 
                     <div class="phases-container">
+                        <!-- Phase 0: Vision & Brainstorming -->
                         <div class="phase active-phase">
                             <div class="phase-indicator"></div>
                             <div class="phase-details">
-                                <h4>Phase 0: Hardware Architecture</h4>
+                                <h4>Phase 0: Vision & Brainstorming</h4>
+                                <p>The vision started with a simple need: automating basketball shot logging, analytics,
+                                    and highlight clipping without relying on expensive, cloud-dependent infrastructure.
+                                    These early persona, analytics, and biometrics blueprints laid the foundation.</p>
+
+                                <div class="hardware-showcase">
+                                    <div class="hardware-item">
+                                        <div class="img-wrapper"
+                                            style="background-image: url('assets/images/lockedin/lockedin-personas.jpg');">
+                                        </div>
+                                        <p>User Personas</p>
+                                    </div>
+                                    <div class="hardware-item">
+                                        <div class="img-wrapper"
+                                            style="background-image: url('assets/images/lockedin/lockedin-analytics.jpg');">
+                                        </div>
+                                        <p>Analytics Concept</p>
+                                    </div>
+                                    <div class="hardware-item">
+                                        <div class="img-wrapper"
+                                            style="background-image: url('assets/images/lockedin/lockedin-biometrics.jpg');">
+                                        </div>
+                                        <p>Biometrics</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Phase 1: Hardware Architecture -->
+                        <div class="phase active-phase">
+                            <div class="phase-indicator"></div>
+                            <div class="phase-details">
+                                <h4>Phase 1: Hardware Architecture</h4>
                                 <p>Configuring the physical inference engine and stereoscopic vision pipeline to process
                                     high-speed court data locally.</p>
 
@@ -88,10 +184,11 @@
                             </div>
                         </div>
 
+                        <!-- Phase 2: Vision Model Optimization -->
                         <div class="phase future-phase">
                             <div class="phase-indicator"></div>
                             <div class="phase-details">
-                                <h4>Phase 1: Vision Model Optimization</h4>
+                                <h4>Phase 2: Vision Model Optimization</h4>
                                 <p>Deploying local object detection models using PyTorch and TensorRT to track
                                     trajectory and mechanics in real-time.</p>
                             </div>
@@ -124,96 +221,80 @@
                         course vibe.</p>
 
                     <div class="phases-container">
+                        <!-- Phase 0: Vision & Brainstorming -->
                         <div class="phase active-phase">
                             <div class="phase-indicator"></div>
                             <div class="phase-details">
-                                <h4>Phase 0: Demo UI & Ideation</h4>
+                                <h4>Phase 0: Vision & Brainstorming</h4>
+                                <p>Conceptualized to bridge the gap between a traditional golf scorecard and a modern
+                                    social platform. These early agile planning sprints, architecture diagrams, and
+                                    handicap algorithm mapping ensured the routing logic was sound before writing code.
+                                </p>
+
+                                <div class="hardware-showcase">
+                                    <div class="hardware-item">
+                                        <div class="img-wrapper"
+                                            style="background-image: url('assets/images/matchplay/matchplay-architecture.jpg');">
+                                        </div>
+                                        <p>System Architecture</p>
+                                    </div>
+                                    <div class="hardware-item">
+                                        <div class="img-wrapper"
+                                            style="background-image: url('assets/images/matchplay/matchplay-agile.jpg');">
+                                        </div>
+                                        <p>Agile Planning</p>
+                                    </div>
+                                    <div class="hardware-item">
+                                        <div class="img-wrapper"
+                                            style="background-image: url('assets/images/matchplay/matchplay-algorithm.jpg');">
+                                        </div>
+                                        <p>Algorithm Logic</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Phase 1: Demo UI & Ideation -->
+                        <div class="phase active-phase">
+                            <div class="phase-indicator"></div>
+                            <div class="phase-details">
+                                <h4>Phase 1: Demo UI & Ideation</h4>
                                 <p>Demo UI, no backend yet or definitive decisions on user stories. Just brainstorming
                                     and refining ideas with the team.</p>
 
                                 <div class="hardware-showcase">
                                     <div class="hardware-item">
                                         <div class="img-wrapper"
-                                            style="background-image: url('assets/images/matchplay-feed.jpg');"></div>
+                                            style="background-image: url('assets/images/matchplay/matchplay-feed.jpg');">
+                                        </div>
                                         <p>Compatibility Feed</p>
                                     </div>
                                     <div class="hardware-item">
                                         <div class="img-wrapper"
-                                            style="background-image: url('assets/images/matchplay-rounds.jpg');"></div>
+                                            style="background-image: url('assets/images/matchplay/matchplay-rounds.jpg');">
+                                        </div>
                                         <p>Round Scheduling</p>
                                     </div>
                                     <div class="hardware-item">
                                         <div class="img-wrapper"
-                                            style="background-image: url('assets/images/matchplay-profile.jpg');"></div>
+                                            style="background-image: url('assets/images/matchplay/matchplay-profile.jpg');">
+                                        </div>
                                         <p>Golfer Profiles</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
+                        <!-- Phase 2: Cloud Deployment & Database -->
                         <div class="phase future-phase">
                             <div class="phase-indicator"></div>
                             <div class="phase-details">
-                                <h4>Phase 1: Cloud Deployment & Database</h4>
+                                <h4>Phase 2: Cloud Deployment & Database</h4>
                                 <p>Deploying the production WSGI server and integrating a seamless JSON-serialized
                                     PostgreSQL database.</p>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section Divider -->
-        <div class="container">
-            <hr style="border: 0; height: 1px; background: #e5e7eb; margin: 2rem 0 4rem 0;">
-        </div>
-
-        <!-- Vision & Brainstorming Section -->
-        <section id="vision-brainstorming" class="container">
-            <h2 class="section-title">Vision & Brainstorming: The "Why"</h2>
-
-            <!-- LockedIn Vision -->
-            <div class="project-vision" style="margin-bottom: 5rem;">
-                <div class="vision-text" style="text-align: center; max-width: 800px; margin: 0 auto 2.5rem auto;">
-                    <h3 style="font-size: 2rem; margin-bottom: 1rem;">LockedIn</h3>
-                    <p style="font-size: 1.1rem; line-height: 1.7; color: #cccccc;">The vision for LockedIn started with
-                        a simple need: automating basketball shot logging, analytics, and highlight clipping without
-                        relying on expensive, cloud-dependent infrastructure. The goal was to engineer a local, edge-AI
-                        hardware and software solution that allows players to focus entirely on athletic movement and
-                        shooting mechanics. These early persona, analytics, and biometrics blueprints laid the
-                        foundation for the real-time vision tracking system.</p>
-                </div>
-                <div class="vision-gallery"
-                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
-                    <img src="assets/images/lockedin/lockedin-personas.jpg" alt="LockedIn User Personas"
-                        style="width: 100%; border-radius: 8px; border: 1px solid #222;">
-                    <img src="assets/images/lockedin/lockedin-analytics.jpg" alt="LockedIn Analytics Concept"
-                        style="width: 100%; border-radius: 8px; border: 1px solid #222;">
-                    <img src="assets/images/lockedin/lockedin-biometrics.jpg" alt="LockedIn Biometrics Brainstorming"
-                        style="width: 100%; border-radius: 8px; border: 1px solid #222;">
-                </div>
-            </div>
-
-            <!-- Match Play Vision -->
-            <div class="project-vision">
-                <div class="vision-text" style="text-align: center; max-width: 800px; margin: 0 auto 2.5rem auto;">
-                    <h3 style="font-size: 2rem; margin-bottom: 1rem;">Match Play</h3>
-                    <p style="font-size: 1.1rem; line-height: 1.7; color: #cccccc;">Match Play was conceptualized to
-                        bridge the gap between a traditional golf scorecard and a modern social platform. The core
-                        motivation was to build a robust, scalable architecture—from the Python REST API backend to the
-                        interactive frontend—that handles round tracking, algorithmic feeds, and player profiles
-                        seamlessly. These early agile planning sprints and architecture diagrams ensured the database
-                        and routing logic were mapped before writing the first line of code.</p>
-                </div>
-                <div class="vision-gallery"
-                    style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
-                    <img src="assets/images/matchplay/matchplay-architecture.jpg" alt="Match Play Architecture Diagram"
-                        style="width: 100%; border-radius: 8px; border: 1px solid #222;">
-                    <img src="assets/images/matchplay/matchplay-agile.jpg" alt="Match Play Agile Planning"
-                        style="width: 100%; border-radius: 8px; border: 1px solid #222;">
-                    <img src="assets/images/matchplay/matchplay-feed.jpg" alt="Match Play Social Feed Concept"
-                        style="width: 100%; border-radius: 8px; border: 1px solid #222;">
                 </div>
             </div>
         </section>
@@ -246,17 +327,4 @@
     <footer class="container">
         <div class="footer-content card">
             <h2>Let's build something great.</h2>
-            <p>I am actively seeking software engineering roles and eager to contribute to a collaborative team.</p>
-            <div class="footer-actions">
-                <a href="mailto:hello@mitchellandrade.com" class="btn btn-primary">Email Me</a>
-                <a href="https://www.linkedin.com/in/mitchandrade/" class="btn btn-secondary"
-                    target="_blank">LinkedIn</a>
-            </div>
-            <p class="copyright">© 2026 Mitchell Andrade.</p>
-        </div>
-    </footer>
-
-    <script src="script.js"></script>
-</body>
-
-</html>
+            <p>I am actively seeking software engineering roles and eager to contribute to
