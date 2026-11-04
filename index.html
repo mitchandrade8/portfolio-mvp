@@ -238,11 +238,44 @@
                             </div>
                         </div>
 
-                        <!-- Phase 3: Hardware Architecture -->
+                        <!-- Phase 3: Hardware Assembly & Precision Tooling -->
                         <div class="phase active-phase">
                             <div class="phase-indicator"></div>
                             <div class="phase-details">
-                                <h4>Phase 3: Hardware Architecture</h4>
+                                <h4>Phase 3: Hardware Assembly & Precision Tooling</h4>
+                                <p>Physical assembly of the Jetson Orin Nano edge-inference engine. Due to the
+                                    microscopic tolerances of the Jetson's M.2 antenna interfaces, a lighted
+                                    magnification visor and non-conductive precision tools were utilized to secure the
+                                    RF connections without damaging the logic board.</p>
+
+                                <div class="hardware-showcase">
+                                    <div class="hardware-item">
+                                        <div class="img-wrapper"
+                                            style="background-image: url('assets/images/lockedin/lockedin-chassis.jpg');">
+                                        </div>
+                                        <p>Jetson Chassis Assembly</p>
+                                    </div>
+                                    <div class="hardware-item">
+                                        <div class="img-wrapper"
+                                            style="background-image: url('assets/images/lockedin/lockedin-tools.jpg');">
+                                        </div>
+                                        <p>Non-Conductive Tooling</p>
+                                    </div>
+                                    <div class="hardware-item">
+                                        <div class="img-wrapper"
+                                            style="background-image: url('assets/images/lockedin/lockedin-visor.jpg');">
+                                        </div>
+                                        <p>Optical Magnification</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Phase 4: Stereoscopic Architecture -->
+                        <div class="phase active-phase">
+                            <div class="phase-indicator"></div>
+                            <div class="phase-details">
+                                <h4>Phase 4: Stereoscopic Architecture</h4>
                                 <p>Configuring the physical inference engine and stereoscopic vision pipeline to process
                                     high-speed court data locally.</p>
 
@@ -269,11 +302,11 @@
                             </div>
                         </div>
 
-                        <!-- Phase 4: Vision Model Optimization -->
+                        <!-- Phase 5: Vision Model Optimization -->
                         <div class="phase future-phase">
                             <div class="phase-indicator"></div>
                             <div class="phase-details">
-                                <h4>Phase 4: Vision Model Optimization</h4>
+                                <h4>Phase 5: Vision Model Optimization</h4>
                                 <p>Deploying local object detection models using PyTorch and TensorRT to track
                                     trajectory and mechanics in real-time.</p>
                             </div>
@@ -403,13 +436,25 @@
                             </div>
                         </div>
 
-                        <!-- Phase 3: Cloud Deployment & Database -->
+                        <!-- Phase 3: Architecture & Deployment Strategy -->
                         <div class="phase future-phase">
                             <div class="phase-indicator"></div>
                             <div class="phase-details">
-                                <h4>Phase 3: Cloud Deployment & Database</h4>
-                                <p>Deploying the production WSGI server and integrating a seamless JSON-serialized
-                                    PostgreSQL database.</p>
+                                <h4>Phase 3: Architecture & Deployment Strategy</h4>
+                                <p><strong>Current Infrastructure (Bootstrapped):</strong> To optimize for rapid
+                                    prototyping and zero-cost deployment, the application utilizes
+                                    <strong>Render</strong> for hosting the Flask REST API and React frontend, paired
+                                    with <strong>Neon</strong> for serverless PostgreSQL. While this allows for fast
+                                    iteration, it introduces cold-start latency and network hops between disparate cloud
+                                    providers.</p>
+                                <p style="margin-top: 0.5rem;"><strong>The Scale-Up Plan (Enterprise
+                                        Architecture):</strong> With an active user base, the infrastructure would be
+                                    migrated entirely into a single <strong>AWS Virtual Private Cloud (VPC)</strong> to
+                                    minimize latency. The frontend would be distributed via <strong>CloudFront
+                                        (CDN)</strong>, the Flask API containerized on <strong>AWS ECS
+                                        (Fargate)</strong> for elastic auto-scaling, and the database migrated to
+                                    <strong>Amazon Aurora PostgreSQL</strong> to support high-throughput read replicas.
+                                </p>
                             </div>
                         </div>
                     </div>
