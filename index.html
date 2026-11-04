@@ -173,13 +173,40 @@
                             </div>
                         </div>
 
-                        <!-- Phase 1: Hardware Architecture -->
+                        <!-- Phase 1: Spatial Calibration & Constraints -->
                         <div class="phase active-phase">
                             <div class="phase-indicator"></div>
                             <div class="phase-details">
-                                <h4>Phase 1: Hardware Architecture</h4>
-                                <p>Configuring the physical inference engine and stereoscopic vision pipeline to process
-                                    high-speed court data locally.</p>
+                                <h4>Phase 1: Spatial Calibration & Constraints</h4>
+                                <p>Before hardware assembly, the physical deployment environment was mapped. A custom
+                                    calibration engine was built to calculate optical sightlines, ensure 100%
+                                    stereoscopic court coverage, and eliminate deep-corner blind spots.</p>
+
+                                <div class="hardware-showcase">
+                                    <div class="hardware-item">
+                                        <div class="img-wrapper"
+                                            style="background-image: url('assets/images/lockedin/lockedin-court-mapping.jpg');">
+                                        </div>
+                                        <p>Environmental Mapping</p>
+                                    </div>
+                                    <div class="hardware-item">
+                                        <div class="img-wrapper"
+                                            style="background-image: url('assets/images/lockedin/lockedin-calibration.jpg');">
+                                        </div>
+                                        <p>FOV Calibration UI</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Phase 2: Hardware Architecture & Live Testing -->
+                        <div class="phase active-phase">
+                            <div class="phase-indicator"></div>
+                            <div class="phase-details">
+                                <h4>Phase 2: Hardware Architecture & Live Testing</h4>
+                                <p>Configuring the physical inference engine to process high-speed court data locally.
+                                    The system was field-tested during live scrimmages to validate real-time processing
+                                    and occlusion handling on edge battery power.</p>
 
                                 <div class="hardware-showcase">
                                     <div class="hardware-item">
@@ -196,19 +223,19 @@
                                     </div>
                                     <div class="hardware-item">
                                         <div class="img-wrapper"
-                                            style="background-image: url('assets/images/lockedin/jetsonnano_camera_ribbons.jpg');">
+                                            style="background-image: url('assets/images/lockedin/lockedin-live-deployment.jpg');">
                                         </div>
-                                        <p>MIPI CSI Connections</p>
+                                        <p>Live Edge Deployment</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Phase 2: Vision Model Optimization -->
+                        <!-- Phase 3: Vision Model Optimization -->
                         <div class="phase future-phase">
                             <div class="phase-indicator"></div>
                             <div class="phase-details">
-                                <h4>Phase 2: Vision Model Optimization</h4>
+                                <h4>Phase 3: Vision Model Optimization</h4>
                                 <p>Deploying local object detection models using PyTorch and TensorRT to track
                                     trajectory and mechanics in real-time.</p>
                             </div>
