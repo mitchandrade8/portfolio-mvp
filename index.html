@@ -302,11 +302,45 @@
                             </div>
                         </div>
 
-                        <!-- Phase 5: Vision Model Optimization -->
+                        <!-- Phase 5: OS Flashing & Boot Configuration -->
+                        <div class="phase active-phase">
+                            <div class="phase-indicator"></div>
+                            <div class="phase-details">
+                                <h4>Phase 5: OS Flashing & Boot Configuration</h4>
+                                <p>Initially planned to flash the NVIDIA JetPack OS using an SD card or Ubuntu VM.
+                                    Pivoted after discovering the Orin Nano requires a dedicated USB-A drive for the
+                                    initial ISO flash. Overcame macOS balenaEtcher security blocks and DisplayPort
+                                    hardware handshake errors to successfully deploy JetPack 7.2.1 directly onto the 1TB
+                                    Samsung 990 M.2 NVMe SSD.</p>
+
+                                <div class="hardware-showcase">
+                                    <div class="hardware-item">
+                                        <div class="img-wrapper"
+                                            style="background-image: url('assets/images/lockedin/balena-etcher-flash.jpg');">
+                                        </div>
+                                        <p>balenaEtcher Flash</p>
+                                    </div>
+                                    <div class="hardware-item">
+                                        <div class="img-wrapper"
+                                            style="background-image: url('assets/images/lockedin/displayport-debug.jpg');">
+                                        </div>
+                                        <p>Hardware Handshake</p>
+                                    </div>
+                                    <div class="hardware-item">
+                                        <div class="img-wrapper"
+                                            style="background-image: url('assets/images/lockedin/nvme-os-install.jpg');">
+                                        </div>
+                                        <p>NVMe OS Deployment</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Phase 6: Vision Model Optimization -->
                         <div class="phase future-phase">
                             <div class="phase-indicator"></div>
                             <div class="phase-details">
-                                <h4>Phase 5: Vision Model Optimization</h4>
+                                <h4>Phase 6: Vision Model Optimization</h4>
                                 <p>Deploying local object detection models using PyTorch and TensorRT to track
                                     trajectory and mechanics in real-time.</p>
                             </div>
@@ -446,7 +480,8 @@
                                     <strong>Render</strong> for hosting the Flask REST API and React frontend, paired
                                     with <strong>Neon</strong> for serverless PostgreSQL. While this allows for fast
                                     iteration, it introduces cold-start latency and network hops between disparate cloud
-                                    providers.</p>
+                                    providers.
+                                </p>
                                 <p style="margin-top: 0.5rem;"><strong>The Scale-Up Plan (Enterprise
                                         Architecture):</strong> With an active user base, the infrastructure would be
                                     migrated entirely into a single <strong>AWS Virtual Private Cloud (VPC)</strong> to
