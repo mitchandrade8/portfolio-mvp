@@ -274,45 +274,78 @@
                             </div>
                         </div>
 
-                        <!-- Phase 4: OS Flashing & Boot Configuration -->
+                        <!-- Phase 4: ISO Provisioning & Boot Media Flashing -->
                         <div class="phase active-phase">
                             <div class="phase-indicator"></div>
                             <div class="phase-details">
-                                <h4>Phase 4: OS Flashing & Boot Configuration</h4>
-                                <p>Initially planned to flash the NVIDIA JetPack OS using an SD card or Ubuntu VM.
-                                    Pivoted after discovering the Orin Nano requires a dedicated USB-A drive for the
-                                    initial ISO flash. Overcame macOS balenaEtcher security blocks and DisplayPort
-                                    hardware handshake errors to successfully deploy JetPack 7.2.1 directly onto the 1TB
-                                    Samsung 990 M.2 NVMe SSD.</p>
+                                <h4>Phase 4: ISO Provisioning & Boot Media Flashing</h4>
+                                <p>Initially planned to flash the NVIDIA JetPack OS via SD card or an Ubuntu VM, then
+                                    pivoted after confirming the Orin Nano requires a dedicated USB-A installer drive
+                                    for direct NVMe provisioning. Sourced the official ARM64 JetPack ISO, bypassed macOS
+                                    balenaEtcher permissions to flash the bootable installer at 186.2 MB/s, and
+                                    initialized the GNU GRUB NVMe target partition.</p>
 
                                 <div class="hardware-showcase">
                                     <div class="hardware-item">
                                         <div class="img-wrapper"
-                                            style="background-image: url('assets/images/lockedin/balena-etcher-flash.jpg');">
+                                            style="background-image: url('assets/images/lockedin/morejetsonstuff.jpg');">
                                         </div>
-                                        <p>balenaEtcher Flash</p>
+                                        <p>JetPack ISO Sourcing</p>
                                     </div>
                                     <div class="hardware-item">
                                         <div class="img-wrapper"
-                                            style="background-image: url('assets/images/lockedin/displayport-debug.jpg');">
+                                            style="background-image: url('assets/images/lockedin/flashusbforjetson.jpg');">
                                         </div>
-                                        <p>Hardware Handshake</p>
+                                        <p>balenaEtcher USB Flash</p>
                                     </div>
                                     <div class="hardware-item">
                                         <div class="img-wrapper"
-                                            style="background-image: url('assets/images/lockedin/nvme-os-install.jpg');">
+                                            style="background-image: url('assets/images/lockedin/Terminal-jetson.jpg');">
                                         </div>
-                                        <p>NVMe OS Deployment</p>
+                                        <p>GRUB NVMe Bootloader</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Phase 5: Backend Architecture, Costs & Growth -->
+                        <!-- Phase 5: UEFI Firmware & Jetson Linux Deployment -->
+                        <div class="phase active-phase">
+                            <div class="phase-indicator"></div>
+                            <div class="phase-details">
+                                <h4>Phase 5: UEFI Firmware & Jetson Linux Deployment</h4>
+                                <p>Executed the low-level Jetson System Firmware (UEFI/QSPI) update on first boot and
+                                    resolved DisplayPort handshake issues to complete the Ubuntu-based Jetson Linux
+                                    installation directly onto the 1TB Samsung 990 Pro M.2 NVMe SSD, preparing the edge
+                                    node for headless SSH orchestration.</p>
+
+                                <div class="hardware-showcase">
+                                    <div class="hardware-item">
+                                        <div class="img-wrapper"
+                                            style="background-image: url('assets/images/lockedin/jetsonosstuff.jpg');">
+                                        </div>
+                                        <p>UEFI / QSPI Firmware Update</p>
+                                    </div>
+                                    <div class="hardware-item">
+                                        <div class="img-wrapper"
+                                            style="background-image: url('assets/images/lockedin/Ubuntu.jpg');">
+                                        </div>
+                                        <p>Ubuntu 24.04 Initial Setup</p>
+                                    </div>
+                                    <div class="hardware-item">
+                                        <div class="img-wrapper"
+                                            style="background-image: url('assets/images/lockedin/OS-Jetson.jpg');">
+                                        </div>
+                                        <p>Jetson Linux NVMe Desktop</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Phase 6: Backend Architecture, Costs & Growth -->
                         <div class="phase future-phase">
                             <div class="phase-indicator"></div>
                             <div class="phase-details">
-                                <h4>Phase 5: Backend Architecture, Costs & Growth</h4>
+                                <h4>Phase 6: Backend Architecture, Costs & Growth</h4>
                                 <p>Architecting the database schema and cloud infrastructure to manage user profiles,
                                     game statistics, and video highlights. Modeled AWS scaling costs for mass telemetry
                                     ingestion vs. edge-inference savings, mapping out unit economics and monetization
@@ -320,11 +353,11 @@
                             </div>
                         </div>
 
-                        <!-- Phase 6: Vision Model Optimization -->
+                        <!-- Phase 7: Vision Model Optimization -->
                         <div class="phase future-phase">
                             <div class="phase-indicator"></div>
                             <div class="phase-details">
-                                <h4>Phase 6: Vision Model Optimization</h4>
+                                <h4>Phase 7: Vision Model Optimization</h4>
                                 <p>Deploying local object detection models using PyTorch and TensorRT to track
                                     trajectory and mechanics in real-time.</p>
                             </div>
