@@ -9,8 +9,32 @@
     --accent-hover: #0077ed;
     --border-subtle: rgba(0, 0, 0, 0.08);
 
+    /* Milestone Callout Variables */
+    --milestone-bg: linear-gradient(135deg, rgba(0, 113, 227, 0.05) 0%, rgba(16, 185, 129, 0.05) 100%);
+    --milestone-border: rgba(0, 113, 227, 0.22);
+    --milestone-pill-bg: rgba(16, 185, 129, 0.12);
+    --milestone-pill-text: #059669;
+    --metric-chip-bg: rgba(255, 255, 255, 0.85);
+
     /* Apple system fonts prioritize San Francisco on Macs */
     --font-stack: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Ready for future Dark Mode toggle */
+[data-theme="dark"] {
+    --bg-main: #000000;
+    --card-bg: #1c1c1e;
+    --text-primary: #f5f5f7;
+    --text-secondary: #98989d;
+    --accent-blue: #2997ff;
+    --accent-hover: #40a9ff;
+    --border-subtle: rgba(255, 255, 255, 0.12);
+
+    --milestone-bg: linear-gradient(135deg, rgba(41, 151, 255, 0.12) 0%, rgba(16, 185, 129, 0.10) 100%);
+    --milestone-border: rgba(41, 151, 255, 0.35);
+    --milestone-pill-bg: rgba(16, 185, 129, 0.2);
+    --milestone-pill-text: #34d399;
+    --metric-chip-bg: rgba(28, 28, 30, 0.85);
 }
 
 * {
@@ -401,6 +425,93 @@ h3 {
     color: var(--text-primary);
 }
 
+/* =========================================
+   MILESTONE CALLOUT BANNERS
+   ========================================= */
+.milestone-banner {
+    position: relative;
+    margin: 0.75rem 0 2.25rem 0;
+    padding: 1.4rem 1.6rem;
+    background: var(--milestone-bg);
+    border: 1px solid var(--milestone-border);
+    border-left: 4px solid var(--accent-blue);
+    border-radius: 14px;
+    box-shadow: 0 6px 20px rgba(0, 113, 227, 0.05);
+}
+
+.milestone-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.6rem;
+}
+
+.milestone-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--milestone-pill-text);
+    background: var(--milestone-pill-bg);
+    padding: 4px 10px;
+    border-radius: 999px;
+}
+
+.milestone-date {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.milestone-banner h4 {
+    margin: 0 0 0.45rem 0;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.milestone-banner p {
+    margin: 0 0 0.9rem 0;
+    font-size: 0.94rem;
+    line-height: 1.55;
+    color: var(--text-secondary);
+}
+
+.milestone-metrics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+}
+
+.metric-chip {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    background: var(--metric-chip-bg);
+    border: 1px solid var(--border-subtle);
+    padding: 4px 10px;
+    border-radius: 8px;
+}
+
+/* Upcoming / Coming Soon Milestone Modifier */
+.milestone-banner.upcoming-milestone {
+    border-style: dashed;
+    border-left-style: solid;
+    border-left-width: 4px;
+    border-left-color: #f59e0b;
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.05) 0%, rgba(0, 113, 227, 0.04) 100%);
+}
+
+.milestone-pill.upcoming-pill {
+    color: #b45309;
+    background: rgba(245, 158, 11, 0.14);
+}
+
 /* Skills */
 .skills-wrapper {
     display: grid;
@@ -734,91 +845,4 @@ footer {
         bottom: 1rem;
         right: 1rem;
     }
-}
-
-/* =========================================
-   MILESTONE CALLOUT BANNERS
-   ========================================= */
-:root {
-    --milestone-bg: linear-gradient(135deg, rgba(0, 113, 227, 0.05) 0%, rgba(16, 185, 129, 0.05) 100%);
-    --milestone-border: rgba(0, 113, 227, 0.22);
-    --milestone-pill-bg: rgba(16, 185, 129, 0.12);
-    --milestone-pill-text: #059669;
-    --metric-chip-bg: rgba(255, 255, 255, 0.85);
-}
-
-/* Ready for future Dark Mode toggle */
-[data-theme="dark"] {
-    --milestone-bg: linear-gradient(135deg, rgba(41, 151, 255, 0.12) 0%, rgba(16, 185, 129, 0.10) 100%);
-    --milestone-border: rgba(41, 151, 255, 0.35);
-    --milestone-pill-bg: rgba(16, 185, 129, 0.2);
-    --milestone-pill-text: #34d399;
-    --metric-chip-bg: rgba(28, 28, 30, 0.85);
-}
-
-.milestone-banner {
-    position: relative;
-    margin: 0.75rem 0 2.25rem 0;
-    padding: 1.4rem 1.6rem;
-    background: var(--milestone-bg);
-    border: 1px solid var(--milestone-border);
-    border-left: 4px solid var(--accent-blue, #0071e3);
-    border-radius: 14px;
-    box-shadow: 0 6px 20px rgba(0, 113, 227, 0.05);
-}
-
-.milestone-top {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-bottom: 0.6rem;
-}
-
-.milestone-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--milestone-pill-text);
-    background: var(--milestone-pill-bg);
-    padding: 4px 10px;
-    border-radius: 999px;
-}
-
-.milestone-date {
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: #6e6e73;
-}
-
-.milestone-banner h4 {
-    margin: 0 0 0.45rem 0;
-    font-size: 1.1rem;
-    font-weight: 700;
-}
-
-.milestone-banner p {
-    margin: 0 0 0.9rem 0;
-    font-size: 0.94rem;
-    line-height: 1.55;
-}
-
-.milestone-metrics {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.55rem;
-}
-
-.metric-chip {
-    font-size: 0.78rem;
-    font-weight: 600;
-    background: var(--metric-chip-bg);
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    padding: 4px 10px;
-    border-radius: 8px;
 }

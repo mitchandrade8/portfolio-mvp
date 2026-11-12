@@ -148,7 +148,7 @@
                         <div class="phase active-phase">
                             <div class="phase-indicator"></div>
                             <div class="phase-details">
-                                <h4>Phase 0: Vision & Brainstorming</h4>
+                                <h4>Phase 0: Vision &amp; Brainstorming</h4>
                                 <p>The vision started with a simple need: automating basketball shot logging, analytics,
                                     and highlight clipping without relying on expensive, cloud-dependent infrastructure.
                                     These early persona, analytics, and biometrics blueprints laid the foundation.</p>
@@ -180,7 +180,7 @@
                         <div class="phase active-phase">
                             <div class="phase-indicator"></div>
                             <div class="phase-details">
-                                <h4>Phase 1: Spatial Calibration & Deployment Modeling</h4>
+                                <h4>Phase 1: Spatial Calibration &amp; Deployment Modeling</h4>
                                 <p>Before hardware assembly, the physical deployment environment was mapped. A custom
                                     calibration engine was built to calculate optical sightlines, ensure 100%
                                     stereoscopic court coverage, and model what the fully assembled system should look
@@ -213,7 +213,7 @@
                         <div class="phase active-phase">
                             <div class="phase-indicator"></div>
                             <div class="phase-details">
-                                <h4>Phase 2: Component Integration & Subsystem Testing</h4>
+                                <h4>Phase 2: Component Integration &amp; Subsystem Testing</h4>
                                 <p>Sourcing and bench-testing edge compute components. Display drivers and I/O
                                     connections were configured on a Raspberry Pi 5 thin-client subsystem prior to final
                                     stereoscopic assembly.</p>
@@ -245,7 +245,7 @@
                         <div class="phase active-phase">
                             <div class="phase-indicator"></div>
                             <div class="phase-details">
-                                <h4>Phase 3: Hardware Assembly & Stereoscopic Architecture</h4>
+                                <h4>Phase 3: Hardware Assembly &amp; Stereoscopic Architecture</h4>
                                 <p>Physical assembly of the Jetson Orin Nano inference engine and dual-camera pipeline.
                                     Due to the microscopic tolerances of the M.2 antenna interfaces and MIPI CSI
                                     connectors, a lighted magnification visor and non-conductive precision tools were
@@ -278,7 +278,7 @@
                         <div class="phase active-phase">
                             <div class="phase-indicator"></div>
                             <div class="phase-details">
-                                <h4>Phase 4: ISO Provisioning & Boot Media Flashing</h4>
+                                <h4>Phase 4: ISO Provisioning &amp; Boot Media Flashing</h4>
                                 <p>Initially planned to flash the NVIDIA JetPack OS via SD card or an Ubuntu VM, then
                                     pivoted after confirming the Orin Nano requires a dedicated USB-A installer drive
                                     for direct NVMe provisioning. Sourced the official ARM64 JetPack ISO, bypassed macOS
@@ -312,7 +312,7 @@
                         <div class="phase active-phase">
                             <div class="phase-indicator"></div>
                             <div class="phase-details">
-                                <h4>Phase 5: UEFI Firmware & Jetson Linux Deployment</h4>
+                                <h4>Phase 5: UEFI Firmware &amp; Jetson Linux Deployment</h4>
                                 <p>Executed the low-level Jetson System Firmware (UEFI/QSPI) update on first boot and
                                     resolved DisplayPort handshake issues to complete the Ubuntu-based Jetson Linux
                                     installation directly onto the 1TB Samsung 990 Pro M.2 NVMe SSD, preparing the edge
@@ -347,7 +347,7 @@
                             <div class="phase-details">
                                 <h4>Phase 6: Backend Architecture, Costs &amp; Growth</h4>
                                 <p>Designed and mapped a 6-table relational schema for secure, non-personal player
-                                    metrics, highlighting matches, game-stats, S3 video highlight clips, and purchase
+                                    metrics, highlighting matches, game stats, S3 video highlight clips, and purchase
                                     tiers. Engineered AWS ingestion and telemetry routing (Cognito, Firehose,
                                     MediaConvert) against scale models, showing how Edge inference cuts cloud ingress by
                                     up to 50% for sustainable cost curves.</p>
@@ -375,13 +375,36 @@
                             </div>
                         </div>
 
-                        <!-- Phase 7: Vision Model Optimization -->
+                        <!-- Milestone 01: End-to-End MVP Field Smoke Test -->
+                        <div class="milestone-banner upcoming-milestone">
+                            <div class="milestone-top">
+                                <span class="milestone-pill upcoming-pill">&#9203; Milestone 01 &bull; Coming
+                                    Soon</span>
+                                <span class="milestone-date">Target: Live Court MVP Smoke Test</span>
+                            </div>
+                            <h4>End-to-End MVP Field Test: Capture, Edge Inference &amp; Cloud Sync</h4>
+                            <p>Full-stack integration test uniting the assembled Jetson Orin Nano, dual IMX477 cameras,
+                                and baseline unpolished software pipeline on a live court. Validates raw stereoscopic
+                                video capture, initial shot/telemetry logging, and automated cloud upload end-to-end to
+                                expose real-world latency bottlenecks and hardware edge cases before feature expansion.
+                            </p>
+                            <div class="milestone-metrics">
+                                <span class="metric-chip">Dual-Camera Live Capture</span>
+                                <span class="metric-chip">Baseline Edge Pipeline</span>
+                                <span class="metric-chip">Video &amp; Telemetry Upload</span>
+                                <span class="metric-chip">Pre-Polish Bottleneck Audit</span>
+                            </div>
+                        </div>
+
+                        <!-- Phase 7: Post-Test Optimization, TensorRT & UI Refinement -->
                         <div class="phase future-phase">
                             <div class="phase-indicator"></div>
                             <div class="phase-details">
-                                <h4>Phase 7: Vision Model Optimization</h4>
-                                <p>Deploying local object detection models using PyTorch and TensorRT to track
-                                    trajectory and mechanics in real-time.</p>
+                                <h4>Phase 7: Post-Test Optimization, TensorRT &amp; UI Refinement</h4>
+                                <p>Iterating directly on telemetry and bug reports from the Milestone 01 field test.
+                                    Compiling PyTorch vision models into quantized TensorRT engines for deterministic
+                                    real-time FPS, hardening edge-to-cloud retry logic, and polishing the Raspberry Pi 5
+                                    touch UI before rolling out advanced analytics features.</p>
                             </div>
                         </div>
                     </div>
@@ -502,7 +525,7 @@
                         <div class="phase active-phase">
                             <div class="phase-indicator"></div>
                             <div class="phase-details">
-                                <h4>Phase 0: Vision & Brainstorming</h4>
+                                <h4>Phase 0: Vision &amp; Brainstorming</h4>
                                 <p>Conceptualized to bridge the gap between a traditional golf scorecard and a modern
                                     social platform. These early agile planning sprints, architecture diagrams, and
                                     handicap algorithm mapping ensured the routing logic was sound before writing code.
@@ -535,7 +558,7 @@
                         <div class="phase active-phase">
                             <div class="phase-indicator"></div>
                             <div class="phase-details">
-                                <h4>Phase 1: Agile Methodology & Team Infrastructure</h4>
+                                <h4>Phase 1: Agile Methodology &amp; Team Infrastructure</h4>
                                 <p>To ensure efficient collaboration and structured development for the Match Play
                                     application, the team implemented a comprehensive project management and
                                     communication infrastructure. This phase establishes the core workflows used
@@ -546,7 +569,7 @@
                                         <div class="img-wrapper"
                                             style="background-image: url('assets/images/matchplay/AgileScrumFramework.jpg');">
                                         </div>
-                                        <p>Agile & Kanban Workflow</p>
+                                        <p>Agile &amp; Kanban Workflow</p>
                                     </div>
                                     <div class="hardware-item">
                                         <div class="img-wrapper"
@@ -568,7 +591,7 @@
                         <div class="phase active-phase">
                             <div class="phase-indicator"></div>
                             <div class="phase-details">
-                                <h4>Phase 2: Demo UI & Ideation</h4>
+                                <h4>Phase 2: Demo UI &amp; Ideation</h4>
                                 <p>Demo UI, no backend yet or definitive decisions on user stories. Just brainstorming
                                     and refining ideas with the team.</p>
 
@@ -599,7 +622,7 @@
                         <div class="phase future-phase">
                             <div class="phase-indicator"></div>
                             <div class="phase-details">
-                                <h4>Phase 3: Architecture & Deployment Strategy</h4>
+                                <h4>Phase 3: Architecture &amp; Deployment Strategy</h4>
                                 <p><strong>Current Infrastructure (Bootstrapped):</strong> To optimize for rapid
                                     prototyping and zero-cost deployment, the application utilizes
                                     <strong>Render</strong> for hosting the Flask REST API and React frontend, paired
@@ -640,7 +663,7 @@
                     <p>AWS, Docker, Kubernetes, Terraform</p>
                 </div>
                 <div class="skill-group card">
-                    <h3>Data & ML</h3>
+                    <h3>Data &amp; ML</h3>
                     <p>PostgreSQL, MySQL, Supabase, PyTorch, TensorFlow</p>
                 </div>
             </div>
