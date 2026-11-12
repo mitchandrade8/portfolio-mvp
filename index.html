@@ -302,70 +302,11 @@
                             </div>
                         </div>
 
-                        <!-- Phase 5: OS Flashing & Boot Configuration -->
-                        <div class="phase active-phase">
-                            <div class="phase-indicator"></div>
-                            <div class="phase-details">
-                                <h4>Phase 5: OS Flashing & Boot Configuration</h4>
-                                <p>Initially planned to flash the NVIDIA JetPack OS using an SD card or Ubuntu VM.
-                                    Pivoted after discovering the Orin Nano requires a dedicated USB-A drive for the
-                                    initial ISO flash. Overcame macOS balenaEtcher security blocks and DisplayPort
-                                    hardware handshake errors to successfully deploy JetPack 7.2.1 directly onto the 1TB
-                                    Samsung 990 M.2 NVMe SSD.</p>
-
-                                <div class="hardware-showcase">
-                                    <div class="hardware-item">
-                                        <div class="img-wrapper"
-                                            style="background-image: url('assets/images/lockedin/balena-etcher-flash.jpg');">
-                                        </div>
-                                        <p>balenaEtcher Flash</p>
-                                    </div>
-                                    <div class="hardware-item">
-                                        <div class="img-wrapper"
-                                            style="background-image: url('assets/images/lockedin/displayport-debug.jpg');">
-                                        </div>
-                                        <p>Hardware Handshake</p>
-                                    </div>
-                                    <div class="hardware-item">
-                                        <div class="img-wrapper"
-                                            style="background-image: url('assets/images/lockedin/nvme-os-install.jpg');">
-                                        </div>
-                                        <p>NVMe OS Deployment</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Phase 6: Backend Architecture & Data Scalability -->
+                        <!-- Phase 5: Vision Model Optimization -->
                         <div class="phase future-phase">
                             <div class="phase-indicator"></div>
                             <div class="phase-details">
-                                <h4>Phase 6: Backend Architecture & Data Scalability</h4>
-                                <p>Architecting the database schema and cloud infrastructure to manage user profiles,
-                                    game statistics, and video highlights. Designing the backend to support initial
-                                    lightweight testing while laying out the data pipelines necessary for mass telemetry
-                                    ingestion and scalable storage as the player base grows.</p>
-                            </div>
-                        </div>
-
-                        <!-- Phase 7: Monetization & Edge Kiosk UX -->
-                        <div class="phase future-phase">
-                            <div class="phase-indicator"></div>
-                            <div class="phase-details">
-                                <h4>Phase 7: Monetization & Edge Kiosk UX</h4>
-                                <p>Designing the on-court business logic and walk-up user flow. Utilizing the Raspberry
-                                    Pi 5 as a touch-kiosk where players can select their session, choose a deliverable
-                                    (Highlights, Raw Film, AI Coaching), and enter their phone number. Integrating
-                                    Stripe webhooks and Twilio SMS to deliver ephemeral video links to casual users,
-                                    while routing subscribed players' data directly to their permanent profiles.</p>
-                            </div>
-                        </div>
-
-                        <!-- Phase 8: Vision Model Optimization -->
-                        <div class="phase future-phase">
-                            <div class="phase-indicator"></div>
-                            <div class="phase-details">
-                                <h4>Phase 8: Vision Model Optimization</h4>
+                                <h4>Phase 5: Vision Model Optimization</h4>
                                 <p>Deploying local object detection models using PyTorch and TensorRT to track
                                     trajectory and mechanics in real-time.</p>
                             </div>
@@ -505,8 +446,7 @@
                                     <strong>Render</strong> for hosting the Flask REST API and React frontend, paired
                                     with <strong>Neon</strong> for serverless PostgreSQL. While this allows for fast
                                     iteration, it introduces cold-start latency and network hops between disparate cloud
-                                    providers.
-                                </p>
+                                    providers.</p>
                                 <p style="margin-top: 0.5rem;"><strong>The Scale-Up Plan (Enterprise
                                         Architecture):</strong> With an active user base, the infrastructure would be
                                     migrated entirely into a single <strong>AWS Virtual Private Cloud (VPC)</strong> to
@@ -547,6 +487,19 @@
         </section>
     </main>
 
+    <footer class="container">
+        <div class="footer-content card">
+            <h2>Let's build something great.</h2>
+            <p>I am actively seeking software engineering roles and eager to contribute to a collaborative team.</p>
+            <div class="footer-actions">
+                <a href="mailto:hello@mitchellandrade.com" class="btn btn-primary">Email Me</a>
+                <a href="https://www.linkedin.com/in/mitchandrade/" class="btn btn-secondary"
+                    target="_blank">LinkedIn</a>
+            </div>
+            <p class="copyright">© 2026 Mitchell Andrade.</p>
+        </div>
+    </footer>
+
     <!-- AI Chat Widget -->
     <div class="chat-widget-container">
         <!-- Chat Button -->
@@ -556,20 +509,24 @@
                 <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
             </svg>
         </button>
-    
+
         <!-- Chat Window -->
         <div id="chat-widget-window" class="chat-window hidden">
             <div class="chat-header">
                 <div class="chat-header-info">
-                    <div class="chat-avatar">AI</div>
-                    <span class="chat-title">Agent Mitchell</span>
+                    <div class="chat-avatar">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="white" stroke="none">
+                            <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"></path>
+                        </svg>
+                    </div>
+                    <span class="chat-title">Mitchell's Assistant</span>
                 </div>
                 <button id="chat-widget-close" class="chat-close-btn">&times;</button>
             </div>
             <div id="chat-messages" class="chat-messages">
                 <div class="message ai-message">
-                    Hi! I'm Mitch's AI assistant. I can answer questions about his resume, projects, and availability. How
-                    can I help?
+                    Hi! I'm Mitch's AI assistant. I can answer questions about his resume, projects, and availability.
+                    How can I help?
                 </div>
             </div>
             <div class="chat-input-area">
@@ -584,19 +541,6 @@
             </div>
         </div>
     </div>
-
-    <footer class="container">
-        <div class="footer-content card">
-            <h2>Let's build something great.</h2>
-            <p>I am actively seeking software engineering roles and eager to contribute to a collaborative team.</p>
-            <div class="footer-actions">
-                <a href="mailto:hello@mitchellandrade.com" class="btn btn-primary">Email Me</a>
-                <a href="https://www.linkedin.com/in/mitchandrade/" class="btn btn-secondary"
-                    target="_blank">LinkedIn</a>
-            </div>
-            <p class="copyright">© 2026 Mitchell Andrade.</p>
-        </div>
-    </footer>
 
     <script src="script.js"></script>
 </body>
