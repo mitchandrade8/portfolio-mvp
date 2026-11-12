@@ -348,10 +348,11 @@
                         isolation, and hard cost-capping.</p>
 
                     <div class="phases-container">
+                        <!-- Phase 1: Infrastructure & Cost Guardrails -->
                         <div class="phase active-phase">
                             <div class="phase-indicator"></div>
                             <div class="phase-details">
-                                <h4>Production Infrastructure &amp; Cost Guardrails</h4>
+                                <h4>Phase 1: Production Infrastructure &amp; Cost Guardrails</h4>
                                 <p>Powered by a zero-dependency Python AWS Lambda handler utilizing native
                                     <code>urllib</code> and <code>boto3</code> to invoke Anthropic's Claude API without
                                     deployment bloat. Protected against abuse via atomic daily IP rate-limiting in
@@ -376,6 +377,34 @@
                                             style="background-image: url('assets/images/agent/cloudwatch-logs.jpg');">
                                         </div>
                                         <p>CloudWatch Telemetry</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Phase 2: Context Boundaries & Prompt Guardrails -->
+                        <div class="phase active-phase">
+                            <div class="phase-indicator"></div>
+                            <div class="phase-details">
+                                <h4>Phase 2: Context Boundaries &amp; Prompt Guardrails</h4>
+                                <p>Engineered deterministic system instructions and payload constraints (500-character
+                                    input caps, 300-token output ceilings) to lock the model strictly to portfolio
+                                    context. Prevents prompt injection and off-topic token drain by politely deflecting
+                                    unrelated queries while delivering grounded answers on engineering experience and
+                                    availability.</p>
+
+                                <div class="hardware-showcase">
+                                    <div class="hardware-item">
+                                        <div class="img-wrapper"
+                                            style="background-image: url('assets/images/agent/guardrail-offtopic.png'); background-size: contain; background-repeat: no-repeat; background-color: #f8fafc;">
+                                        </div>
+                                        <p>Off-Topic Scope Deflection</p>
+                                    </div>
+                                    <div class="hardware-item">
+                                        <div class="img-wrapper"
+                                            style="background-image: url('assets/images/agent/guardrail-recruiter.png'); background-size: contain; background-repeat: no-repeat; background-color: #f8fafc;">
+                                        </div>
+                                        <p>Grounded Recruiter Context</p>
                                     </div>
                                 </div>
                             </div>
