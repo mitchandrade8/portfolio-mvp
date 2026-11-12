@@ -238,46 +238,15 @@
                             </div>
                         </div>
 
-                        <!-- Phase 3: Hardware Assembly & Precision Tooling -->
+                        <!-- Phase 3: Hardware Assembly & Stereoscopic Architecture -->
                         <div class="phase active-phase">
                             <div class="phase-indicator"></div>
                             <div class="phase-details">
-                                <h4>Phase 3: Hardware Assembly & Precision Tooling</h4>
-                                <p>Physical assembly of the Jetson Orin Nano edge-inference engine. Due to the
-                                    microscopic tolerances of the Jetson's M.2 antenna interfaces, a lighted
-                                    magnification visor and non-conductive precision tools were utilized to secure the
-                                    RF connections without damaging the logic board.</p>
-
-                                <div class="hardware-showcase">
-                                    <div class="hardware-item">
-                                        <div class="img-wrapper"
-                                            style="background-image: url('assets/images/lockedin/lockedin-chassis.jpg');">
-                                        </div>
-                                        <p>Jetson Chassis Assembly</p>
-                                    </div>
-                                    <div class="hardware-item">
-                                        <div class="img-wrapper"
-                                            style="background-image: url('assets/images/lockedin/lockedin-tools.jpg');">
-                                        </div>
-                                        <p>Non-Conductive Tooling</p>
-                                    </div>
-                                    <div class="hardware-item">
-                                        <div class="img-wrapper"
-                                            style="background-image: url('assets/images/lockedin/lockedin-visor.jpg');">
-                                        </div>
-                                        <p>Optical Magnification</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Phase 4: Stereoscopic Architecture -->
-                        <div class="phase active-phase">
-                            <div class="phase-indicator"></div>
-                            <div class="phase-details">
-                                <h4>Phase 4: Stereoscopic Architecture</h4>
-                                <p>Configuring the physical inference engine and stereoscopic vision pipeline to process
-                                    high-speed court data locally.</p>
+                                <h4>Phase 3: Hardware Assembly & Stereoscopic Architecture</h4>
+                                <p>Physical assembly of the Jetson Orin Nano inference engine and dual-camera pipeline.
+                                    Due to the microscopic tolerances of the M.2 antenna interfaces and MIPI CSI
+                                    connectors, a lighted magnification visor and non-conductive precision tools were
+                                    utilized to secure connections without damaging the logic board.</p>
 
                                 <div class="hardware-showcase">
                                     <div class="hardware-item">
@@ -294,19 +263,65 @@
                                     </div>
                                     <div class="hardware-item">
                                         <div class="img-wrapper"
-                                            style="background-image: url('assets/images/lockedin/jetsonnano_camera_ribbons.jpg');">
+                                            style="background-image: url('assets/images/lockedin/lockedin-visor.jpg');">
                                         </div>
-                                        <p>MIPI CSI Connections</p>
+                                        <p>Precision Assembly</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Phase 5: Vision Model Optimization -->
+                        <!-- Phase 4: OS Flashing & Boot Configuration -->
+                        <div class="phase active-phase">
+                            <div class="phase-indicator"></div>
+                            <div class="phase-details">
+                                <h4>Phase 4: OS Flashing & Boot Configuration</h4>
+                                <p>Initially planned to flash the NVIDIA JetPack OS using an SD card or Ubuntu VM.
+                                    Pivoted after discovering the Orin Nano requires a dedicated USB-A drive for the
+                                    initial ISO flash. Overcame macOS balenaEtcher security blocks and DisplayPort
+                                    hardware handshake errors to successfully deploy JetPack 7.2.1 directly onto the 1TB
+                                    Samsung 990 M.2 NVMe SSD.</p>
+
+                                <div class="hardware-showcase">
+                                    <div class="hardware-item">
+                                        <div class="img-wrapper"
+                                            style="background-image: url('assets/images/lockedin/balena-etcher-flash.jpg');">
+                                        </div>
+                                        <p>balenaEtcher Flash</p>
+                                    </div>
+                                    <div class="hardware-item">
+                                        <div class="img-wrapper"
+                                            style="background-image: url('assets/images/lockedin/displayport-debug.jpg');">
+                                        </div>
+                                        <p>Hardware Handshake</p>
+                                    </div>
+                                    <div class="hardware-item">
+                                        <div class="img-wrapper"
+                                            style="background-image: url('assets/images/lockedin/nvme-os-install.jpg');">
+                                        </div>
+                                        <p>NVMe OS Deployment</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Phase 5: Backend Architecture, Costs & Growth -->
                         <div class="phase future-phase">
                             <div class="phase-indicator"></div>
                             <div class="phase-details">
-                                <h4>Phase 5: Vision Model Optimization</h4>
+                                <h4>Phase 5: Backend Architecture, Costs & Growth</h4>
+                                <p>Architecting the database schema and cloud infrastructure to manage user profiles,
+                                    game statistics, and video highlights. Modeled AWS scaling costs for mass telemetry
+                                    ingestion vs. edge-inference savings, mapping out unit economics and monetization
+                                    logic as the active player base grows.</p>
+                            </div>
+                        </div>
+
+                        <!-- Phase 6: Vision Model Optimization -->
+                        <div class="phase future-phase">
+                            <div class="phase-indicator"></div>
+                            <div class="phase-details">
+                                <h4>Phase 6: Vision Model Optimization</h4>
                                 <p>Deploying local object detection models using PyTorch and TensorRT to track
                                     trajectory and mechanics in real-time.</p>
                             </div>
@@ -446,7 +461,8 @@
                                     <strong>Render</strong> for hosting the Flask REST API and React frontend, paired
                                     with <strong>Neon</strong> for serverless PostgreSQL. While this allows for fast
                                     iteration, it introduces cold-start latency and network hops between disparate cloud
-                                    providers.</p>
+                                    providers.
+                                </p>
                                 <p style="margin-top: 0.5rem;"><strong>The Scale-Up Plan (Enterprise
                                         Architecture):</strong> With an active user base, the infrastructure would be
                                     migrated entirely into a single <strong>AWS Virtual Private Cloud (VPC)</strong> to
