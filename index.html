@@ -342,14 +342,36 @@
                         </div>
 
                         <!-- Phase 6: Backend Architecture, Costs & Growth -->
-                        <div class="phase future-phase">
+                        <div class="phase active-phase">
                             <div class="phase-indicator"></div>
                             <div class="phase-details">
-                                <h4>Phase 6: Backend Architecture, Costs & Growth</h4>
-                                <p>Architecting the database schema and cloud infrastructure to manage user profiles,
-                                    game statistics, and video highlights. Modeled AWS scaling costs for mass telemetry
-                                    ingestion vs. edge-inference savings, mapping out unit economics and monetization
-                                    logic as the active player base grows.</p>
+                                <h4>Phase 6: Backend Architecture, Costs &amp; Growth</h4>
+                                <p>Designed and mapped a 6-table relational schema for secure, non-personal player
+                                    metrics, highlighting matches, game-stats, S3 video highlight clips, and purchase
+                                    tiers. Engineered AWS ingestion and telemetry routing (Cognito, Firehose,
+                                    MediaConvert) against scale models, showing how Edge inference cuts cloud ingress by
+                                    up to 50% for sustainable cost curves.</p>
+
+                                <div class="hardware-showcase">
+                                    <div class="hardware-item">
+                                        <div class="img-wrapper"
+                                            style="background-image: url('assets/images/lockedin/player-data-model.png');">
+                                        </div>
+                                        <p>Player Data Model</p>
+                                    </div>
+                                    <div class="hardware-item">
+                                        <div class="img-wrapper"
+                                            style="background-image: url('assets/images/lockedin/backend-cloud-architecture.png');">
+                                        </div>
+                                        <p>Cloud Architecture</p>
+                                    </div>
+                                    <div class="hardware-item">
+                                        <div class="img-wrapper"
+                                            style="background-image: url('assets/images/lockedin/unit-economics-costs.png');">
+                                        </div>
+                                        <p>Scaling &amp; Unit Economics</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -427,6 +449,12 @@
                                     availability.</p>
 
                                 <div class="hardware-showcase">
+                                    <div class="hardware-item">
+                                        <div class="img-wrapper"
+                                            style="background-image: url('assets/images/agent/welcome-prompt.png'); background-size: contain; background-repeat: no-repeat; background-color: #f8fafc;">
+                                        </div>
+                                        <p>System Assistant Welcome</p>
+                                    </div>
                                     <div class="hardware-item">
                                         <div class="img-wrapper"
                                             style="background-image: url('assets/images/agent/guardrail-offtopic.png'); background-size: contain; background-repeat: no-repeat; background-color: #f8fafc;">
