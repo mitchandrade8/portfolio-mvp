@@ -52,6 +52,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const chatSendBtn = document.getElementById('chat-send-btn');
     const chatMessages = document.getElementById('chat-messages');
 
+    // The Live AWS Lambda Endpoint
+    const AGENT_URL = "https://qk2fyfnjaaecnydulxasuo3fdi0rfalk.lambda-url.us-east-1.on.aws/";
+
     // Open/Close Chat
     chatToggleBtn.addEventListener('click', () => {
         chatWindow.classList.toggle('hidden');
@@ -65,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Handle sending message
-    function sendMessage() {
+    async function sendMessage() {
         const text = chatInput.value.trim();
         if (!text) return;
 
@@ -77,12 +80,31 @@ document.addEventListener('DOMContentLoaded', () => {
         const typingIndicator = showTypingIndicator();
         scrollToBottom();
 
-        // Simulate network request (We will swap this with the AWS fetch call later)
-        setTimeout(() => {
+        try {
+            // Call the live AWS Lambda backend
+            const response = await fetch(AGENT_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ message: text })
+            });
+
+            const data = await response.json();
             typingIndicator.remove();
-            appendMessage("I am currently operating in mock-mode while Mitchell finishes deploying my AWS Lambda backend! Soon, I will be able to answer live questions about his technical experience.", 'ai-message');
-            scrollToBottom();
-        }, 1200);
+
+            if (response.ok && data.response) {
+                appendMessage(data.response, 'ai-message');
+            } else {
+                appendMessage("I'm having a little trouble connecting to my servers right now. Please email Mitch directly at hello@mitchellandrade.com!", 'ai-message');
+            }
+        } catch (error) {
+            console.error("Error communicating with AI agent:", error);
+            typingIndicator.remove();
+            appendMessage("I seem to be offline right now! Please reach out to Mitch at hello@mitchellandrade.com.", 'ai-message');
+        }
+
+        scrollToBottom();
     }
 
     function appendMessage(text, className) {
