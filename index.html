@@ -332,6 +332,57 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Project 2: Serverless Portfolio AI Agent -->
+            <div class="card featured-card" style="margin-top: 2.5rem;">
+                <div class="card-content">
+                    <div class="card-header">
+                        <h3>Serverless Portfolio AI Agent</h3>
+                        <span class="badge">Cloud Architecture &amp; AI</span>
+                    </div>
+                    <p class="tech-stack">Python &nbsp;•&nbsp; AWS Lambda &nbsp;•&nbsp; DynamoDB &nbsp;•&nbsp;
+                        CloudWatch &nbsp;•&nbsp; Claude API
+                    </p>
+                    <p class="project-desc">The live conversational assistant running in the bottom-right corner of this
+                        site. Built on a zero-dependency serverless architecture engineered for low latency, strict CORS
+                        isolation, and hard cost-capping.</p>
+
+                    <div class="phases-container">
+                        <div class="phase active-phase">
+                            <div class="phase-indicator"></div>
+                            <div class="phase-details">
+                                <h4>Production Infrastructure &amp; Cost Guardrails</h4>
+                                <p>Powered by a zero-dependency Python AWS Lambda handler utilizing native
+                                    <code>urllib</code> and <code>boto3</code> to invoke Anthropic's Claude API without
+                                    deployment bloat. Protected against abuse via atomic daily IP rate-limiting in
+                                    DynamoDB (<code>ip_date</code> composite keys), reserved concurrency caps, strict
+                                    origin-locked CORS policies, and full CloudWatch telemetry.</p>
+
+                                <div class="hardware-showcase">
+                                    <div class="hardware-item">
+                                        <div class="img-wrapper"
+                                            style="background-image: url('assets/images/agent/lambda-function.jpg');">
+                                        </div>
+                                        <p>AWS Lambda Compute</p>
+                                    </div>
+                                    <div class="hardware-item">
+                                        <div class="img-wrapper"
+                                            style="background-image: url('assets/images/agent/dynamodb-ratelimit.jpg');">
+                                        </div>
+                                        <p>DynamoDB Rate Limiter</p>
+                                    </div>
+                                    <div class="hardware-item">
+                                        <div class="img-wrapper"
+                                            style="background-image: url('assets/images/agent/cloudwatch-logs.jpg');">
+                                        </div>
+                                        <p>CloudWatch Telemetry</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <!-- Section Divider -->
@@ -343,7 +394,7 @@
         <section id="academic-projects" class="container">
             <h2 class="section-title">CU Boulder Projects</h2>
 
-            <!-- Project 2: Match Play -->
+            <!-- Project 3: Match Play -->
             <div class="card featured-card">
                 <div class="card-content">
                     <div class="card-header">
@@ -535,7 +586,7 @@
                 <div class="chat-header-info">
                     <div class="chat-avatar">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="white" stroke="none">
-                            <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"></path>
+                            <path d="M12 2L14.5 9.5L22 12L14.5 14.5L2 12L9.5 9.5L12 2Z"></path>
                         </svg>
                     </div>
                     <span class="chat-title">Mitchell's Assistant</span>
