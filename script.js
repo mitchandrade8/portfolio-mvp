@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ==========================================
-    // 2. Share Portfolio Button Logic (Hero + Footer)
+    // 2. Clean Share Portfolio Logic (No Extra Text Block)
     // ==========================================
     const shareButtons = document.querySelectorAll('.js-share-portfolio');
 
@@ -51,8 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.addEventListener('click', async () => {
             const label = btn.querySelector('.js-share-label');
             const shareData = {
-                title: 'Mitchell Andrade | Software Engineer',
-                text: 'Check out Mitchell Andrade’s software engineering portfolio — backend systems, Edge-AI, and fintech.',
+                title: 'Mitchell Andrade | Software Engineer — Backend, AI & FinTech',
                 url: 'https://mitchellandrade.com'
             };
 
@@ -79,50 +78,73 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ==========================================
-    // 3. AI Chat Widget Logic
+    // 3. AI Chat Widget Logic (Minimize/Expand + Auto-Clear)
     // ==========================================
     const chatToggleBtn = document.getElementById('chat-widget-toggle');
     const chatWindow = document.getElementById('chat-widget-window');
+    const chatExpandBtn = document.getElementById('chat-widget-expand');
+    const chatExpandIcon = document.getElementById('chat-expand-icon');
+    const chatSheetHandle = document.querySelector('.chat-sheet-handle');
     const chatCloseBtn = document.getElementById('chat-widget-close');
     const chatInput = document.getElementById('chat-input');
     const chatSendBtn = document.getElementById('chat-send-btn');
     const chatMessages = document.getElementById('chat-messages');
+    const suggestionsBar = document.getElementById('chat-suggestions');
 
     // The Live AWS Lambda Endpoint
     const AGENT_URL = "https://qk2fyfnjaaecnydulxasuo3fdi0rfalk.lambda-url.us-east-1.on.aws/";
 
-    const INITIAL_CHAT_HTML = `
+    const INITIAL_MESSAGE_HTML = `
         <div class="message ai-message">
-            Hi! I can answer questions about Mitchell’s projects, skills, and availability. Try one of these:
+            Hi! I can answer questions about Mitchell’s projects, skills, and availability.
         </div>
-        <div id="chat-suggestions" class="chat-suggestions">
-            <button type="button" class="suggestion-chip" data-prompt="What has Mitchell built?">What has Mitchell built?</button>
-            <button type="button" class="suggestion-chip" data-prompt="Is he available for work?">Is he available for work?</button>
-            <button type="button" class="suggestion-chip" data-prompt="How is this chat kept affordable?">How is this chat kept affordable?</button>
-        </div>
+    `;
+
+    const EXPAND_SVG = `
+        <polyline points="15 3 21 3 21 9"></polyline>
+        <polyline points="9 21 3 21 3 15"></polyline>
+        <line x1="21" y1="3" x2="14" y2="10"></line>
+        <line x1="3" y1="21" x2="10" y2="14"></line>
+    `;
+
+    const MINIMIZE_SVG = `
+        <polyline points="4 14 10 14 10 20"></polyline>
+        <polyline points="20 10 14 10 14 4"></polyline>
+        <line x1="14" y1="10" x2="21" y2="3"></line>
+        <line x1="3" y1="21" x2="10" y2="14"></line>
     `;
 
     let isSending = false;
 
-    function bindSuggestionChips() {
-        document.querySelectorAll('.suggestion-chip').forEach((chip) => {
-            chip.addEventListener('click', () => {
-                const promptText = chip.getAttribute('data-prompt');
-                sendMessage(promptText);
-            });
-        });
+    function toggleExpandState() {
+        const isExpanded = chatWindow.classList.toggle('expanded');
+        if (chatExpandIcon) {
+            chatExpandIcon.innerHTML = isExpanded ? MINIMIZE_SVG : EXPAND_SVG;
+        }
+        scrollToBottom();
+    }
+
+    if (chatExpandBtn) {
+        chatExpandBtn.addEventListener('click', toggleExpandState);
+    }
+
+    if (chatSheetHandle) {
+        chatSheetHandle.addEventListener('click', toggleExpandState);
     }
 
     function resetChat() {
-        chatMessages.innerHTML = INITIAL_CHAT_HTML;
+        chatMessages.innerHTML = INITIAL_MESSAGE_HTML;
+        if (suggestionsBar) {
+            suggestionsBar.style.display = 'flex';
+        }
+        chatWindow.classList.remove('expanded');
+        if (chatExpandIcon) {
+            chatExpandIcon.innerHTML = EXPAND_SVG;
+        }
         chatInput.value = '';
         isSending = false;
         chatSendBtn.disabled = false;
-        bindSuggestionChips();
     }
-
-    // Bind initial starter chips on load
-    bindSuggestionChips();
 
     // Open/Close Chat (clears chat when toggled closed)
     chatToggleBtn.addEventListener('click', () => {
@@ -142,17 +164,16 @@ document.addEventListener('DOMContentLoaded', () => {
         resetChat();
     });
 
-    // Handle sending message (supports both typed input and suggestion chips)
+    // Handle sending message (supports both typed input and suggestion pills)
     async function sendMessage(overrideText = null) {
         if (isSending) return;
 
         const text = (overrideText !== null ? overrideText : chatInput.value).trim();
         if (!text) return;
 
-        // Hide starter suggestion chips once conversation starts
-        const suggestionsContainer = document.getElementById('chat-suggestions');
-        if (suggestionsContainer) {
-            suggestionsContainer.style.display = 'none';
+        // Hide bottom suggestion pills once conversation begins
+        if (suggestionsBar) {
+            suggestionsBar.style.display = 'none';
         }
 
         // Add user message to UI
@@ -228,5 +249,13 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             sendMessage();
         }
+    });
+
+    // Suggested prompt pill clicks
+    document.querySelectorAll('.suggestion-pill').forEach((pill) => {
+        pill.addEventListener('click', () => {
+            const promptText = pill.getAttribute('data-prompt');
+            sendMessage(promptText);
+        });
     });
 });

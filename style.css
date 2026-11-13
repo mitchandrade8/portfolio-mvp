@@ -778,7 +778,7 @@ footer {
 }
 
 /* =========================================
-   AI Chat Widget Styles
+   AI Chat Widget Styles (WHOOP-Style Bottom Pills + Expand/Minimize)
    ========================================= */
 .chat-widget-container {
     position: fixed;
@@ -812,20 +812,27 @@ footer {
     position: absolute;
     bottom: 80px;
     right: 0;
-    width: 360px;
+    width: 375px;
     height: 520px;
-    max-height: 72vh;
-    background: rgba(255, 255, 255, 0.96);
+    max-height: 76vh;
+    background: rgba(255, 255, 255, 0.97);
     backdrop-filter: saturate(180%) blur(20px);
     -webkit-backdrop-filter: saturate(180%) blur(20px);
     border: 1px solid var(--border-subtle);
     border-radius: 24px;
-    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.14);
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    transition: opacity 0.3s ease, transform 0.3s ease;
+    transition: width 0.25s ease, height 0.25s ease, max-height 0.25s ease, opacity 0.25s ease, transform 0.25s ease;
     transform-origin: bottom right;
+}
+
+/* Desktop Expanded State */
+.chat-window.expanded {
+    width: 540px;
+    height: 680px;
+    max-height: 85vh;
 }
 
 .chat-window.hidden {
@@ -834,8 +841,12 @@ footer {
     transform: scale(0.95);
 }
 
+.chat-sheet-handle {
+    display: none;
+}
+
 .chat-header {
-    padding: 1rem 1.5rem;
+    padding: 0.95rem 1.25rem;
     border-bottom: 1px solid var(--border-subtle);
     display: flex;
     justify-content: space-between;
@@ -846,7 +857,7 @@ footer {
 .chat-header-info {
     display: flex;
     align-items: center;
-    gap: 0.8rem;
+    gap: 0.75rem;
 }
 
 .chat-avatar {
@@ -867,24 +878,55 @@ footer {
     color: var(--text-primary);
 }
 
-.chat-close-btn {
-    background: none;
+.chat-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.chat-icon-btn {
+    background: rgba(0, 0, 0, 0.04);
     border: none;
-    font-size: 1.5rem;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: var(--text-secondary);
     cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.chat-icon-btn:hover {
+    background: rgba(0, 0, 0, 0.08);
+    color: var(--text-primary);
+}
+
+.chat-close-btn {
+    background: rgba(0, 0, 0, 0.04);
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    font-size: 1.3rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     line-height: 1;
-    padding: 0;
-    transition: color 0.2s;
+    transition: background-color 0.2s, color 0.2s;
 }
 
 .chat-close-btn:hover {
+    background: rgba(0, 0, 0, 0.08);
     color: var(--text-primary);
 }
 
 .chat-messages {
     flex: 1;
-    padding: 1.25rem 1.5rem;
+    padding: 1.25rem 1.35rem;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
@@ -900,31 +942,40 @@ footer {
     animation: fadeIn 0.3s ease;
 }
 
-/* Suggested Prompt Chips */
-.chat-suggestions {
+/* WHOOP-Style Horizontal Scrollable Suggestion Pill Bar Above Input */
+.chat-suggestions-bar {
     display: flex;
-    flex-direction: column;
     gap: 0.5rem;
-    margin-top: 0.15rem;
+    padding: 0.65rem 1rem 0.25rem 1rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    background: transparent;
 }
 
-.suggestion-chip {
-    text-align: left;
+.chat-suggestions-bar::-webkit-scrollbar {
+    display: none;
+}
+
+.suggestion-pill {
+    flex-shrink: 0;
+    white-space: nowrap;
     background: var(--card-bg);
     color: var(--text-primary);
     border: 1px solid var(--border-subtle);
-    border-radius: 14px;
-    padding: 0.65rem 1rem;
-    font-size: 0.88rem;
+    border-radius: 999px;
+    padding: 0.5rem 0.95rem;
+    font-size: 0.82rem;
     font-family: inherit;
-    font-weight: 500;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
     cursor: pointer;
     transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.15s ease;
 }
 
-.suggestion-chip:hover {
+.suggestion-pill:hover {
     border-color: var(--accent-blue);
-    background-color: rgba(0, 102, 204, 0.04);
+    background-color: rgba(0, 102, 204, 0.05);
     transform: translateY(-1px);
 }
 
@@ -955,8 +1006,7 @@ footer {
 }
 
 .chat-input-area {
-    padding: 1rem;
-    border-top: 1px solid var(--border-subtle);
+    padding: 0.75rem 1rem 1rem 1rem;
     background: var(--card-bg);
     display: flex;
     gap: 0.5rem;
@@ -965,10 +1015,10 @@ footer {
 
 #chat-input {
     flex: 1;
-    padding: 0.8rem 1.2rem;
+    padding: 0.75rem 1.15rem;
     border: 1px solid var(--border-subtle);
     border-radius: 980px;
-    font-size: 0.95rem;
+    font-size: 0.94rem;
     outline: none;
     transition: border-color 0.2s;
     font-family: inherit;
@@ -982,12 +1032,13 @@ footer {
     background: var(--accent-blue);
     color: white;
     border: none;
-    width: 36px;
-    height: 36px;
+    width: 38px;
+    height: 38px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
     cursor: pointer;
     transition: transform 0.2s, background-color 0.2s;
 }
@@ -1083,16 +1134,35 @@ footer {
         grid-template-columns: 1fr;
     }
 
-    /* Chat Widget Mobile Fixes */
+    /* WHOOP-Style Mobile Bottom Sheet (Compact vs Expanded) */
     .chat-window {
         position: fixed;
         bottom: 0;
+        left: 0;
         right: 0;
         width: 100%;
-        height: 100%;
-        max-height: 100vh;
-        border-radius: 0;
+        height: 60vh;
+        max-height: 60vh;
+        border-radius: 24px 24px 0 0;
         z-index: 10000;
+        transform-origin: bottom center;
+    }
+
+    .chat-window.expanded {
+        width: 100%;
+        height: 94vh;
+        max-height: 94vh;
+        border-radius: 24px 24px 0 0;
+    }
+
+    .chat-sheet-handle {
+        display: block;
+        width: 38px;
+        height: 4px;
+        background: rgba(0, 0, 0, 0.18);
+        border-radius: 999px;
+        margin: 8px auto 2px auto;
+        cursor: pointer;
     }
 
     .chat-widget-button {
