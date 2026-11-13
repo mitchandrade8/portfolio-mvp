@@ -202,6 +202,7 @@ h3 {
     display: flex;
     justify-content: center;
     gap: 1rem;
+    flex-wrap: wrap;
 }
 
 .btn {
@@ -232,6 +233,15 @@ h3 {
 .btn-secondary:hover {
     background-color: rgba(0, 0, 0, 0.08);
     transform: scale(1.02);
+}
+
+.share-btn {
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* =========================================
@@ -737,12 +747,20 @@ footer {
 }
 
 .footer-content h2 {
-    margin-bottom: 1rem;
+    margin-bottom: 0.65rem;
 }
 
-.footer-content p {
+.footer-subtitle {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.45rem;
+}
+
+.footer-detail {
+    font-size: 1rem;
     color: var(--text-secondary);
-    margin-bottom: 2rem;
+    margin-bottom: 2.25rem;
 }
 
 .footer-actions {

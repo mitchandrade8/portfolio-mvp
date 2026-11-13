@@ -43,7 +43,43 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ==========================================
-    // 2. AI Chat Widget Logic
+    // 2. Share Portfolio Button Logic (Hero + Footer)
+    // ==========================================
+    const shareButtons = document.querySelectorAll('.js-share-portfolio');
+
+    shareButtons.forEach((btn) => {
+        btn.addEventListener('click', async () => {
+            const label = btn.querySelector('.js-share-label');
+            const shareData = {
+                title: 'Mitchell Andrade | Software Engineer',
+                text: 'Check out Mitchell Andrade’s software engineering portfolio — backend systems, Edge-AI, and fintech.',
+                url: 'https://mitchellandrade.com'
+            };
+
+            if (navigator.share) {
+                try {
+                    await navigator.share(shareData);
+                } catch (err) {
+                    // User canceled native share sheet
+                }
+            } else {
+                try {
+                    await navigator.clipboard.writeText(shareData.url);
+                    if (label) {
+                        label.textContent = 'Link Copied!';
+                        setTimeout(() => {
+                            label.textContent = 'Share Portfolio';
+                        }, 2200);
+                    }
+                } catch (err) {
+                    window.prompt('Copy portfolio link:', shareData.url);
+                }
+            }
+        });
+    });
+
+    // ==========================================
+    // 3. AI Chat Widget Logic
     // ==========================================
     const chatToggleBtn = document.getElementById('chat-widget-toggle');
     const chatWindow = document.getElementById('chat-widget-window');
@@ -51,23 +87,59 @@ document.addEventListener('DOMContentLoaded', () => {
     const chatInput = document.getElementById('chat-input');
     const chatSendBtn = document.getElementById('chat-send-btn');
     const chatMessages = document.getElementById('chat-messages');
-    const suggestionsContainer = document.getElementById('chat-suggestions');
 
     // The Live AWS Lambda Endpoint
     const AGENT_URL = "https://qk2fyfnjaaecnydulxasuo3fdi0rfalk.lambda-url.us-east-1.on.aws/";
 
+    const INITIAL_CHAT_HTML = `
+        <div class="message ai-message">
+            Hi! I can answer questions about Mitchell’s projects, skills, and availability. Try one of these:
+        </div>
+        <div id="chat-suggestions" class="chat-suggestions">
+            <button type="button" class="suggestion-chip" data-prompt="What has Mitchell built?">What has Mitchell built?</button>
+            <button type="button" class="suggestion-chip" data-prompt="Is he available for work?">Is he available for work?</button>
+            <button type="button" class="suggestion-chip" data-prompt="How is this chat kept affordable?">How is this chat kept affordable?</button>
+        </div>
+    `;
+
     let isSending = false;
 
-    // Open/Close Chat
+    function bindSuggestionChips() {
+        document.querySelectorAll('.suggestion-chip').forEach((chip) => {
+            chip.addEventListener('click', () => {
+                const promptText = chip.getAttribute('data-prompt');
+                sendMessage(promptText);
+            });
+        });
+    }
+
+    function resetChat() {
+        chatMessages.innerHTML = INITIAL_CHAT_HTML;
+        chatInput.value = '';
+        isSending = false;
+        chatSendBtn.disabled = false;
+        bindSuggestionChips();
+    }
+
+    // Bind initial starter chips on load
+    bindSuggestionChips();
+
+    // Open/Close Chat (clears chat when toggled closed)
     chatToggleBtn.addEventListener('click', () => {
-        chatWindow.classList.toggle('hidden');
-        if (!chatWindow.classList.contains('hidden')) {
+        const isCurrentlyHidden = chatWindow.classList.contains('hidden');
+        if (isCurrentlyHidden) {
+            chatWindow.classList.remove('hidden');
             chatInput.focus();
+        } else {
+            chatWindow.classList.add('hidden');
+            resetChat();
         }
     });
 
+    // Exit button closes and resets chat
     chatCloseBtn.addEventListener('click', () => {
         chatWindow.classList.add('hidden');
+        resetChat();
     });
 
     // Handle sending message (supports both typed input and suggestion chips)
@@ -78,6 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!text) return;
 
         // Hide starter suggestion chips once conversation starts
+        const suggestionsContainer = document.getElementById('chat-suggestions');
         if (suggestionsContainer) {
             suggestionsContainer.style.display = 'none';
         }
@@ -96,7 +169,6 @@ document.addEventListener('DOMContentLoaded', () => {
         scrollToBottom();
 
         try {
-            // Call the live AWS Lambda backend
             const response = await fetch(AGENT_URL, {
                 method: 'POST',
                 headers: {
@@ -156,13 +228,5 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             sendMessage();
         }
-    });
-
-    // Suggested prompt chip clicks
-    document.querySelectorAll('.suggestion-chip').forEach((chip) => {
-        chip.addEventListener('click', () => {
-            const promptText = chip.getAttribute('data-prompt');
-            sendMessage(promptText);
-        });
     });
 });
