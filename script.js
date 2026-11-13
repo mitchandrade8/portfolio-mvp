@@ -51,9 +51,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const chatInput = document.getElementById('chat-input');
     const chatSendBtn = document.getElementById('chat-send-btn');
     const chatMessages = document.getElementById('chat-messages');
+    const suggestionsContainer = document.getElementById('chat-suggestions');
 
     // The Live AWS Lambda Endpoint
     const AGENT_URL = "https://qk2fyfnjaaecnydulxasuo3fdi0rfalk.lambda-url.us-east-1.on.aws/";
+
+    let isSending = false;
 
     // Open/Close Chat
     chatToggleBtn.addEventListener('click', () => {
@@ -67,14 +70,26 @@ document.addEventListener('DOMContentLoaded', () => {
         chatWindow.classList.add('hidden');
     });
 
-    // Handle sending message
-    async function sendMessage() {
-        const text = chatInput.value.trim();
+    // Handle sending message (supports both typed input and suggestion chips)
+    async function sendMessage(overrideText = null) {
+        if (isSending) return;
+
+        const text = (overrideText !== null ? overrideText : chatInput.value).trim();
         if (!text) return;
+
+        // Hide starter suggestion chips once conversation starts
+        if (suggestionsContainer) {
+            suggestionsContainer.style.display = 'none';
+        }
 
         // Add user message to UI
         appendMessage(text, 'user-message');
-        chatInput.value = '';
+        if (overrideText === null) {
+            chatInput.value = '';
+        }
+
+        isSending = true;
+        chatSendBtn.disabled = true;
 
         // Show typing indicator
         const typingIndicator = showTypingIndicator();
@@ -96,15 +111,18 @@ document.addEventListener('DOMContentLoaded', () => {
             if (response.ok && data.response) {
                 appendMessage(data.response, 'ai-message');
             } else {
-                appendMessage("I'm having a little trouble connecting to my servers right now. Please email Mitch directly at hello@mitchellandrade.com!", 'ai-message');
+                appendMessage(data.error || "I'm having a little trouble connecting to my servers right now. Please email Mitch directly at hello@mitchellandrade.com!", 'ai-message');
             }
         } catch (error) {
             console.error("Error communicating with AI agent:", error);
             typingIndicator.remove();
             appendMessage("I seem to be offline right now! Please reach out to Mitch at hello@mitchellandrade.com.", 'ai-message');
+        } finally {
+            isSending = false;
+            chatSendBtn.disabled = false;
+            chatInput.focus();
+            scrollToBottom();
         }
-
-        scrollToBottom();
     }
 
     function appendMessage(text, className) {
@@ -132,10 +150,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Send on click or Enter key
-    chatSendBtn.addEventListener('click', sendMessage);
-    chatInput.addEventListener('keypress', (e) => {
+    chatSendBtn.addEventListener('click', () => sendMessage());
+    chatInput.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
+            e.preventDefault();
             sendMessage();
         }
+    });
+
+    // Suggested prompt chip clicks
+    document.querySelectorAll('.suggestion-chip').forEach((chip) => {
+        chip.addEventListener('click', () => {
+            const promptText = chip.getAttribute('data-prompt');
+            sendMessage(promptText);
+        });
     });
 });

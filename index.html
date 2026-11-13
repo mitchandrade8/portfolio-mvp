@@ -27,7 +27,8 @@
             <div class="hero-content">
                 <span class="location-badge">Based in CO. Available anywhere in the US</span>
                 <h1>Mitchell Andrade.</h1>
-                <h2 class="gradient-text">Engineer. Architect. Builder.</h2>
+                <h2 class="hero-headline">Software engineer who speaks finance.</h2>
+                <p class="hero-tagline gradient-text">Engineer. Architect. Builder.</p>
                 <p class="bio">
                     I am a software engineer focused on building robust backend systems and AI-driven applications.
                     Drawing from a foundation in finance and rigorous computer science training, I bridge the gap
@@ -38,6 +39,28 @@
                 <div class="hero-actions">
                     <a href="mailto:hello@mitchellandrade.com" class="btn btn-primary">Contact Me</a>
                     <a href="assets/resume.pdf" class="btn btn-secondary" target="_blank">View Resume</a>
+                </div>
+
+                <!-- Live Status & Quick-Navigation Directory -->
+                <div class="status-directory" aria-label="Live project status navigation">
+                    <div class="status-directory-header">
+                        <span>What’s running right now</span>
+                        <span class="status-directory-hint">Select to jump &darr;</span>
+                    </div>
+                    <div class="status-directory-list">
+                        <a href="#project-agent" class="status-row">
+                            <span class="status-row-name">Portfolio AI agent</span>
+                            <span class="status-row-state state-live">Live on AWS Lambda</span>
+                        </a>
+                        <a href="#project-lockedin" class="status-row">
+                            <span class="status-row-name">LockedIn edge node</span>
+                            <span class="status-row-state state-amber">Field test pending</span>
+                        </a>
+                        <a href="#project-matchplay" class="status-row">
+                            <span class="status-row-name">Match Play</span>
+                            <span class="status-row-state state-live">Deployed, scale-up planned</span>
+                        </a>
+                    </div>
                 </div>
 
                 <!-- Google Social Proof Showcase -->
@@ -132,16 +155,38 @@
             <h2 class="section-title">Personal Projects</h2>
 
             <!-- Project 1: LockedIn -->
-            <div class="card featured-card">
+            <div id="project-lockedin" class="card featured-card">
                 <div class="card-content">
                     <div class="card-header">
                         <h3>LockedIn</h3>
-                        <span class="badge">Edge-AI Sports Analytics</span>
+                        <div class="badge-group">
+                            <span class="status-pill status-progress"><span class="status-dot"></span>In Progress</span>
+                            <span class="badge">Edge-AI Sports Analytics</span>
+                        </div>
                     </div>
                     <p class="tech-stack">C++ &nbsp;•&nbsp; Python &nbsp;•&nbsp; PyTorch &nbsp;•&nbsp; Edge Computing
                     </p>
-                    <p class="project-desc">An edge-AI hardware and software solution designed to automate basketball
-                        tracking and deliver real-time analytics locally, bypassing cloud latency.</p>
+                    <p class="project-desc">Shot tracking and highlight clipping that run on the court, not in the
+                        cloud—delivering real-time basketball analytics locally while bypassing cloud latency.</p>
+
+                    <!-- Problem / Built / Result Summary -->
+                    <div class="pbr-grid">
+                        <div class="pbr-box">
+                            <span class="pbr-label">Problem</span>
+                            <p>Automated shot logging usually requires continuous raw video upload, which is slow,
+                                bandwidth-heavy, and expensive at scale.</p>
+                        </div>
+                        <div class="pbr-box">
+                            <span class="pbr-label">Built</span>
+                            <p>A dual-camera stereo rig on a Jetson Orin Nano (1TB NVMe), FOV calibration tooling, a
+                                6-table relational schema, and an AWS telemetry pipeline.</p>
+                        </div>
+                        <div class="pbr-box">
+                            <span class="pbr-label">Result</span>
+                            <p>Edge inference filters video locally, cutting projected cloud ingress by up to 50% ahead
+                                of live Milestone 01 court testing.</p>
+                        </div>
+                    </div>
 
                     <div class="phases-container">
                         <!-- Phase 0: Vision & Brainstorming -->
@@ -412,18 +457,39 @@
             </div>
 
             <!-- Project 2: Serverless Portfolio AI Agent -->
-            <div class="card featured-card" style="margin-top: 2.5rem;">
+            <div id="project-agent" class="card featured-card" style="margin-top: 2.5rem;">
                 <div class="card-content">
                     <div class="card-header">
                         <h3>Serverless Portfolio AI Agent</h3>
-                        <span class="badge">Cloud Architecture &amp; AI</span>
+                        <div class="badge-group">
+                            <span class="status-pill status-live"><span class="status-dot"></span>Live</span>
+                            <span class="badge">Cloud Architecture &amp; AI</span>
+                        </div>
                     </div>
                     <p class="tech-stack">Python &nbsp;•&nbsp; AWS Lambda &nbsp;•&nbsp; DynamoDB &nbsp;•&nbsp;
                         CloudWatch &nbsp;•&nbsp; Claude API
                     </p>
                     <p class="project-desc">The live conversational assistant running in the bottom-right corner of this
-                        site. Built on a zero-dependency serverless architecture engineered for low latency, strict CORS
-                        isolation, and hard cost-capping.</p>
+                        page—built to answer recruiter questions at any hour and never run up a bill.</p>
+
+                    <!-- Problem / Built / Result Summary -->
+                    <div class="pbr-grid">
+                        <div class="pbr-box">
+                            <span class="pbr-label">Problem</span>
+                            <p>Recruiters visit at all hours with questions about experience, while an unprotected
+                                public LLM endpoint is an easy way to run up a surprise bill.</p>
+                        </div>
+                        <div class="pbr-box">
+                            <span class="pbr-label">Built</span>
+                            <p>A zero-dependency Python Lambda calling the Claude API, locked to portfolio topics with
+                                per-IP daily DynamoDB limits, input/output caps, and origin-locked CORS.</p>
+                        </div>
+                        <div class="pbr-box">
+                            <span class="pbr-label">Result</span>
+                            <p>Live recruiter assistant with a hard cost ceiling by design: 20 requests/IP/day,
+                                500-character inputs, 300-token replies, and CloudWatch telemetry.</p>
+                        </div>
+                    </div>
 
                     <div class="phases-container">
                         <!-- Phase 1: Infrastructure & Cost Guardrails -->
@@ -508,17 +574,39 @@
             <h2 class="section-title">CU Boulder Projects</h2>
 
             <!-- Project 3: Match Play -->
-            <div class="card featured-card">
+            <div id="project-matchplay" class="card featured-card">
                 <div class="card-content">
                     <div class="card-header">
                         <h3>Match Play</h3>
-                        <span class="badge">Full-Stack Web App</span>
+                        <div class="badge-group">
+                            <span class="status-pill status-live"><span class="status-dot"></span>Live</span>
+                            <span class="badge">Full-Stack Web App</span>
+                        </div>
                     </div>
                     <p class="tech-stack">Python &nbsp;•&nbsp; Flask &nbsp;•&nbsp; PostgreSQL &nbsp;•&nbsp; Gunicorn
                         &nbsp;•&nbsp; Tailwind CSS</p>
                     <p class="project-desc">A real-time social golf matchmaking and round scheduling application
                         utilizing a custom NumPy mathematical engine to pair users based on handicap, pace of play, and
                         course vibe.</p>
+
+                    <!-- Problem / Built / Result Summary -->
+                    <div class="pbr-grid">
+                        <div class="pbr-box">
+                            <span class="pbr-label">Problem</span>
+                            <p>Coordinating compatible golf rounds across skill levels, pace preferences, and local
+                                courses relies on scattered texts and guesswork.</p>
+                        </div>
+                        <div class="pbr-box">
+                            <span class="pbr-label">Built</span>
+                            <p>A full-stack Flask, React, and PostgreSQL web application featuring a custom NumPy
+                                compatibility engine and interactive course mapping.</p>
+                        </div>
+                        <div class="pbr-box">
+                            <span class="pbr-label">Result</span>
+                            <p>Deployed live MVP on Render + Neon PostgreSQL with an enterprise AWS VPC, ECS Fargate,
+                                and Aurora read-replica scale-up blueprint.</p>
+                        </div>
+                    </div>
 
                     <div class="phases-container">
                         <!-- Phase 0: Vision & Brainstorming -->
@@ -672,12 +760,13 @@
 
     <footer class="container">
         <div class="footer-content card">
-            <h2>Let's build something great.</h2>
-            <p>I am actively seeking software engineering roles and eager to contribute to a collaborative team.</p>
+            <h2>Looking for backend, ML-systems, or fintech engineering roles.</h2>
+            <p>Colorado or remote. Ready to contribute to high-ownership engineering teams.</p>
             <div class="footer-actions">
                 <a href="mailto:hello@mitchellandrade.com" class="btn btn-primary">Email Me</a>
                 <a href="https://www.linkedin.com/in/mitchandrade/" class="btn btn-secondary"
                     target="_blank">LinkedIn</a>
+                <a href="https://github.com/mitchandrade8" class="btn btn-secondary" target="_blank">GitHub</a>
             </div>
             <p class="copyright">© 2026 Mitchell Andrade.</p>
         </div>
@@ -702,14 +791,21 @@
                             <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"></path>
                         </svg>
                     </div>
-                    <span class="chat-title">Mitchell's Assistant</span>
+                    <span class="chat-title">Mitchell’s Assistant</span>
                 </div>
                 <button id="chat-widget-close" class="chat-close-btn">&times;</button>
             </div>
             <div id="chat-messages" class="chat-messages">
                 <div class="message ai-message">
-                    Hi! I'm Mitch's AI assistant. I can answer questions about his resume, projects, and availability.
-                    How can I help?
+                    Hi! I can answer questions about Mitchell’s projects, skills, and availability. Try one of these:
+                </div>
+                <div id="chat-suggestions" class="chat-suggestions">
+                    <button type="button" class="suggestion-chip" data-prompt="What has Mitchell built?">What has
+                        Mitchell built?</button>
+                    <button type="button" class="suggestion-chip" data-prompt="Is he available for work?">Is he
+                        available for work?</button>
+                    <button type="button" class="suggestion-chip" data-prompt="How is this chat kept affordable?">How is
+                        this chat kept affordable?</button>
                 </div>
             </div>
             <div class="chat-input-area">
