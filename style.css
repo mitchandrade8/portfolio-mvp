@@ -778,7 +778,7 @@ footer {
 }
 
 /* =========================================
-   AI Chat Widget Styles (WHOOP-Style Bottom Pills + Expand/Minimize)
+   AI Chat Widget Styles (Wrapped Bottom Pills + Expand/Minimize)
    ========================================= */
 .chat-widget-container {
     position: fixed;
@@ -942,30 +942,30 @@ footer {
     animation: fadeIn 0.3s ease;
 }
 
-/* WHOOP-Style Horizontal Scrollable Suggestion Pill Bar Above Input */
+/* Wrapped Pill Bar Above Input — Fits Cleanly on Mobile & Desktop Without Clipping */
 .chat-suggestions-bar {
     display: flex;
-    gap: 0.5rem;
-    padding: 0.65rem 1rem 0.25rem 1rem;
-    overflow-x: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    padding: 0.6rem 1rem 0.3rem 1rem;
     background: transparent;
+    flex-shrink: 0;
 }
 
-.chat-suggestions-bar::-webkit-scrollbar {
+.chat-suggestions-bar.hidden {
     display: none;
 }
 
 .suggestion-pill {
-    flex-shrink: 0;
-    white-space: nowrap;
+    white-space: normal;
+    text-align: left;
     background: var(--card-bg);
     color: var(--text-primary);
     border: 1px solid var(--border-subtle);
     border-radius: 999px;
-    padding: 0.5rem 0.95rem;
-    font-size: 0.82rem;
+    padding: 0.45rem 0.85rem;
+    font-size: 0.8rem;
+    line-height: 1.25;
     font-family: inherit;
     font-weight: 600;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
@@ -1011,10 +1011,12 @@ footer {
     display: flex;
     gap: 0.5rem;
     align-items: center;
+    flex-shrink: 0;
 }
 
 #chat-input {
     flex: 1;
+    min-width: 0;
     padding: 0.75rem 1.15rem;
     border: 1px solid var(--border-subtle);
     border-radius: 980px;
@@ -1163,6 +1165,16 @@ footer {
         border-radius: 999px;
         margin: 8px auto 2px auto;
         cursor: pointer;
+    }
+
+    .chat-suggestions-bar {
+        gap: 0.4rem;
+        padding: 0.5rem 0.9rem 0.25rem 0.9rem;
+    }
+
+    .suggestion-pill {
+        font-size: 0.78rem;
+        padding: 0.42rem 0.78rem;
     }
 
     .chat-widget-button {
