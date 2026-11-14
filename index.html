@@ -810,7 +810,7 @@
         </div>
     </footer>
 
-    <!-- AI Chat Widget (Wrapped Bottom Pills + Minimize/Expand) -->
+    <!-- AI Chat Widget (Wrapped Bottom Pills + Interactive Drag Sheet) -->
     <div class="chat-widget-container">
         <!-- Chat Button -->
         <button id="chat-widget-toggle" class="chat-widget-button" aria-label="Open Chat">
@@ -822,7 +822,7 @@
 
         <!-- Chat Window -->
         <div id="chat-widget-window" class="chat-window hidden">
-            <div class="chat-sheet-handle" aria-hidden="true"></div>
+            <div class="chat-sheet-handle" role="button" tabindex="0" aria-label="Drag or tap to resize chat"></div>
             <div class="chat-header">
                 <div class="chat-header-info">
                     <div class="chat-avatar">
@@ -854,7 +854,7 @@
                 </div>
             </div>
 
-            <!-- Wrapped Pill Bar Pinned Above Input (Fits Cleanly on All Viewport Widths) -->
+            <!-- Wrapped Pill Bar Pinned Above Input -->
             <div id="chat-suggestions" class="chat-suggestions-bar">
                 <button type="button" class="suggestion-pill" data-prompt="What has Mitchell built?">What has Mitchell
                     built?</button>
