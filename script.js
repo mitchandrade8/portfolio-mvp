@@ -43,39 +43,27 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ==========================================
-    // 2. Clean Share Portfolio Logic (With Brand Icon File Fallback)
+    // 2. Clean Share Portfolio Logic (URL Only — Rich Preview Card in Messages)
     // ==========================================
     const shareButtons = document.querySelectorAll('.js-share-portfolio');
 
     shareButtons.forEach((btn) => {
         btn.addEventListener('click', async () => {
             const label = btn.querySelector('.js-share-label');
-            const shareUrl = 'https://mitchellandrade.com/';
-            const shareTitle = 'Mitchell Andrade | Software Engineer — Backend, AI & FinTech';
+            const shareData = {
+                title: 'Mitchell Andrade | Software Engineer — Backend, AI & FinTech',
+                url: 'https://mitchellandrade.com/'
+            };
 
             if (navigator.share) {
                 try {
-                    // Fetch the 180x180 brand icon so iOS Share Sheet displays it instead of the compass
-                    const iconRes = await fetch('/apple-touch-icon.png');
-                    const iconBlob = await iconRes.blob();
-                    const iconFile = new File([iconBlob], 'mitchell-andrade.png', { type: 'image/png' });
-
-                    if (navigator.canShare && navigator.canShare({ files: [iconFile] })) {
-                        await navigator.share({
-                            title: shareTitle,
-                            url: shareUrl,
-                            files: [iconFile]
-                        });
-                        return;
-                    }
-
-                    await navigator.share({ title: shareTitle, url: shareUrl });
+                    await navigator.share(shareData);
                 } catch (err) {
                     // User canceled native share sheet
                 }
             } else {
                 try {
-                    await navigator.clipboard.writeText(shareUrl);
+                    await navigator.clipboard.writeText(shareData.url);
                     if (label) {
                         label.textContent = 'Link Copied!';
                         setTimeout(() => {
@@ -83,7 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         }, 2200);
                     }
                 } catch (err) {
-                    window.prompt('Copy portfolio link:', shareUrl);
+                    window.prompt('Copy portfolio link:', shareData.url);
                 }
             }
         });
