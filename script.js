@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ==========================================
-    // 2. Clean Share Portfolio Logic (Dynamic URL + Cache Busting Support)
+    // 2. Clean Share Portfolio Logic (Cache-Busted URL for Instant Icon Preview)
     // ==========================================
     const shareButtons = document.querySelectorAll('.js-share-portfolio');
 
@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const label = btn.querySelector('.js-share-label');
             const shareUrl = window.location.search
                 ? window.location.href
-                : 'https://mitchellandrade.com/';
+                : 'https://mitchellandrade.com/?v=2026';
             const shareData = {
                 title: 'Mitchell Andrade | Software Engineer — Backend, AI & FinTech',
                 url: shareUrl
