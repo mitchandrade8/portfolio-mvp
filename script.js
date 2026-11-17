@@ -666,8 +666,54 @@ document.addEventListener('DOMContentLoaded', () => {
         form.className = 'chat-intake-card';
         form.noValidate = true;
 
-        const grid = document.createElement('div');
-        grid.className = 'chat-intake-grid';
+        const TIME_SLOTS = [
+            '9:00 AM', '10:00 AM', '11:00 AM', '1:00 PM',
+            '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM'
+        ];
+        const WEEKDAYS = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
+        const DURATIONS = [
+            ['15 mins', 15],
+            ['30 mins', 30],
+            ['45 mins', 45]
+        ];
+
+        const now = new Date();
+        const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        const todayDow = today.getDay();
+        const defaultOffsetDays = todayDow === 5 ? 3 : ((5 - todayDow + 7) % 7);
+        const defaultDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() + defaultOffsetDays);
+
+        let selectedDate = defaultDate;
+        let viewYear = defaultDate.getFullYear();
+        let viewMonth = defaultDate.getMonth();
+        let selectedDuration = 30;
+        let selectedTime = '2:00 PM';
+        let selectedTz = 'MT';
+        let isFormLocked = false;
+
+        const computeEndTime = (slotStr, durationMins) => {
+            const match = slotStr.match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
+            if (!match) return slotStr;
+            let hours = parseInt(match[1], 10) % 12;
+            const mins = parseInt(match[2], 10);
+            if (match[3].toUpperCase() === 'PM') hours += 12;
+            const totalMins = hours * 60 + mins + durationMins;
+            const endHour24 = Math.floor(totalMins / 60) % 24;
+            const endMin = totalMins % 60;
+            const period = endHour24 >= 12 ? 'PM' : 'AM';
+            const endHour12 = endHour24 % 12 || 12;
+            return `${endHour12}:${String(endMin).padStart(2, '0')} ${period}`;
+        };
+
+        const createSection = (labelText) => {
+            const section = document.createElement('div');
+            section.className = 'chat-intake-section';
+            const label = document.createElement('div');
+            label.className = 'chat-intake-section-label';
+            label.textContent = labelText;
+            section.appendChild(label);
+            return section;
+        };
 
         const createFieldWrap = (fullWidth = false) => {
             const wrap = document.createElement('div');
@@ -675,7 +721,9 @@ document.addEventListener('DOMContentLoaded', () => {
             return wrap;
         };
 
-        // Inquiry type select
+        // ---- Section 1: Type & Duration ----
+        const sec1 = createSection('1. Select Type & Duration');
+
         const typeSelect = document.createElement('select');
         typeSelect.name = 'inquiry_type';
         typeSelect.className = 'chat-intake-select';
@@ -691,16 +739,239 @@ document.addEventListener('DOMContentLoaded', () => {
             opt.textContent = label;
             typeSelect.appendChild(opt);
         });
-        const typeWrap = createFieldWrap(true);
-        typeWrap.appendChild(typeSelect);
-        grid.appendChild(typeWrap);
+        sec1.appendChild(typeSelect);
+
+        const durationBar = document.createElement('div');
+        durationBar.className = 'chat-duration-bar';
+        durationBar.setAttribute('role', 'group');
+        durationBar.setAttribute('aria-label', 'Meeting duration');
+        const durationBtns = [];
+
+        const slotSummaryEl = document.createElement('div');
+        slotSummaryEl.className = 'chat-slot-summary';
+
+        const formatPreferredTime = () => {
+            const dateShort = selectedDate.toLocaleDateString('en-US', {
+                weekday: 'short',
+                month: 'short',
+                day: 'numeric'
+            });
+            const endTime = computeEndTime(selectedTime, selectedDuration);
+            return { dateShort, endTime };
+        };
+
+        const updateSlotSummary = () => {
+            const { dateShort, endTime } = formatPreferredTime();
+            slotSummaryEl.textContent = `📅 ${dateShort} • ${selectedTime} – ${endTime} ${selectedTz} (${selectedDuration} mins)`;
+        };
+
+        DURATIONS.forEach(([label, mins]) => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = mins === selectedDuration ? 'chat-duration-pill active' : 'chat-duration-pill';
+            btn.textContent = label;
+            btn.setAttribute('aria-pressed', String(mins === selectedDuration));
+            btn.addEventListener('click', () => {
+                if (isFormLocked) return;
+                selectedDuration = mins;
+                durationBtns.forEach((b) => {
+                    const active = b === btn;
+                    b.classList.toggle('active', active);
+                    b.setAttribute('aria-pressed', String(active));
+                });
+                updateSlotSummary();
+            });
+            durationBtns.push(btn);
+            durationBar.appendChild(btn);
+        });
+        sec1.appendChild(durationBar);
+        form.appendChild(sec1);
+
+        // ---- Section 2: Interactive Calendar & Time Slots ----
+        const sec2 = createSection('2. Pick a Date & Time Slot');
+        const calBox = document.createElement('div');
+        calBox.className = 'chat-calendar-box';
+
+        const calHeader = document.createElement('div');
+        calHeader.className = 'chat-cal-header';
+
+        const monthLabelEl = document.createElement('span');
+        monthLabelEl.className = 'chat-cal-month-label';
+
+        const calControls = document.createElement('div');
+        calControls.className = 'chat-cal-controls';
+
+        const tzSelect = document.createElement('select');
+        tzSelect.className = 'chat-cal-tz';
+        tzSelect.setAttribute('aria-label', 'Timezone');
+        [
+            ['MT', 'MT'],
+            ['PT', 'PT'],
+            ['CT', 'CT'],
+            ['ET', 'ET']
+        ].forEach(([val, text]) => {
+            const opt = document.createElement('option');
+            opt.value = val;
+            opt.textContent = text;
+            tzSelect.appendChild(opt);
+        });
+        tzSelect.value = selectedTz;
+        tzSelect.addEventListener('change', () => {
+            selectedTz = tzSelect.value;
+            updateSlotSummary();
+        });
+
+        const prevMonthBtn = document.createElement('button');
+        prevMonthBtn.type = 'button';
+        prevMonthBtn.className = 'chat-cal-nav-btn';
+        prevMonthBtn.setAttribute('aria-label', 'Previous month');
+        prevMonthBtn.textContent = '‹';
+
+        const nextMonthBtn = document.createElement('button');
+        nextMonthBtn.type = 'button';
+        nextMonthBtn.className = 'chat-cal-nav-btn';
+        nextMonthBtn.setAttribute('aria-label', 'Next month');
+        nextMonthBtn.textContent = '›';
+
+        calControls.appendChild(tzSelect);
+        calControls.appendChild(prevMonthBtn);
+        calControls.appendChild(nextMonthBtn);
+        calHeader.appendChild(monthLabelEl);
+        calHeader.appendChild(calControls);
+        calBox.appendChild(calHeader);
+
+        const weekdaysRow = document.createElement('div');
+        weekdaysRow.className = 'chat-cal-weekdays';
+        WEEKDAYS.forEach((dayName) => {
+            const span = document.createElement('span');
+            span.className = 'chat-cal-weekday';
+            span.textContent = dayName;
+            weekdaysRow.appendChild(span);
+        });
+        calBox.appendChild(weekdaysRow);
+
+        const calGrid = document.createElement('div');
+        calGrid.className = 'chat-cal-grid';
+        calBox.appendChild(calGrid);
+
+        const renderCalendar = () => {
+            monthLabelEl.textContent = new Date(viewYear, viewMonth, 1).toLocaleDateString('en-US', {
+                month: 'long',
+                year: 'numeric'
+            });
+            const atMinMonth = viewYear === today.getFullYear() && viewMonth <= today.getMonth();
+            prevMonthBtn.disabled = isFormLocked || atMinMonth;
+            nextMonthBtn.disabled = isFormLocked;
+
+            calGrid.innerHTML = '';
+            const firstDow = new Date(viewYear, viewMonth, 1).getDay();
+            const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+
+            for (let i = 0; i < firstDow; i += 1) {
+                const spacer = document.createElement('span');
+                spacer.className = 'chat-cal-spacer';
+                spacer.setAttribute('aria-hidden', 'true');
+                calGrid.appendChild(spacer);
+            }
+
+            for (let day = 1; day <= daysInMonth; day += 1) {
+                const cellDate = new Date(viewYear, viewMonth, day);
+                const isPast = cellDate < today;
+                const isToday = cellDate.getTime() === today.getTime();
+                const isSelected = cellDate.getTime() === selectedDate.getTime();
+
+                const dayBtn = document.createElement('button');
+                dayBtn.type = 'button';
+                dayBtn.className = 'chat-cal-day';
+                if (isToday) dayBtn.classList.add('is-today');
+                if (isSelected) dayBtn.classList.add('is-selected');
+                dayBtn.textContent = String(day);
+                dayBtn.disabled = isFormLocked || isPast;
+                dayBtn.setAttribute('aria-pressed', String(isSelected));
+                dayBtn.setAttribute('aria-label', cellDate.toLocaleDateString('en-US', {
+                    weekday: 'long',
+                    month: 'long',
+                    day: 'numeric',
+                    year: 'numeric'
+                }));
+
+                dayBtn.addEventListener('click', () => {
+                    if (isFormLocked || isPast) return;
+                    selectedDate = cellDate;
+                    renderCalendar();
+                    updateSlotSummary();
+                });
+
+                calGrid.appendChild(dayBtn);
+            }
+        };
+
+        prevMonthBtn.addEventListener('click', () => {
+            if (isFormLocked) return;
+            if (viewYear === today.getFullYear() && viewMonth <= today.getMonth()) return;
+            viewMonth -= 1;
+            if (viewMonth < 0) {
+                viewMonth = 11;
+                viewYear -= 1;
+            }
+            renderCalendar();
+        });
+
+        nextMonthBtn.addEventListener('click', () => {
+            if (isFormLocked) return;
+            viewMonth += 1;
+            if (viewMonth > 11) {
+                viewMonth = 0;
+                viewYear += 1;
+            }
+            renderCalendar();
+        });
+
+        const slotsGrid = document.createElement('div');
+        slotsGrid.className = 'chat-slots-grid';
+        slotsGrid.setAttribute('role', 'group');
+        slotsGrid.setAttribute('aria-label', 'Preferred time slots');
+        const slotBtns = [];
+
+        TIME_SLOTS.forEach((slot) => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = slot === selectedTime ? 'chat-slot-pill active' : 'chat-slot-pill';
+            btn.textContent = slot;
+            btn.setAttribute('aria-pressed', String(slot === selectedTime));
+            btn.addEventListener('click', () => {
+                if (isFormLocked) return;
+                selectedTime = slot;
+                slotBtns.forEach((b) => {
+                    const active = b === btn;
+                    b.classList.toggle('active', active);
+                    b.setAttribute('aria-pressed', String(active));
+                });
+                updateSlotSummary();
+            });
+            slotBtns.push(btn);
+            slotsGrid.appendChild(btn);
+        });
+
+        calBox.appendChild(slotsGrid);
+        calBox.appendChild(slotSummaryEl);
+        sec2.appendChild(calBox);
+        form.appendChild(sec2);
+
+        renderCalendar();
+        updateSlotSummary();
+
+        // ---- Section 3: Contact Details ----
+        const sec3 = createSection('3. Your Contact Details');
+        const grid = document.createElement('div');
+        grid.className = 'chat-intake-grid';
 
         // Visitor name
         const nameInput = document.createElement('input');
         nameInput.type = 'text';
         nameInput.name = 'visitor_name';
         nameInput.required = true;
-        nameInput.maxLength = 60;
+        nameInput.maxLength = 50;
         nameInput.placeholder = 'Your name *';
         nameInput.className = 'chat-intake-input';
         nameInput.setAttribute('aria-label', 'Your name');
@@ -712,8 +983,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const orgInput = document.createElement('input');
         orgInput.type = 'text';
         orgInput.name = 'organization';
-        orgInput.maxLength = 60;
-        orgInput.placeholder = 'Company / Org (optional)';
+        orgInput.maxLength = 45;
+        orgInput.placeholder = 'Company / Org';
         orgInput.className = 'chat-intake-input';
         orgInput.setAttribute('aria-label', 'Company or organization');
         const orgWrap = createFieldWrap(false);
@@ -725,8 +996,8 @@ document.addEventListener('DOMContentLoaded', () => {
         emailInput.type = 'email';
         emailInput.name = 'visitor_email';
         emailInput.required = true;
-        emailInput.maxLength = 80;
-        emailInput.placeholder = 'Your email address *';
+        emailInput.maxLength = 70;
+        emailInput.placeholder = 'Your email *';
         emailInput.className = 'chat-intake-input';
         emailInput.setAttribute('aria-label', 'Your email address');
         const emailWrap = createFieldWrap(false);
@@ -737,7 +1008,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const phoneInput = document.createElement('input');
         phoneInput.type = 'tel';
         phoneInput.name = 'visitor_phone';
-        phoneInput.maxLength = 30;
+        phoneInput.maxLength = 24;
         phoneInput.placeholder = 'Phone (optional)';
         phoneInput.className = 'chat-intake-input';
         phoneInput.setAttribute('aria-label', 'Phone number');
@@ -745,32 +1016,21 @@ document.addEventListener('DOMContentLoaded', () => {
         phoneWrap.appendChild(phoneInput);
         grid.appendChild(phoneWrap);
 
-        // Preferred time
-        const timeInput = document.createElement('input');
-        timeInput.type = 'text';
-        timeInput.name = 'preferred_time';
-        timeInput.maxLength = 60;
-        timeInput.placeholder = 'Preferred day/time & timezone (e.g. Tue 2pm MT)';
-        timeInput.className = 'chat-intake-input';
-        timeInput.setAttribute('aria-label', 'Preferred day, time, and timezone');
-        const timeWrap = createFieldWrap(true);
-        timeWrap.appendChild(timeInput);
-        grid.appendChild(timeWrap);
-
         // Summary
         const summaryInput = document.createElement('textarea');
         summaryInput.name = 'summary';
         summaryInput.rows = 2;
         summaryInput.required = true;
-        summaryInput.maxLength = 180;
-        summaryInput.placeholder = 'What would you like to discuss? *';
+        summaryInput.maxLength = 160;
+        summaryInput.placeholder = 'Topic / What would you like to discuss? *';
         summaryInput.className = 'chat-intake-textarea';
         summaryInput.setAttribute('aria-label', 'Summary of what you would like to discuss');
         const summaryWrap = createFieldWrap(true);
         summaryWrap.appendChild(summaryInput);
         grid.appendChild(summaryWrap);
 
-        form.appendChild(grid);
+        sec3.appendChild(grid);
+        form.appendChild(sec3);
 
         const hintEl = document.createElement('div');
         hintEl.className = 'chat-intake-hint';
@@ -780,12 +1040,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const submitBtn = document.createElement('button');
         submitBtn.type = 'submit';
         submitBtn.className = 'chat-intake-submit';
-        submitBtn.textContent = 'Send Request to Mitch';
+        submitBtn.textContent = 'Confirm & Send Request to Mitch';
         form.appendChild(submitBtn);
 
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
-            if (isSending) return;
+            if (isSending || isFormLocked) return;
 
             const clean = (val) => (val || '').replace(/\s+/g, ' ').trim();
             const inquiryType = clean(typeSelect.value) || 'meeting';
@@ -793,8 +1053,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const visitorEmail = clean(emailInput.value);
             const visitorPhone = clean(phoneInput.value);
             const organization = clean(orgInput.value);
-            const preferredTime = clean(timeInput.value);
             const summary = clean(summaryInput.value);
+
+            const { dateShort, endTime } = formatPreferredTime();
+            const preferredTime = `${dateShort} at ${selectedTime}-${endTime} ${selectedTz} (${selectedDuration} mins)`;
 
             const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(visitorEmail);
 
@@ -817,6 +1079,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
+            isFormLocked = true;
             hintEl.textContent = 'Submitting directly to Mitch...';
             hintEl.classList.remove('is-error');
 
@@ -831,7 +1094,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 `Name: ${visitorName} | Email: ${visitorEmail}` +
                 (visitorPhone ? ` | Phone: ${visitorPhone}` : '') +
                 (organization ? ` | Org: ${organization}` : '') +
-                (preferredTime ? ` | Preferred Time: ${preferredTime}` : '') +
+                ` | Preferred Time: ${preferredTime}` +
                 ` | Topic: ${summary}`
             ).slice(0, 490);
 
@@ -847,18 +1110,16 @@ document.addEventListener('DOMContentLoaded', () => {
         if (isSending) return;
         const promptText = (userPromptText || "I'd like to schedule a meeting or consultation with Mitch.").trim();
 
+        setExpandedState(true);
         if (suggestionsBar) {
-            suggestionsBar.querySelectorAll('[data-intake-trigger="true"]').forEach((pill) => {
-                pill.style.display = 'none';
-            });
-            syncSuggestionsVisibility();
+            suggestionsBar.style.display = 'none';
         }
 
         appendMessage(promptText, 'user-message');
 
         const assistantIntakeText =
             "I'd be happy to help you schedule a meeting or consultation with Mitch! " +
-            'Please fill out the quick form below—or simply type your Name, Email, preferred date/time, and topic right in the chat:';
+            'Pick a duration, date, and time slot below (or type your details right in the chat):';
 
         recordTurn(promptText, assistantIntakeText);
         localIntakeState.stage = 'awaiting_details';
@@ -867,13 +1128,20 @@ document.addEventListener('DOMContentLoaded', () => {
         msgDiv.className = 'message ai-message ai-message-intake';
 
         const introP = document.createElement('p');
-        introP.style.margin = '0';
+        introP.className = 'chat-intake-intro';
         introP.textContent = assistantIntakeText;
         msgDiv.appendChild(introP);
         msgDiv.appendChild(buildIntakeCard());
 
         chatMessages.appendChild(msgDiv);
-        scrollToBottom();
+        requestAnimationFrame(() => {
+            const topOffset =
+                msgDiv.getBoundingClientRect().top -
+                chatMessages.getBoundingClientRect().top +
+                chatMessages.scrollTop -
+                12;
+            chatMessages.scrollTop = Math.max(0, topOffset);
+        });
     };
 
     const sendMessage = async (overrideText = null, options = {}) => {

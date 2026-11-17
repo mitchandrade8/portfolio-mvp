@@ -1913,19 +1913,263 @@ footer {
 }
 
 .ai-message-intake {
-    max-width: 94%;
+    max-width: 96%;
     width: 100%;
+    white-space: normal;
+}
+
+.chat-intake-intro {
+    margin: 0;
+    line-height: 1.45;
 }
 
 .chat-intake-card {
-    margin-top: 0.7rem;
-    padding: 0.8rem;
+    margin-top: 0.75rem;
+    padding: 0.9rem;
     background: var(--card-bg);
     border: 1px solid var(--border-subtle);
-    border-radius: 14px;
+    border-radius: 16px;
+    box-shadow: var(--shadow-sm);
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.65rem;
+    white-space: normal;
+}
+
+.chat-intake-section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+}
+
+.chat-intake-section-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+}
+
+.chat-duration-bar {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.35rem;
+    padding: 0.25rem;
+    background: var(--card-muted);
+    border: 1px solid var(--border-subtle);
+    border-radius: 11px;
+}
+
+.chat-duration-pill {
+    padding: 0.42rem 0.5rem;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    background: transparent;
+    color: var(--text-secondary);
+    font-size: 0.78rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.16s ease;
+}
+
+.chat-duration-pill:hover:not(:disabled) {
+    color: var(--text-primary);
+    background: var(--pill-bg);
+}
+
+.chat-duration-pill.active {
+    background: var(--accent-blue);
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 102, 204, 0.28);
+}
+
+.chat-duration-pill:disabled {
+    opacity: 0.68;
+    cursor: not-allowed;
+}
+
+.chat-calendar-box {
+    padding: 0.7rem;
+    background: var(--card-muted);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+}
+
+.chat-cal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.45rem;
+}
+
+.chat-cal-month-label {
+    font-size: 0.84rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.chat-cal-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.chat-cal-tz {
+    padding: 0.24rem 0.45rem;
+    border: 1px solid var(--border-subtle);
+    border-radius: 7px;
+    background: var(--card-bg);
+    color: var(--text-primary);
+    font-size: 0.72rem;
+    font-weight: 600;
+    font-family: inherit;
+    outline: none;
+    cursor: pointer;
+}
+
+.chat-cal-tz:focus {
+    border-color: var(--accent-blue);
+}
+
+.chat-cal-nav-btn {
+    width: 26px;
+    height: 26px;
+    border-radius: 7px;
+    border: 1px solid var(--border-subtle);
+    background: var(--card-bg);
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.82rem;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    transition: border-color 0.16s ease, background-color 0.16s ease;
+}
+
+.chat-cal-nav-btn:hover:not(:disabled) {
+    border-color: var(--accent-blue);
+    background: var(--accent-soft);
+    color: var(--accent-blue);
+}
+
+.chat-cal-nav-btn:disabled {
+    opacity: 0.38;
+    cursor: not-allowed;
+}
+
+.chat-cal-weekdays,
+.chat-cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 0.22rem;
+}
+
+.chat-cal-weekday {
+    text-align: center;
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: var(--text-tertiary);
+    padding: 0.15rem 0;
+}
+
+.chat-cal-day {
+    height: 30px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--text-primary);
+    font-size: 0.76rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.14s ease;
+}
+
+.chat-cal-day:hover:not(:disabled):not(.is-selected) {
+    background: var(--card-bg);
+    border-color: var(--accent-blue);
+    color: var(--accent-blue);
+}
+
+.chat-cal-day.is-today:not(.is-selected) {
+    border-color: var(--accent-blue);
+    color: var(--accent-blue);
+}
+
+.chat-cal-day.is-selected {
+    background: var(--accent-blue);
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 102, 204, 0.3);
+}
+
+.chat-cal-day:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.chat-slots-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.35rem;
+}
+
+.chat-slot-pill {
+    padding: 0.42rem 0.3rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-subtle);
+    background: var(--card-bg);
+    color: var(--text-primary);
+    font-size: 0.74rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    text-align: center;
+    white-space: nowrap;
+    transition: all 0.14s ease;
+}
+
+.chat-slot-pill:hover:not(:disabled):not(.active) {
+    border-color: var(--accent-blue);
+    color: var(--accent-blue);
+    background: var(--accent-soft);
+}
+
+.chat-slot-pill.active {
+    background: var(--accent-blue);
+    border-color: var(--accent-blue);
+    color: #ffffff;
+    box-shadow: 0 2px 8px rgba(0, 102, 204, 0.25);
+}
+
+.chat-slot-pill:disabled {
+    opacity: 0.68;
+    cursor: not-allowed;
+}
+
+.chat-slot-summary {
+    padding: 0.46rem 0.7rem;
+    border-radius: 9px;
+    border: 1px solid var(--milestone-border);
+    background: var(--accent-soft);
+    color: var(--accent-blue);
+    font-size: 0.76rem;
+    font-weight: 600;
+    line-height: 1.35;
+}
+
+@media (max-width: 520px) {
+    .chat-slots-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
 }
 
 .chat-intake-grid {
@@ -1948,7 +2192,7 @@ footer {
 .chat-intake-select,
 .chat-intake-textarea {
     width: 100%;
-    padding: 0.48rem 0.65rem;
+    padding: 0.5rem 0.68rem;
     border: 1px solid var(--border-subtle);
     border-radius: 10px;
     background: var(--card-muted);
@@ -1981,18 +2225,18 @@ footer {
 
 .chat-intake-textarea {
     resize: vertical;
-    min-height: 48px;
+    min-height: 50px;
 }
 
 .chat-intake-submit {
     width: 100%;
     margin-top: 0.15rem;
-    padding: 0.55rem 0.9rem;
+    padding: 0.6rem 0.9rem;
     border: none;
     border-radius: 10px;
     background: var(--accent-blue);
     color: #ffffff;
-    font-size: 0.82rem;
+    font-size: 0.83rem;
     font-weight: 600;
     font-family: inherit;
     cursor: pointer;
