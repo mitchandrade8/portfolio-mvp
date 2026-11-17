@@ -87,7 +87,7 @@
                 </p>
 
                 <div class="hero-actions">
-                    <a href="mailto:hello@mitchellandrade.com" class="btn btn-primary">Contact Me</a>
+                    <button type="button" class="btn btn-primary js-contact-assistant" data-contact-prompt="Hi! I'd like to schedule a meeting or connect with Mitch about an opportunity.">Contact Me</button>
                     <a href="resume.html" class="btn btn-secondary">Interactive Resume</a>
                     <a href="assets/resume.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Download PDF</a>
                     <button type="button" class="btn btn-ghost js-share-portfolio">
@@ -663,11 +663,11 @@
                     </div>
                     <div class="pbr-box">
                         <span class="pbr-label">Built</span>
-                        <p>A zero-dependency Python Lambda calling the Claude API, locked to portfolio topics with per-IP daily DynamoDB limits, payload caps, and origin-locked CORS.</p>
+                        <p>A zero-dependency Python Lambda calling the Claude API with multi-turn context, a structured <code>save_recruiter_inquiry</code> lead-capture tool (2 inquiries/IP/day), gated email protection, and 20 req/IP/day DynamoDB rate limits.</p>
                     </div>
                     <div class="pbr-box">
                         <span class="pbr-label">Result</span>
-                        <p>Live recruiter assistant with a hard cost ceiling by design: 20 requests/IP/day, 500-character inputs, 400-token replies, and CloudWatch telemetry.</p>
+                        <p>Live recruiter assistant with a hard cost ceiling by design and zero exposed email scraping: 20 requests/IP/day, 500-char inputs, 400-token replies, and DynamoDB inquiry persistence.</p>
                     </div>
                 </div>
 
@@ -1228,7 +1228,7 @@
             <p class="footer-subtitle">Open to opportunities in tech, data, and finance.</p>
             <p class="footer-detail">Colorado or remote &bull; Open to all U.S. locations &bull; High-ownership engineering &amp; business teams.</p>
             <div class="footer-actions">
-                <a href="mailto:hello@mitchellandrade.com" class="btn btn-primary">Email Me</a>
+                <button type="button" class="btn btn-primary js-contact-assistant" data-contact-prompt="Hi! I'd like to get in touch with Mitch regarding a role or question.">Connect via AI Assistant</button>
                 <a href="https://www.linkedin.com/in/mitchandrade/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">LinkedIn</a>
                 <a href="https://github.com/mitchandrade8" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">GitHub</a>
                 <a href="resume.html" class="btn btn-secondary">Interactive Resume</a>
@@ -1310,6 +1310,7 @@
             </div>
 
             <div id="chat-suggestions" class="chat-suggestions-bar">
+                <button type="button" class="suggestion-pill" data-prompt="I'd like to schedule a meeting or leave an opportunity for Mitch.">Schedule a meeting / opportunity</button>
                 <button type="button" class="suggestion-pill" data-prompt="What has Mitchell built?">What has Mitchell built?</button>
                 <button type="button" class="suggestion-pill" data-prompt="Tell me about his finance and $3M portfolio experience.">Finance &amp; $3M portfolio</button>
                 <button type="button" class="suggestion-pill" data-prompt="How is this chat kept affordable?">How is this chat kept affordable?</button>

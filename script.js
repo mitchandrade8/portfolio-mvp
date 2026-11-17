@@ -365,7 +365,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnModePdf = document.getElementById('btn-mode-pdf');
     const resumeHtmlView = document.getElementById('resume-html-view');
     const resumePdfView = document.getElementById('resume-pdf-view');
-    const copyEmailBtn = document.getElementById('copy-email-btn');
     const printResumeBtn = document.getElementById('print-resume-btn');
 
     if (btnModeHtml && btnModePdf && resumeHtmlView && resumePdfView) {
@@ -385,18 +384,6 @@ document.addEventListener('DOMContentLoaded', () => {
             btnModeHtml.setAttribute('aria-selected', 'false');
             resumeHtmlView.classList.add('hidden-mode');
             resumePdfView.classList.add('active');
-        });
-    }
-
-    if (copyEmailBtn) {
-        copyEmailBtn.addEventListener('click', async () => {
-            try {
-                await navigator.clipboard.writeText('hello@mitchellandrade.com');
-                copyEmailBtn.textContent = 'Copied Email!';
-                setTimeout(() => {
-                    copyEmailBtn.textContent = 'Copy Email';
-                }, 2000);
-            } catch (e) {}
         });
     }
 
@@ -445,6 +432,8 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
 
     let isSending = false;
+    let chatHistory = [];
+    let localIntakeState = { stage: 'idle', emailRequests: 0 };
 
     const updateCharCount = () => {
         if (charCountEl && chatInput) {
@@ -488,6 +477,8 @@ document.addEventListener('DOMContentLoaded', () => {
         chatInput.value = '';
         updateCharCount();
         isSending = false;
+        chatHistory = [];
+        localIntakeState = { stage: 'idle', emailRequests: 0 };
         chatSendBtn.disabled = false;
     };
 
@@ -514,6 +505,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelectorAll('.js-open-chat').forEach((btn) => {
         btn.addEventListener('click', openChatWindow);
+    });
+
+    document.querySelectorAll('.js-contact-assistant').forEach((btn) => {
+        btn.addEventListener('click', () => {
+            openChatWindow();
+            const promptText = btn.getAttribute('data-contact-prompt');
+            if (promptText && !isSending) {
+                sendMessage(promptText);
+            }
+        });
     });
 
     // Touch drag for mobile bottom sheet
@@ -580,25 +581,50 @@ document.addEventListener('DOMContentLoaded', () => {
     // Local preview fallback grounded strictly in Mitchell's verified portfolio & resume data
     const getLocalPreviewAnswer = (query) => {
         const q = query.toLowerCase();
+        const emailMatch = query.match(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i);
+
+        if (emailMatch) {
+            localIntakeState.stage = 'idle';
+            return `Thanks! I've logged your note for Mitch and noted your reply email (${emailMatch[0]}) in Local Demo Mode.\n\nOn production mitchellandrade.com, this calls the \`save_recruiter_inquiry\` tool to persist your details in DynamoDB and notify Mitch directly.`;
+        }
+
+        const refusesIntake = q.includes('prefer not') || q.includes('no thanks') || q.includes('just give') || q.includes("don't want") || q.includes('rather not');
+        const asksEmail = q.includes('email') || q.includes('direct');
+
+        if (refusesIntake || (asksEmail && localIntakeState.emailRequests >= 1)) {
+            localIntakeState.stage = 'idle';
+            return 'No problem at all! As a direct fallback, you can reach Mitch at hello@mitchellandrade.com or connect on LinkedIn at https://www.linkedin.com/in/mitchandrade/.';
+        }
+
+        if (asksEmail || q.includes('meeting') || q.includes('schedule') || q.includes('consultation') || q.includes('opportunity') || q.includes('interview') || q.includes('connect') || q.includes('get in touch') || q.includes('leave') || q.includes('reach mitch') || q.includes('contact')) {
+            localIntakeState.stage = 'awaiting_details';
+            if (asksEmail) localIntakeState.emailRequests += 1;
+            return 'I’d be happy to pass a meeting, consultation, or opportunity request directly to Mitch!\n\nPlease share:\n• Your Name\n• Your Email address (plus optional Phone)\n• Your Company / Organization (optional)\n• Preferred days/times & timezone\n• A brief summary of the topic or role.';
+        }
+
+        if (localIntakeState.stage === 'awaiting_details') {
+            return 'Got it—could you also include your Name and Email address so Mitch knows who to follow up with?';
+        }
+
         if (q.includes('finance') || q.includes('portfolio') || q.includes('$3m') || q.includes('saff') || q.includes('quant')) {
-            return 'Mitchell holds a B.S. in Business Administration (Finance) from the University of Northern Colorado (Jul 2023) alongside his B.S. in Computer Science at CU Boulder.\n\nAt SAFF (2019–2020), he served as Portfolio Manager for a $3M equity portfolio—executing buy/sell orders and financial metric analysis. As an Independent Systems Engineer (2024–Present), he also builds C++/Python quantitative backtesting engines and PostgreSQL/Streamlit market data pipelines.';
+            return 'Mitchell holds a B.S. in Business Administration (Finance) from the University of Northern Colorado (Jul 2023) and is completing his B.S. in Computer Science at CU Boulder.\n\nAt SAFF (2019–2020), he served as Portfolio Manager for a $3M equity portfolio—executing buy/sell orders and financial metric analysis. As an Independent Systems Engineer (2024–Present), he also builds C++/Python quantitative backtesting engines and PostgreSQL/Streamlit market data pipelines.';
         }
         if (q.includes('affordable') || q.includes('cost') || q.includes('guardrail') || q.includes('dynamodb') || q.includes('lambda')) {
-            return 'This assistant runs on a zero-dependency Python AWS Lambda calling the Claude API. Cost is hard-capped via:\n• Atomic per-IP daily rate limits in DynamoDB (20 requests/IP/day)\n• Strict 500-character input caps & 400-token output ceilings\n• Origin-locked CORS, reserved Lambda concurrency, and CloudWatch telemetry.';
+            return 'This assistant runs on a zero-dependency Python AWS Lambda calling the Claude API. Cost is hard-capped via:\n• Atomic per-IP daily rate limits in DynamoDB (20 chat requests & 2 inquiry submissions/IP/day)\n• Strict 500-character input caps & 400-token output ceilings\n• Origin-locked CORS, reserved Lambda concurrency, and CloudWatch telemetry.';
         }
-        if (q.includes('available') || q.includes('work') || q.includes('role') || q.includes('location') || q.includes('hire') || q.includes('contact')) {
-            return 'Mitchell is based in Colorado and open to opportunities across all U.S. locations (on-site or remote) in software engineering, backend/cloud systems, AI, data, or FinTech.\n\nYou can reach him directly at hello@mitchellandrade.com or view his Interactive Resume on /resume.html.';
+        if (q.includes('available') || q.includes('work') || q.includes('role') || q.includes('location') || q.includes('hire')) {
+            return 'Mitchell is based in Colorado and open to opportunities across all U.S. locations (on-site or remote) in software engineering, backend/cloud systems, ML systems, or FinTech (plus Summer 2027 internships).\n\nIf you have a role or interview in mind, share your name, email, company, and a brief note here and I’ll pass it straight to Mitch!';
         }
         if (q.includes('lockedin') || q.includes('edge') || q.includes('jetson') || q.includes('basketball')) {
             return 'LockedIn is Mitchell’s Edge-AI basketball analytics system: an NVIDIA Jetson Orin Nano (1TB NVMe) paired with dual IMX477 cameras and a Raspberry Pi 5 AMOLED interface. Local inference filters video on-court, cutting projected AWS cloud ingress by up to 50% ahead of Milestone 01 court testing.';
         }
         if (q.includes('built') || q.includes('project') || q.includes('match play') || q.includes('dispatch') || q.includes('real estate')) {
-            return 'Mitchell has built:\n• LockedIn — Edge-AI basketball analytics on Jetson Orin Nano + AWS pipeline\n• Serverless Portfolio AI Agent — Python AWS Lambda + DynamoDB rate-limited Claude assistant\n• Match Play — Flask, React, PostgreSQL & NumPy golf compatibility app\n• AI Agent Dispatch Prototype — FastAPI, WebSockets & OpenAI human-in-the-loop triage\n• Real Estate Analytics Dashboard — PostgreSQL warehouse & Streamlit BI';
+            return 'Mitchell has built:\n• LockedIn — Edge-AI basketball analytics on Jetson Orin Nano + AWS pipeline\n• Serverless Portfolio AI Agent — Python AWS Lambda + DynamoDB rate-limited Claude assistant with lead capture\n• Match Play — Flask, React, PostgreSQL & NumPy golf compatibility app\n• AI Agent Dispatch Prototype — FastAPI, WebSockets & OpenAI human-in-the-loop triage\n• Real Estate Analytics Dashboard — PostgreSQL warehouse & Streamlit BI';
         }
         if (q.includes('skill') || q.includes('cert') || q.includes('aws') || q.includes('education') || q.includes('google')) {
-            return 'Mitchell is pursuing a B.S. in Computer Science at CU Boulder (where his academic standing earned an invitation to tour Google Boulder) and holds a Finance B.S. from UNC.\n\nCore stack: Python, C++, Java, Swift/SwiftUI, Scala, SQL, AWS, Docker, Kubernetes, Terraform, PostgreSQL, and PyTorch/TensorFlow. He also has 3 AWS certifications in progress (Solutions Architect, ML Engineer, GenAI Engineer).';
+            return 'Mitchell is pursuing a B.S. in Computer Science at CU Boulder (anticipated 2027; his academic standing earned an invitation to tour Google Boulder) and holds a Finance B.S. from UNC.\n\nCore stack: Python, C++, Java, Swift/SwiftUI, Scala, SQL, AWS, Docker, Kubernetes, Terraform, PostgreSQL, and PyTorch/TensorFlow. He also has 3 AWS certifications in progress.';
         }
-        return 'Mitchell is a backend, cloud, and AI software engineer with a Finance degree and $3M portfolio management background. Ask me about LockedIn, Match Play, his quantitative/finance experience, AWS architecture, or availability—or email him at hello@mitchellandrade.com!';
+        return 'Mitchell is a backend, cloud, and AI software engineer with a Finance degree and $3M portfolio management background. Ask me about his projects or experience—or tell me you’d like to connect and I can take down a note for him!';
     };
 
     const appendMessage = (text, className) => {
@@ -617,6 +643,14 @@ document.addEventListener('DOMContentLoaded', () => {
         return typingDiv;
     };
 
+    const recordTurn = (userText, assistantText) => {
+        chatHistory.push({ role: 'user', content: userText });
+        chatHistory.push({ role: 'assistant', content: assistantText });
+        if (chatHistory.length > 6) {
+            chatHistory = chatHistory.slice(-6);
+        }
+    };
+
     const sendMessage = async (overrideText = null) => {
         if (isSending) return;
         const text = (overrideText !== null ? overrideText : chatInput.value).trim();
@@ -629,6 +663,7 @@ document.addEventListener('DOMContentLoaded', () => {
             updateCharCount();
         }
 
+        const historySnapshot = chatHistory.slice(-6);
         isSending = true;
         chatSendBtn.disabled = true;
         const typingIndicator = showTypingIndicator();
@@ -638,15 +673,18 @@ document.addEventListener('DOMContentLoaded', () => {
             const response = await fetch(AGENT_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ message: text })
+                body: JSON.stringify({ message: text, history: historySnapshot })
             });
             const data = await response.json();
             typingIndicator.remove();
 
             if (response.ok && data.response) {
                 appendMessage(data.response, 'ai-message');
+                recordTurn(text, data.response);
             } else {
-                appendMessage(data.error || getLocalPreviewAnswer(text), 'ai-message');
+                const fallbackReply = data.error || getLocalPreviewAnswer(text);
+                appendMessage(fallbackReply, 'ai-message');
+                recordTurn(text, fallbackReply);
             }
         } catch (error) {
             // Production Lambda restricts CORS to mitchellandrade.com; fallback smoothly on local demo origins
@@ -656,8 +694,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (modeBadgeEl) {
                     modeBadgeEl.textContent = 'Local Demo Mode (CORS Fallback)';
                 }
+                const localReply = getLocalPreviewAnswer(text);
                 setTimeout(() => {
-                    appendMessage(getLocalPreviewAnswer(text), 'ai-message');
+                    appendMessage(localReply, 'ai-message');
+                    recordTurn(text, localReply);
                 }, 220);
             } else {
                 console.error('Error communicating with AI agent:', error);
