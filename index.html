@@ -5,49 +5,79 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mitchell Andrade | Software Engineer — Backend, AI &amp; FinTech</title>
-    <meta name="description"
-        content="Software engineer who speaks finance. Building backend systems, edge-AI hardware, and fintech applications.">
+    <meta name="description" content="Software engineer who speaks finance. Building backend systems, edge-AI hardware, and fintech applications.">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Mitchell Andrade">
+    <meta property="og:title" content="Mitchell Andrade | Software Engineer — Backend, AI &amp; FinTech">
+    <meta property="og:description" content="Software engineer who speaks finance. Backend systems, Edge-AI, and fintech engineering.">
+    <meta property="og:url" content="https://mitchellandrade.com/?v=2026">
+    <meta property="og:image" content="https://mitchellandrade.com/assets/images/og-preview.png?v=2">
 
     <!-- Brand Favicon & Apple Touch Icon (Cache-Busted) -->
     <link rel="icon" type="image/png" sizes="32x32" href="https://mitchellandrade.com/apple-touch-icon.png?v=2">
     <link rel="icon" type="image/png" sizes="192x192" href="https://mitchellandrade.com/apple-touch-icon.png?v=2">
     <link rel="apple-touch-icon" sizes="180x180" href="https://mitchellandrade.com/apple-touch-icon.png?v=2">
-    <link rel="apple-touch-icon-precomposed" sizes="180x180"
-        href="https://mitchellandrade.com/apple-touch-icon.png?v=2">
-
-    <!-- Open Graph / Social & iMessage Link Preview -->
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="Mitchell Andrade">
-    <meta property="og:title" content="Mitchell Andrade | Software Engineer — Backend, AI &amp; FinTech">
-    <meta property="og:description"
-        content="Software engineer who speaks finance. Backend systems, Edge-AI, and fintech engineering.">
-    <meta property="og:url" content="https://mitchellandrade.com/?v=2026">
-    <meta property="og:image" content="https://mitchellandrade.com/assets/images/og-preview.png?v=2">
-
+    <link rel="apple-touch-icon-precomposed" sizes="180x180" href="https://mitchellandrade.com/apple-touch-icon.png?v=2">
     <link rel="stylesheet" href="style.css">
+
+    <script>
+        (function () {
+            try {
+                const saved = localStorage.getItem('ma-theme');
+                const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                if (saved === 'dark' || (!saved && prefersDark)) {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                }
+            } catch (e) {}
+        })();
+    </script>
 </head>
 
 <body>
+    <!-- Glassmorphic Navigation -->
     <header class="glass-nav">
-        <nav class="container">
-            <div class="logo">Mitchell Andrade</div>
-            <ul class="nav-links">
-                <li><a href="#about" class="active">About</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="resume.html">Resume</a></li>
-            </ul>
+        <nav class="container" aria-label="Primary Navigation">
+            <a href="#about" class="logo">Mitchell Andrade</a>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="#about" class="active">About</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#economics">Economics</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="resume.html">Resume</a></li>
+                </ul>
+                <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle Light / Dark Mode">
+                    <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
         </nav>
     </header>
 
     <main>
-        <!-- Hero Section -->
+        <!-- Hero & About -->
         <section id="about" class="container hero">
             <div class="hero-content">
-                <span class="location-badge">Based in CO. Available anywhere in the US</span>
+                <div class="location-badge">
+                    <span class="location-dot" aria-hidden="true"></span>
+                    Based in CO &bull; Open to all U.S. locations
+                </div>
                 <h1>Mitchell Andrade.</h1>
                 <h2 class="hero-headline">Software engineer who speaks finance.</h2>
-                <p class="hero-tagline gradient-text">Engineer. Architect. Builder.</p>
+                <p class="hero-tagline">Engineer. Architect. <span class="gradient-text">Builder.</span></p>
                 <p class="bio">
                     I am a software engineer focused on building robust backend systems and AI-driven applications.
                     Drawing from a foundation in finance and rigorous computer science training, I bridge the gap
@@ -55,13 +85,13 @@
                     an exclusive invitation to tour Google's engineering facilities, reinforcing my drive to build
                     scalable, high-performance products at the highest industry standards.
                 </p>
+
                 <div class="hero-actions">
                     <a href="mailto:hello@mitchellandrade.com" class="btn btn-primary">Contact Me</a>
-                    <a href="assets/resume.pdf" class="btn btn-secondary" target="_blank">View Resume</a>
-                    <button type="button" class="btn btn-secondary share-btn js-share-portfolio">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"
-                            style="vertical-align: -2px; margin-right: 6px;">
+                    <a href="resume.html" class="btn btn-secondary">Interactive Resume</a>
+                    <a href="assets/resume.pdf" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Download PDF</a>
+                    <button type="button" class="btn btn-ghost js-share-portfolio">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                             <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
                             <polyline points="16 6 12 2 8 6"></polyline>
                             <line x1="12" y1="2" x2="12" y2="15"></line>
@@ -69,399 +99,521 @@
                         <span class="js-share-label">Share Portfolio</span>
                     </button>
                 </div>
+            </div>
 
-                <!-- Live Status & Quick-Navigation Directory -->
-                <div class="status-directory" aria-label="Live project status navigation">
-                    <div class="status-directory-header">
-                        <span>What’s running right now</span>
-                        <span class="status-directory-hint">Select to jump &darr;</span>
-                    </div>
-                    <div class="status-directory-list">
-                        <a href="#project-agent" class="status-row">
-                            <span class="status-row-name">Portfolio AI agent</span>
-                            <span class="status-row-state state-live">Live on AWS Lambda</span>
-                        </a>
-                        <a href="#project-lockedin" class="status-row">
-                            <span class="status-row-name">LockedIn edge node</span>
-                            <span class="status-row-state state-amber">Field test pending</span>
-                        </a>
-                        <a href="#project-matchplay" class="status-row">
-                            <span class="status-row-name">Match Play</span>
-                            <span class="status-row-state state-live">Deployed, scale-up planned</span>
-                        </a>
-                    </div>
+            <!-- Executive Impact Metrics Strip -->
+            <div class="metrics-strip" aria-label="Key Engineering and Finance Highlights">
+                <div class="metric-card">
+                    <div class="metric-value">$3M</div>
+                    <div class="metric-label">Portfolio Managed</div>
+                    <div class="metric-sub">Equity execution &amp; analysis at SAFF</div>
                 </div>
+                <div class="metric-card">
+                    <div class="metric-value">Up to 50%</div>
+                    <div class="metric-label">Cloud Ingress Reduced</div>
+                    <div class="metric-sub">Edge inference filtering on Jetson Orin Nano</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">20 / IP / day</div>
+                    <div class="metric-label">LLM Cost Hard Ceiling</div>
+                    <div class="metric-sub">Atomic DynamoDB rate-limiting on AWS Lambda</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">CS + Finance</div>
+                    <div class="metric-label">Dual B.S. Foundation</div>
+                    <div class="metric-sub">CU Boulder CS &bull; UNC Finance (Jul 2023)</div>
+                </div>
+            </div>
 
-                <!-- Google Social Proof Showcase -->
-                <div class="social-proof-showcase">
-                    <p class="showcase-caption">Exclusive Engineering Tour — Google Boulder</p>
-                    <div class="showcase-grid">
-                        <img src="assets/images/google/google-badge.jpg" alt="Google Academic Badge"
-                            class="showcase-img">
-                        <img src="assets/images/google/google-office1.jpg" alt="Google Boulder Gondolas"
-                            class="showcase-img">
-                        <img src="assets/images/google/google-office2.jpg" alt="Google Boulder Hallway"
-                            class="showcase-img">
-                    </div>
+            <!-- Live Status Directory -->
+            <div class="status-directory" aria-label="Live project status navigation">
+                <div class="status-directory-header">
+                    <span>What&rsquo;s running right now</span>
+                    <span class="status-directory-hint">Select to jump &amp; expand &darr;</span>
+                </div>
+                <div class="status-directory-list">
+                    <a href="#project-agent" class="status-row" data-jump-project="project-agent">
+                        <span class="status-row-name">
+                            <span class="pulse-dot pulse-live" aria-hidden="true"></span>
+                            Portfolio AI agent
+                        </span>
+                        <span class="status-row-state state-live">Live on AWS Lambda</span>
+                    </a>
+                    <a href="#project-lockedin" class="status-row" data-jump-project="project-lockedin">
+                        <span class="status-row-name">
+                            <span class="pulse-dot pulse-amber" aria-hidden="true"></span>
+                            LockedIn edge node
+                        </span>
+                        <span class="status-row-state state-amber">Field test pending</span>
+                    </a>
+                    <a href="#project-matchplay" class="status-row" data-jump-project="project-matchplay">
+                        <span class="status-row-name">
+                            <span class="pulse-dot pulse-live" aria-hidden="true"></span>
+                            Match Play
+                        </span>
+                        <span class="status-row-state state-live">Deployed, scale-up planned</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Google Boulder Showcase -->
+            <div class="social-proof-showcase">
+                <p class="showcase-caption">Exclusive Engineering Tour &mdash; Google Boulder (Click any photo to inspect)</p>
+                <div class="showcase-grid">
+                    <button type="button" class="showcase-thumb"
+                        data-lightbox-group="google"
+                        data-lightbox-src="assets/images/google/google-badge.jpg"
+                        data-lightbox-title="Google Boulder"
+                        data-lightbox-caption="Invited Academic Engineering Tour Pass — Google Boulder">
+                        <img src="assets/images/google/google-badge.jpg" alt="Google Academic Tour Badge" class="showcase-img showcase-img-badge" loading="lazy">
+                        <span class="showcase-overlay-label">
+                            <span>Academic Tour Pass</span>
+                            <span>Zoom</span>
+                        </span>
+                    </button>
+                    <button type="button" class="showcase-thumb"
+                        data-lightbox-group="google"
+                        data-lightbox-src="assets/images/google/google-office1.jpg"
+                        data-lightbox-title="Google Boulder"
+                        data-lightbox-caption="Google Boulder Engineering Campus Corridor">
+                        <img src="assets/images/google/google-office1.jpg" alt="Google Boulder Engineering Hallway" class="showcase-img" loading="lazy">
+                        <span class="showcase-overlay-label">
+                            <span>Boulder Campus Corridor</span>
+                            <span>Zoom</span>
+                        </span>
+                    </button>
+                    <button type="button" class="showcase-thumb"
+                        data-lightbox-group="google"
+                        data-lightbox-src="assets/images/google/google-office2.jpg"
+                        data-lightbox-title="Google Boulder"
+                        data-lightbox-caption="Google Boulder Collaborative Gondola Pods">
+                        <img src="assets/images/google/google-office2.jpg" alt="Google Boulder Gondola Meeting Pods" class="showcase-img" loading="lazy">
+                        <span class="showcase-overlay-label">
+                            <span>Boulder Gondola Pods</span>
+                            <span>Zoom</span>
+                        </span>
+                    </button>
                 </div>
             </div>
         </section>
 
-        <!-- CliftonStrengths Section -->
-        <section class="container clifton-section">
-            <div class="strengths-header-container" style="text-align: center;">
-                <h2 class="section-title" style="margin-bottom: 1rem;">CliftonStrengths Top 5</h2>
-                <span class="badge"
-                    style="display: inline-block; margin-bottom: 1.5rem; background: var(--accent-blue); color: white;">Official
-                    Assessment Feedback</span>
-                <p class="bio" style="max-width: 700px; margin: 0 auto 3rem auto;">
-                    Direct excerpts from my Gallup CliftonStrengths profile, detailing the dominant traits that shape my
-                    approach to software architecture, continuous learning, and team collaboration.
+        <!-- Experience, Finance & Education Bento -->
+        <section id="experience" class="container">
+            <div class="section-header">
+                <span class="section-eyebrow">Career &amp; Academic Track</span>
+                <h2 class="section-title">Experience, Finance &amp; Education</h2>
+                <p class="section-subtitle">
+                    Combining production software systems, quantitative finance execution, and operational leadership.
                 </p>
             </div>
 
-            <div class="strengths-grid">
-                <!-- 1. Strategic -->
-                <div class="card strength-card">
-                    <div class="strength-header">
-                        <span class="strength-number">1</span>
-                        <h3 class="strength-name">Strategic</h3>
+            <div class="experience-bento">
+                <div class="card">
+                    <h3 class="bento-col-title">Professional Experience</h3>
+                    <div class="timeline-list">
+                        <article class="timeline-item" data-skills="c++ python postgresql streamlit finance quant">
+                            <div class="timeline-top">
+                                <h4 class="timeline-role">Independent Systems Engineer</h4>
+                                <span class="timeline-period">2024 &ndash; Present</span>
+                            </div>
+                            <div class="timeline-org">Self-Directed Quantitative &amp; Data Systems</div>
+                            <ul class="timeline-bullets">
+                                <li>Architected real-time market ingestion pipelines using <strong>PostgreSQL</strong> and <strong>Streamlit</strong> to monitor live financial metrics.</li>
+                                <li>Engineered automated quantitative backtesting engines in <strong>C++</strong> and <strong>Python</strong> focused on deterministic execution and logic optimization.</li>
+                            </ul>
+                        </article>
+
+                        <article class="timeline-item" data-skills="operations">
+                            <div class="timeline-top">
+                                <h4 class="timeline-role">Logistics &amp; Distribution Professional</h4>
+                                <span class="timeline-period">2025 &ndash; Feb 2026</span>
+                            </div>
+                            <div class="timeline-org">Lanter &bull; Fort Worth, TX</div>
+                            <ul class="timeline-bullets">
+                                <li>Streamlined high-throughput distribution workflows, reducing operational downtime and elevating facility safety standards.</li>
+                            </ul>
+                        </article>
+
+                        <article class="timeline-item" data-skills="swift swiftui firebase coredata python">
+                            <div class="timeline-top">
+                                <h4 class="timeline-role">Software Developer (Contract)</h4>
+                                <span class="timeline-period">2019 &ndash; 2022</span>
+                            </div>
+                            <div class="timeline-org">NebulasApps, LLC &bull; Denver, CO</div>
+                            <ul class="timeline-bullets">
+                                <li>Engineered automated systems and data pipelines applying object-oriented design and efficient data structures.</li>
+                                <li>Developed native iOS apps in <strong>Swift, SwiftUI, and UIKit</strong> (MVC &amp; MVVM) with Firebase, CoreData, MapKit, in-app purchases, and notifications.</li>
+                            </ul>
+                        </article>
+
+                        <article class="timeline-item" data-skills="finance quant">
+                            <div class="timeline-top">
+                                <h4 class="timeline-role">Portfolio Manager</h4>
+                                <span class="timeline-period">2019 &ndash; 2020</span>
+                            </div>
+                            <div class="timeline-org">SAFF &bull; Greeley, CO</div>
+                            <ul class="timeline-bullets">
+                                <li>Led asset management initiatives for a <strong>$3M equity portfolio</strong>, executing buy/sell orders and analyzing financial metrics against mandate risk targets.</li>
+                            </ul>
+                        </article>
                     </div>
-                    <p class="strength-desc">You create alternative ways to proceed. Faced with any given scenario, you
-                        can quickly spot the relevant patterns and issues to architect efficient solutions.</p>
                 </div>
 
-                <!-- 2. Competition -->
-                <div class="card strength-card">
-                    <div class="strength-header">
-                        <span class="strength-number">2</span>
-                        <h3 class="strength-name">Competition</h3>
-                    </div>
-                    <p class="strength-desc">You are driven by a desire to reach high standards. You measure progress by
-                        benchmarking against top performance, constantly striving to elevate the quality of your work
-                        and push your team forward.</p>
-                </div>
+                <div class="edu-stack">
+                    <div class="card edu-card" data-skills="python c++ java scala sql pytorch">
+                        <h3 class="bento-col-title">Education</h3>
+                        <div class="timeline-list">
+                            <div class="timeline-item">
+                                <div class="timeline-top">
+                                    <h4 class="edu-degree">B.S. in Computer Science (Post-Baccalaureate)</h4>
+                                    <span class="timeline-period">Jan 2024 &ndash; 2027</span>
+                                </div>
+                                <div class="edu-school">University of Colorado Boulder</div>
+                                <div class="edu-highlight">Academic distinction: Invited to exclusive <strong>Google Boulder</strong> engineering tour.</div>
+                            </div>
 
-                <!-- 3. Achiever -->
-                <div class="card strength-card">
-                    <div class="strength-header">
-                        <span class="strength-number">3</span>
-                        <h3 class="strength-name">Achiever</h3>
+                            <div class="timeline-item">
+                                <div class="timeline-top">
+                                    <h4 class="edu-degree">B.S. in Business Administration, Finance</h4>
+                                    <span class="timeline-period">Graduated Jul 2023</span>
+                                </div>
+                                <div class="edu-school">University of Northern Colorado</div>
+                                <div class="edu-meta">Foundation in corporate valuation, capital allocation, and portfolio risk.</div>
+                            </div>
+                        </div>
                     </div>
-                    <p class="strength-desc">You work hard and possess a great deal of stamina. You take immense
-                        satisfaction in being busy, productive, and delivering high-quality results.</p>
-                </div>
 
-                <!-- 4. Learner -->
-                <div class="card strength-card">
-                    <div class="strength-header">
-                        <span class="strength-number">4</span>
-                        <h3 class="strength-name">Learner</h3>
+                    <div class="card edu-card" data-skills="aws terraform docker kubernetes">
+                        <h3 class="bento-col-title">AWS Certifications</h3>
+                        <p class="section-subtitle" style="font-size: 0.88rem; margin-bottom: 0.5rem;">
+                            Validating cloud architecture and production generative AI engineering depth:
+                        </p>
+                        <div class="cert-grid">
+                            <div class="cert-item">
+                                <span>AWS Solutions Architect Associate</span>
+                                <span class="cert-status">In Progress</span>
+                            </div>
+                            <div class="cert-item">
+                                <span>AWS Machine Learning Engineer Associate</span>
+                                <span class="cert-status">In Progress</span>
+                            </div>
+                            <div class="cert-item">
+                                <span>Generative AI Engineer AWS</span>
+                                <span class="cert-status">In Progress</span>
+                            </div>
+                        </div>
                     </div>
-                    <p class="strength-desc">You have a great desire to learn and want to continuously improve. The
-                        process of mastering new tech stacks and systems, rather than just the outcome, excites you.</p>
-                </div>
-
-                <!-- 5. Focus -->
-                <div class="card strength-card">
-                    <div class="strength-header">
-                        <span class="strength-number">5</span>
-                        <h3 class="strength-name">Focus</h3>
-                    </div>
-                    <p class="strength-desc">You can take a direction, follow through and make the corrections necessary
-                        to stay on track. You prioritize effectively, then act deliberately.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Section Divider -->
-        <div class="container">
-            <hr style="border: 0; height: 1px; background: #e5e7eb; margin: 2rem 0 4rem 0;">
-        </div>
-
-        <!-- Personal Projects Section -->
+        <!-- Engineering Projects -->
         <section id="projects" class="container">
-            <h2 class="section-title">Personal Projects</h2>
+            <div class="section-header">
+                <span class="section-eyebrow">Engineering Portfolio</span>
+                <h2 class="section-title">Featured Projects &amp; Build Logs</h2>
+                <p class="section-subtitle">
+                    Summary-first case studies with expandable engineering phases and full-screen architecture inspection.
+                </p>
+            </div>
+
+            <div class="projects-toolbar">
+                <div class="filter-pills" role="group" aria-label="Filter projects by category">
+                    <button type="button" class="filter-pill active" data-filter="all">All Projects (5)</button>
+                    <button type="button" class="filter-pill" data-filter="edge">Edge-AI &amp; Hardware</button>
+                    <button type="button" class="filter-pill" data-filter="cloud">Cloud &amp; Agentic AI</button>
+                    <button type="button" class="filter-pill" data-filter="fullstack">Full-Stack &amp; FinTech</button>
+                </div>
+                <button type="button" id="toggle-all-phases" class="btn btn-secondary btn-sm">
+                    Expand All Build Logs
+                </button>
+            </div>
 
             <!-- Project 1: LockedIn -->
-            <div id="project-lockedin" class="card featured-card">
-                <div class="card-content">
-                    <div class="card-header">
-                        <h3>LockedIn</h3>
-                        <div class="badge-group">
-                            <span class="status-pill status-progress"><span class="status-dot"></span>In Progress</span>
-                            <span class="badge">Edge-AI Sports Analytics</span>
-                        </div>
+            <article id="project-lockedin" class="card featured-card" data-category="edge" data-skills="c++ python pytorch aws postgresql">
+                <div class="card-header">
+                    <h3>LockedIn</h3>
+                    <div class="badge-group">
+                        <span class="status-pill status-progress"><span class="status-dot" aria-hidden="true"></span> In Progress</span>
+                        <span class="badge">Edge-AI Sports Analytics</span>
                     </div>
-                    <p class="tech-stack">C++ &nbsp;•&nbsp; Python &nbsp;•&nbsp; PyTorch &nbsp;•&nbsp; Edge Computing
-                    </p>
-                    <p class="project-desc">Shot tracking and highlight clipping that run on the court, not in the
-                        cloud—delivering real-time basketball analytics locally while bypassing cloud latency.</p>
+                </div>
 
-                    <!-- Problem / Built / Result Summary -->
-                    <div class="pbr-grid">
-                        <div class="pbr-box">
-                            <span class="pbr-label">Problem</span>
-                            <p>Automated shot logging usually requires continuous raw video upload, which is slow,
-                                bandwidth-heavy, and expensive at scale.</p>
-                        </div>
-                        <div class="pbr-box">
-                            <span class="pbr-label">Built</span>
-                            <p>A dual-camera stereo rig on a Jetson Orin Nano (1TB NVMe), FOV calibration tooling, a
-                                6-table relational schema, and an AWS telemetry pipeline.</p>
-                        </div>
-                        <div class="pbr-box">
-                            <span class="pbr-label">Result</span>
-                            <p>Edge inference filters video locally, cutting projected cloud ingress by up to 50% ahead
-                                of live Milestone 01 court testing.</p>
-                        </div>
+                <div class="tech-stack-pills">
+                    <span class="tech-chip">C++</span>
+                    <span class="tech-chip">Python</span>
+                    <span class="tech-chip">PyTorch / TensorRT</span>
+                    <span class="tech-chip">Jetson Orin Nano</span>
+                    <span class="tech-chip">Raspberry Pi 5</span>
+                    <span class="tech-chip">AWS S3 &amp; Firehose</span>
+                </div>
+
+                <p class="project-desc">
+                    Shot tracking and highlight clipping that run on the court, not in the cloud&mdash;delivering real-time basketball analytics locally while bypassing cloud latency.
+                </p>
+
+                <div class="pbr-grid">
+                    <div class="pbr-box">
+                        <span class="pbr-label">Problem</span>
+                        <p>Automated shot logging usually requires continuous raw video upload, which is slow, bandwidth-heavy, and expensive at scale.</p>
                     </div>
+                    <div class="pbr-box">
+                        <span class="pbr-label">Built</span>
+                        <p>A dual-camera IMX477 stereo rig on a Jetson Orin Nano (1TB NVMe), FOV calibration tooling, a 6-table relational schema, and an AWS telemetry pipeline.</p>
+                    </div>
+                    <div class="pbr-box">
+                        <span class="pbr-label">Result</span>
+                        <p>Edge inference filters video locally, cutting projected cloud ingress by up to 50% ahead of live Milestone 01 court testing.</p>
+                    </div>
+                </div>
 
+                <div class="project-actions-row">
+                    <button type="button" class="drawer-toggle-btn" aria-expanded="false" aria-controls="drawer-lockedin">
+                        <span>Inspect 8 Build Phases &amp; 21 Artifacts</span>
+                        <svg class="drawer-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="project-quick-links">
+                        <a href="#economics" class="btn btn-secondary btn-sm js-open-sim" data-sim-tab="lockedin">Simulate Unit Economics</a>
+                        <a href="https://github.com/mitchandrade8" target="_blank" rel="noopener noreferrer" class="btn btn-ghost btn-sm">GitHub Profile</a>
+                    </div>
+                </div>
+
+                <div id="drawer-lockedin" class="phases-drawer">
                     <div class="phases-container">
-                        <!-- Phase 0: Vision & Brainstorming -->
+                        <!-- Phase 0 -->
                         <div class="phase active-phase">
                             <div class="phase-indicator"></div>
                             <div class="phase-details">
                                 <h4>Phase 0: Vision &amp; Brainstorming</h4>
-                                <p>The vision started with a simple need: automating basketball shot logging, analytics,
-                                    and highlight clipping without relying on expensive, cloud-dependent infrastructure.
-                                    These early persona, analytics, and biometrics blueprints laid the foundation.</p>
-
+                                <p>Automating basketball shot logging, analytics, and highlight clipping without relying on expensive cloud-dependent streaming. Early persona, analytics, and biometrics blueprints laid the foundation.</p>
                                 <div class="hardware-showcase">
-                                    <div class="hardware-item">
-                                        <div class="img-wrapper"
-                                            style="background-image: url('assets/images/lockedin/lockedin-personas.jpg');">
-                                        </div>
-                                        <p>User Personas</p>
-                                    </div>
-                                    <div class="hardware-item">
-                                        <div class="img-wrapper"
-                                            style="background-image: url('assets/images/lockedin/lockedin-analytics.jpg');">
-                                        </div>
-                                        <p>Analytics Concept</p>
-                                    </div>
-                                    <div class="hardware-item">
-                                        <div class="img-wrapper"
-                                            style="background-image: url('assets/images/lockedin/lockedin-biometrics.jpg');">
-                                        </div>
-                                        <p>Biometrics</p>
-                                    </div>
+                                    <button type="button" class="media-thumb" data-lightbox-group="lockedin" data-lightbox-src="assets/images/lockedin/lockedin-personas.jpg" data-lightbox-title="LockedIn • Phase 0" data-lightbox-caption="User Personas">
+                                        <span class="media-thumb-frame">
+                                            <img src="assets/images/lockedin/lockedin-personas.jpg" alt="LockedIn User Personas" loading="lazy">
+                                            <span class="zoom-badge">Zoom</span>
+                                        </span>
+                                        <span class="media-thumb-caption">User Personas</span>
+                                    </button>
+                                    <button type="button" class="media-thumb" data-lightbox-group="lockedin" data-lightbox-src="assets/images/lockedin/lockedin-analytics.jpg" data-lightbox-title="LockedIn • Phase 0" data-lightbox-caption="Analytics Concept">
+                                        <span class="media-thumb-frame">
+                                            <img src="assets/images/lockedin/lockedin-analytics.jpg" alt="LockedIn Analytics Concept" loading="lazy">
+                                            <span class="zoom-badge">Zoom</span>
+                                        </span>
+                                        <span class="media-thumb-caption">Analytics Concept</span>
+                                    </button>
+                                    <button type="button" class="media-thumb" data-lightbox-group="lockedin" data-lightbox-src="assets/images/lockedin/lockedin-biometrics.jpg" data-lightbox-title="LockedIn • Phase 0" data-lightbox-caption="Biometrics Blueprint">
+                                        <span class="media-thumb-frame">
+                                            <img src="assets/images/lockedin/lockedin-biometrics.jpg" alt="LockedIn Biometrics Blueprint" loading="lazy">
+                                            <span class="zoom-badge">Zoom</span>
+                                        </span>
+                                        <span class="media-thumb-caption">Biometrics</span>
+                                    </button>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Phase 1: Spatial Calibration & Modeling -->
+                        <!-- Phase 1 -->
                         <div class="phase active-phase">
                             <div class="phase-indicator"></div>
                             <div class="phase-details">
                                 <h4>Phase 1: Spatial Calibration &amp; Deployment Modeling</h4>
-                                <p>Before hardware assembly, the physical deployment environment was mapped. A custom
-                                    calibration engine was built to calculate optical sightlines, ensure 100%
-                                    stereoscopic court coverage, and model what the fully assembled system should look
-                                    like during field testing.</p>
-
+                                <p>Mapped the physical court deployment environment and built a custom calibration engine to calculate optical sightlines and ensure 100% stereoscopic coverage.</p>
                                 <div class="hardware-showcase">
-                                    <div class="hardware-item">
-                                        <div class="img-wrapper"
-                                            style="background-image: url('assets/images/lockedin/lockedin-court-mapping.jpg');">
-                                        </div>
-                                        <p>Environmental Mapping</p>
-                                    </div>
-                                    <div class="hardware-item">
-                                        <div class="img-wrapper"
-                                            style="background-image: url('assets/images/lockedin/lockedin-calibration.jpg');">
-                                        </div>
-                                        <p>FOV Calibration UI</p>
-                                    </div>
-                                    <div class="hardware-item">
-                                        <div class="img-wrapper"
-                                            style="background-image: url('assets/images/lockedin/lockedin-live-deployment.jpg');">
-                                        </div>
-                                        <p>Target Deployment Setup</p>
-                                    </div>
+                                    <button type="button" class="media-thumb" data-lightbox-group="lockedin" data-lightbox-src="assets/images/lockedin/lockedin-court-mapping.jpg" data-lightbox-title="LockedIn • Phase 1" data-lightbox-caption="Environmental Court Mapping">
+                                        <span class="media-thumb-frame">
+                                            <img src="assets/images/lockedin/lockedin-court-mapping.jpg" alt="Environmental Mapping" loading="lazy">
+                                            <span class="zoom-badge">Zoom</span>
+                                        </span>
+                                        <span class="media-thumb-caption">Environmental Mapping</span>
+                                    </button>
+                                    <button type="button" class="media-thumb" data-lightbox-group="lockedin" data-lightbox-src="assets/images/lockedin/lockedin-calibration.jpg" data-lightbox-title="LockedIn • Phase 1" data-lightbox-caption="FOV Calibration UI">
+                                        <span class="media-thumb-frame">
+                                            <img src="assets/images/lockedin/lockedin-calibration.jpg" alt="FOV Calibration UI" loading="lazy">
+                                            <span class="zoom-badge">Zoom</span>
+                                        </span>
+                                        <span class="media-thumb-caption">FOV Calibration UI</span>
+                                    </button>
+                                    <button type="button" class="media-thumb" data-lightbox-group="lockedin" data-lightbox-src="assets/images/lockedin/lockedin-live-deployment.jpg" data-lightbox-title="LockedIn • Phase 1" data-lightbox-caption="Target Deployment Setup">
+                                        <span class="media-thumb-frame">
+                                            <img src="assets/images/lockedin/lockedin-live-deployment.jpg" alt="Target Deployment Setup" loading="lazy">
+                                            <span class="zoom-badge">Zoom</span>
+                                        </span>
+                                        <span class="media-thumb-caption">Target Deployment Setup</span>
+                                    </button>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Phase 2: Component Integration -->
+                        <!-- Phase 2 -->
                         <div class="phase active-phase">
                             <div class="phase-indicator"></div>
                             <div class="phase-details">
                                 <h4>Phase 2: Component Integration &amp; Subsystem Testing</h4>
-                                <p>Sourcing and bench-testing edge compute components. Display drivers and I/O
-                                    connections were configured on a Raspberry Pi 5 thin-client subsystem prior to final
-                                    stereoscopic assembly.</p>
-
+                                <p>Sourced and bench-tested edge compute components, configuring display drivers and I/O connections on a Raspberry Pi 5 thin-client subsystem prior to final assembly.</p>
                                 <div class="hardware-showcase">
-                                    <div class="hardware-item">
-                                        <div class="img-wrapper"
-                                            style="background-image: url('assets/images/lockedin/lockedin-sourcing.jpg');">
-                                        </div>
-                                        <p>Hardware Sourcing</p>
-                                    </div>
-                                    <div class="hardware-item">
-                                        <div class="img-wrapper"
-                                            style="background-image: url('assets/images/lockedin/lockedin-pi5-assembly.jpg');">
-                                        </div>
-                                        <p>Pi 5 Thin-Client Setup</p>
-                                    </div>
-                                    <div class="hardware-item">
-                                        <div class="img-wrapper"
-                                            style="background-image: url('assets/images/lockedin/lockedin-display-test.jpg');">
-                                        </div>
-                                        <p>Touch Interface Bench-Test</p>
-                                    </div>
+                                    <button type="button" class="media-thumb" data-lightbox-group="lockedin" data-lightbox-src="assets/images/lockedin/lockedin-sourcing.jpg" data-lightbox-title="LockedIn • Phase 2" data-lightbox-caption="Hardware Sourcing">
+                                        <span class="media-thumb-frame">
+                                            <img src="assets/images/lockedin/lockedin-sourcing.jpg" alt="Hardware Sourcing" loading="lazy">
+                                            <span class="zoom-badge">Zoom</span>
+                                        </span>
+                                        <span class="media-thumb-caption">Hardware Sourcing</span>
+                                    </button>
+                                    <button type="button" class="media-thumb" data-lightbox-group="lockedin" data-lightbox-src="assets/images/lockedin/lockedin-pi5-assembly.jpg" data-lightbox-title="LockedIn • Phase 2" data-lightbox-caption="Pi 5 Thin-Client Setup">
+                                        <span class="media-thumb-frame">
+                                            <img src="assets/images/lockedin/lockedin-pi5-assembly.jpg" alt="Pi 5 Thin-Client Setup" loading="lazy">
+                                            <span class="zoom-badge">Zoom</span>
+                                        </span>
+                                        <span class="media-thumb-caption">Pi 5 Thin-Client Setup</span>
+                                    </button>
+                                    <button type="button" class="media-thumb" data-lightbox-group="lockedin" data-lightbox-src="assets/images/lockedin/lockedin-display-test.jpg" data-lightbox-title="LockedIn • Phase 2" data-lightbox-caption="Touch Interface Bench-Test">
+                                        <span class="media-thumb-frame">
+                                            <img src="assets/images/lockedin/lockedin-display-test.jpg" alt="Touch Interface Bench-Test" loading="lazy">
+                                            <span class="zoom-badge">Zoom</span>
+                                        </span>
+                                        <span class="media-thumb-caption">Touch Interface Bench-Test</span>
+                                    </button>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Phase 3: Hardware Assembly & Stereoscopic Architecture -->
+                        <!-- Phase 3 -->
                         <div class="phase active-phase">
                             <div class="phase-indicator"></div>
                             <div class="phase-details">
                                 <h4>Phase 3: Hardware Assembly &amp; Stereoscopic Architecture</h4>
-                                <p>Physical assembly of the Jetson Orin Nano inference engine and dual-camera pipeline.
-                                    Due to the microscopic tolerances of the M.2 antenna interfaces and MIPI CSI
-                                    connectors, a lighted magnification visor and non-conductive precision tools were
-                                    utilized to secure connections without damaging the logic board.</p>
-
+                                <p>Physical assembly of the Jetson Orin Nano inference engine, 1TB NVMe storage, and dual IMX477 MIPI CSI camera modules using precision non-conductive tooling.</p>
                                 <div class="hardware-showcase">
-                                    <div class="hardware-item">
-                                        <div class="img-wrapper"
-                                            style="background-image: url('assets/images/lockedin/jetsonnano_ssd.jpg');">
-                                        </div>
-                                        <p>Jetson Orin Nano SSD</p>
-                                    </div>
-                                    <div class="hardware-item">
-                                        <div class="img-wrapper"
-                                            style="background-image: url('assets/images/lockedin/jetsonnano_cameras.jpg');">
-                                        </div>
-                                        <p>Dual IMX477 Cameras</p>
-                                    </div>
-                                    <div class="hardware-item">
-                                        <div class="img-wrapper"
-                                            style="background-image: url('assets/images/lockedin/lockedin-visor.jpg');">
-                                        </div>
-                                        <p>Precision Assembly</p>
-                                    </div>
+                                    <button type="button" class="media-thumb" data-lightbox-group="lockedin" data-lightbox-src="assets/images/lockedin/jetsonnano_ssd.jpg" data-lightbox-title="LockedIn • Phase 3" data-lightbox-caption="Jetson Orin Nano SSD">
+                                        <span class="media-thumb-frame">
+                                            <img src="assets/images/lockedin/jetsonnano_ssd.jpg" alt="Jetson Orin Nano SSD" loading="lazy">
+                                            <span class="zoom-badge">Zoom</span>
+                                        </span>
+                                        <span class="media-thumb-caption">Jetson Orin Nano SSD</span>
+                                    </button>
+                                    <button type="button" class="media-thumb" data-lightbox-group="lockedin" data-lightbox-src="assets/images/lockedin/jetsonnano_cameras.jpg" data-lightbox-title="LockedIn • Phase 3" data-lightbox-caption="Dual IMX477 Cameras">
+                                        <span class="media-thumb-frame">
+                                            <img src="assets/images/lockedin/jetsonnano_cameras.jpg" alt="Dual IMX477 Cameras" loading="lazy">
+                                            <span class="zoom-badge">Zoom</span>
+                                        </span>
+                                        <span class="media-thumb-caption">Dual IMX477 Cameras</span>
+                                    </button>
+                                    <button type="button" class="media-thumb" data-lightbox-group="lockedin" data-lightbox-src="assets/images/lockedin/lockedin-visor.jpg" data-lightbox-title="LockedIn • Phase 3" data-lightbox-caption="Precision Assembly">
+                                        <span class="media-thumb-frame">
+                                            <img src="assets/images/lockedin/lockedin-visor.jpg" alt="Precision Assembly" loading="lazy">
+                                            <span class="zoom-badge">Zoom</span>
+                                        </span>
+                                        <span class="media-thumb-caption">Precision Assembly</span>
+                                    </button>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Phase 4: ISO Provisioning & Boot Media Flashing -->
+                        <!-- Phase 4 -->
                         <div class="phase active-phase">
                             <div class="phase-indicator"></div>
                             <div class="phase-details">
                                 <h4>Phase 4: ISO Provisioning &amp; Boot Media Flashing</h4>
-                                <p>Initially planned to flash the NVIDIA JetPack OS via SD card or an Ubuntu VM, then
-                                    pivoted after confirming the Orin Nano requires a dedicated USB-A installer drive
-                                    for direct NVMe provisioning. Sourced the official ARM64 JetPack ISO, bypassed macOS
-                                    balenaEtcher permissions to flash the bootable installer at 186.2 MB/s, and
-                                    initialized the GNU GRUB NVMe target partition.</p>
-
+                                <p>Sourced the official ARM64 JetPack ISO, bypassed macOS balenaEtcher permissions to flash the USB-A installer at 186.2 MB/s, and initialized the GNU GRUB NVMe target partition.</p>
                                 <div class="hardware-showcase">
-                                    <div class="hardware-item">
-                                        <div class="img-wrapper"
-                                            style="background-image: url('assets/images/lockedin/morejetsonstuff.jpg');">
-                                        </div>
-                                        <p>JetPack ISO Sourcing</p>
-                                    </div>
-                                    <div class="hardware-item">
-                                        <div class="img-wrapper"
-                                            style="background-image: url('assets/images/lockedin/flashusbforjetson.jpg');">
-                                        </div>
-                                        <p>balenaEtcher USB Flash</p>
-                                    </div>
-                                    <div class="hardware-item">
-                                        <div class="img-wrapper"
-                                            style="background-image: url('assets/images/lockedin/Terminal-jetson.jpg');">
-                                        </div>
-                                        <p>GRUB NVMe Bootloader</p>
-                                    </div>
+                                    <button type="button" class="media-thumb" data-lightbox-group="lockedin" data-lightbox-src="assets/images/lockedin/morejetsonstuff.jpg" data-lightbox-title="LockedIn • Phase 4" data-lightbox-caption="JetPack ISO Sourcing">
+                                        <span class="media-thumb-frame">
+                                            <img src="assets/images/lockedin/morejetsonstuff.jpg" alt="JetPack ISO Sourcing" loading="lazy">
+                                            <span class="zoom-badge">Zoom</span>
+                                        </span>
+                                        <span class="media-thumb-caption">JetPack ISO Sourcing</span>
+                                    </button>
+                                    <button type="button" class="media-thumb" data-lightbox-group="lockedin" data-lightbox-src="assets/images/lockedin/flashusbforjetson.jpg" data-lightbox-title="LockedIn • Phase 4" data-lightbox-caption="balenaEtcher USB Flash">
+                                        <span class="media-thumb-frame">
+                                            <img src="assets/images/lockedin/flashusbforjetson.jpg" alt="balenaEtcher USB Flash" loading="lazy">
+                                            <span class="zoom-badge">Zoom</span>
+                                        </span>
+                                        <span class="media-thumb-caption">balenaEtcher USB Flash</span>
+                                    </button>
+                                    <button type="button" class="media-thumb" data-lightbox-group="lockedin" data-lightbox-src="assets/images/lockedin/Terminal-jetson.jpg" data-lightbox-title="LockedIn • Phase 4" data-lightbox-caption="GRUB NVMe Bootloader">
+                                        <span class="media-thumb-frame">
+                                            <img src="assets/images/lockedin/Terminal-jetson.jpg" alt="GRUB NVMe Bootloader" loading="lazy">
+                                            <span class="zoom-badge">Zoom</span>
+                                        </span>
+                                        <span class="media-thumb-caption">GRUB NVMe Bootloader</span>
+                                    </button>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Phase 5: UEFI Firmware & Jetson Linux Deployment -->
+                        <!-- Phase 5 -->
                         <div class="phase active-phase">
                             <div class="phase-indicator"></div>
                             <div class="phase-details">
                                 <h4>Phase 5: UEFI Firmware &amp; Jetson Linux Deployment</h4>
-                                <p>Executed the low-level Jetson System Firmware (UEFI/QSPI) update on first boot and
-                                    resolved DisplayPort handshake issues to complete the Ubuntu-based Jetson Linux
-                                    installation directly onto the 1TB Samsung 990 Pro M.2 NVMe SSD, preparing the edge
-                                    node for headless SSH orchestration.</p>
-
+                                <p>Executed the low-level Jetson System Firmware (UEFI/QSPI) update and completed the Ubuntu-based Jetson Linux installation directly onto the 1TB Samsung 990 Pro NVMe SSD.</p>
                                 <div class="hardware-showcase">
-                                    <div class="hardware-item">
-                                        <div class="img-wrapper"
-                                            style="background-image: url('assets/images/lockedin/jetsonosstuff.jpg');">
-                                        </div>
-                                        <p>UEFI / QSPI Firmware Update</p>
-                                    </div>
-                                    <div class="hardware-item">
-                                        <div class="img-wrapper"
-                                            style="background-image: url('assets/images/lockedin/Ubuntu.jpg');">
-                                        </div>
-                                        <p>Ubuntu 24.04 Initial Setup</p>
-                                    </div>
-                                    <div class="hardware-item">
-                                        <div class="img-wrapper"
-                                            style="background-image: url('assets/images/lockedin/OS-Jetson.jpg');">
-                                        </div>
-                                        <p>Jetson Linux NVMe Desktop</p>
-                                    </div>
+                                    <button type="button" class="media-thumb" data-lightbox-group="lockedin" data-lightbox-src="assets/images/lockedin/jetsonosstuff.jpg" data-lightbox-title="LockedIn • Phase 5" data-lightbox-caption="UEFI / QSPI Firmware Update">
+                                        <span class="media-thumb-frame">
+                                            <img src="assets/images/lockedin/jetsonosstuff.jpg" alt="UEFI / QSPI Firmware Update" loading="lazy">
+                                            <span class="zoom-badge">Zoom</span>
+                                        </span>
+                                        <span class="media-thumb-caption">UEFI / QSPI Firmware Update</span>
+                                    </button>
+                                    <button type="button" class="media-thumb" data-lightbox-group="lockedin" data-lightbox-src="assets/images/lockedin/Ubuntu.jpg" data-lightbox-title="LockedIn • Phase 5" data-lightbox-caption="Ubuntu 24.04 Initial Setup">
+                                        <span class="media-thumb-frame">
+                                            <img src="assets/images/lockedin/Ubuntu.jpg" alt="Ubuntu 24.04 Initial Setup" loading="lazy">
+                                            <span class="zoom-badge">Zoom</span>
+                                        </span>
+                                        <span class="media-thumb-caption">Ubuntu 24.04 Initial Setup</span>
+                                    </button>
+                                    <button type="button" class="media-thumb" data-lightbox-group="lockedin" data-lightbox-src="assets/images/lockedin/OS-Jetson.jpg" data-lightbox-title="LockedIn • Phase 5" data-lightbox-caption="Jetson Linux NVMe Desktop">
+                                        <span class="media-thumb-frame">
+                                            <img src="assets/images/lockedin/OS-Jetson.jpg" alt="Jetson Linux NVMe Desktop" loading="lazy">
+                                            <span class="zoom-badge">Zoom</span>
+                                        </span>
+                                        <span class="media-thumb-caption">Jetson Linux NVMe Desktop</span>
+                                    </button>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Phase 6: Backend Architecture, Costs & Growth -->
+                        <!-- Phase 6 -->
                         <div class="phase active-phase">
                             <div class="phase-indicator"></div>
                             <div class="phase-details">
                                 <h4>Phase 6: Backend Architecture, Costs &amp; Growth</h4>
-                                <p>Designed and mapped a 6-table relational schema for secure, non-personal player
-                                    metrics, highlighting matches, game stats, S3 video highlight clips, and purchase
-                                    tiers. Engineered AWS ingestion and telemetry routing (Cognito, Firehose,
-                                    MediaConvert) against scale models, showing how Edge inference cuts cloud ingress by
-                                    up to 50% for sustainable cost curves.</p>
-
+                                <p>Designed a 6-table relational schema for player telemetry, S3 video clips, and subscription tiers, backed by AWS Cognito, Firehose, and MediaConvert unit economics modeling.</p>
                                 <div class="hardware-showcase">
-                                    <div class="hardware-item">
-                                        <div class="img-wrapper"
-                                            style="background-image: url('assets/images/lockedin/player-data-model.png');">
-                                        </div>
-                                        <p>Player Data Model</p>
-                                    </div>
-                                    <div class="hardware-item">
-                                        <div class="img-wrapper"
-                                            style="background-image: url('assets/images/lockedin/backend-cloud-architecture.png');">
-                                        </div>
-                                        <p>Cloud Architecture</p>
-                                    </div>
-                                    <div class="hardware-item">
-                                        <div class="img-wrapper"
-                                            style="background-image: url('assets/images/lockedin/unit-economics-costs.png');">
-                                        </div>
-                                        <p>Scaling &amp; Unit Economics</p>
-                                    </div>
+                                    <button type="button" class="media-thumb" data-lightbox-group="lockedin" data-lightbox-src="assets/images/lockedin/player-data-model.png" data-lightbox-title="LockedIn • Phase 6" data-lightbox-caption="6-Table Relational Player Data Model">
+                                        <span class="media-thumb-frame">
+                                            <img src="assets/images/lockedin/player-data-model.png" alt="Player Data Model Diagram" loading="lazy">
+                                            <span class="zoom-badge">Zoom</span>
+                                        </span>
+                                        <span class="media-thumb-caption">Player Data Model</span>
+                                    </button>
+                                    <button type="button" class="media-thumb" data-lightbox-group="lockedin" data-lightbox-src="assets/images/lockedin/backend-cloud-architecture.png" data-lightbox-title="LockedIn • Phase 6" data-lightbox-caption="AWS Ingestion &amp; Telemetry Cloud Architecture">
+                                        <span class="media-thumb-frame">
+                                            <img src="assets/images/lockedin/backend-cloud-architecture.png" alt="Backend Cloud Architecture Diagram" loading="lazy">
+                                            <span class="zoom-badge">Zoom</span>
+                                        </span>
+                                        <span class="media-thumb-caption">Cloud Architecture</span>
+                                    </button>
+                                    <button type="button" class="media-thumb" data-lightbox-group="lockedin" data-lightbox-src="assets/images/lockedin/unit-economics-costs.png" data-lightbox-title="LockedIn • Phase 6" data-lightbox-caption="Scaling &amp; Unit Economics Cost Curves">
+                                        <span class="media-thumb-frame">
+                                            <img src="assets/images/lockedin/unit-economics-costs.png" alt="Scaling and Unit Economics Chart" loading="lazy">
+                                            <span class="zoom-badge">Zoom</span>
+                                        </span>
+                                        <span class="media-thumb-caption">Scaling &amp; Unit Economics</span>
+                                    </button>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Milestone 01: End-to-End MVP Field Smoke Test -->
+                        <!-- Milestone 01 -->
                         <div class="milestone-banner upcoming-milestone">
                             <div class="milestone-top">
-                                <span class="milestone-pill upcoming-pill">&#9203; Milestone 01 &bull; Coming
-                                    Soon</span>
+                                <span class="milestone-pill">Milestone 01 &bull; Coming Soon</span>
                                 <span class="milestone-date">Target: Live Court MVP Smoke Test</span>
                             </div>
                             <h4>End-to-End MVP Field Test: Capture, Edge Inference &amp; Cloud Sync</h4>
-                            <p>Full-stack integration test uniting the assembled Jetson Orin Nano, dual IMX477 cameras,
-                                and baseline unpolished software pipeline on a live court. Validates raw stereoscopic
-                                video capture, initial shot/telemetry logging, and automated cloud upload end-to-end to
-                                expose real-world latency bottlenecks and hardware edge cases before feature expansion.
-                            </p>
+                            <p>Full-stack integration test uniting the assembled Jetson Orin Nano, dual IMX477 cameras, and baseline software pipeline on a live court to audit real-world latency bottlenecks.</p>
                             <div class="milestone-metrics">
                                 <span class="metric-chip">Dual-Camera Live Capture</span>
                                 <span class="metric-chip">Baseline Edge Pipeline</span>
@@ -470,292 +622,485 @@
                             </div>
                         </div>
 
-                        <!-- Phase 7: Post-Test Optimization, TensorRT & UI Refinement -->
+                        <!-- Phase 7 -->
                         <div class="phase future-phase">
                             <div class="phase-indicator"></div>
                             <div class="phase-details">
                                 <h4>Phase 7: Post-Test Optimization, TensorRT &amp; UI Refinement</h4>
-                                <p>Iterating directly on telemetry and bug reports from the Milestone 01 field test.
-                                    Compiling PyTorch vision models into quantized TensorRT engines for deterministic
-                                    real-time FPS, hardening edge-to-cloud retry logic, and polishing the Raspberry Pi 5
-                                    touch UI before rolling out advanced analytics features.</p>
+                                <p>Compiling PyTorch vision models into quantized TensorRT engines for deterministic real-time FPS, hardening edge-to-cloud retry logic, and polishing the Raspberry Pi 5 touch UI.</p>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </article>
 
             <!-- Project 2: Serverless Portfolio AI Agent -->
-            <div id="project-agent" class="card featured-card" style="margin-top: 2.5rem;">
-                <div class="card-content">
-                    <div class="card-header">
-                        <h3>Serverless Portfolio AI Agent</h3>
-                        <div class="badge-group">
-                            <span class="status-pill status-live"><span class="status-dot"></span>Live</span>
-                            <span class="badge">Cloud Architecture &amp; AI</span>
-                        </div>
+            <article id="project-agent" class="card featured-card" data-category="cloud" data-skills="python aws">
+                <div class="card-header">
+                    <h3>Serverless Portfolio AI Agent</h3>
+                    <div class="badge-group">
+                        <span class="status-pill status-live"><span class="status-dot" aria-hidden="true"></span> Live</span>
+                        <span class="badge">Cloud Architecture &amp; AI</span>
                     </div>
-                    <p class="tech-stack">Python &nbsp;•&nbsp; AWS Lambda &nbsp;•&nbsp; DynamoDB &nbsp;•&nbsp;
-                        CloudWatch &nbsp;•&nbsp; Claude API
-                    </p>
-                    <p class="project-desc">The live conversational assistant running in the bottom-right corner of this
-                        page—built to answer recruiter questions at any hour and never run up a bill.</p>
+                </div>
 
-                    <!-- Problem / Built / Result Summary -->
-                    <div class="pbr-grid">
-                        <div class="pbr-box">
-                            <span class="pbr-label">Problem</span>
-                            <p>Recruiters visit at all hours with questions about experience, while an unprotected
-                                public LLM endpoint is an easy way to run up a surprise bill.</p>
-                        </div>
-                        <div class="pbr-box">
-                            <span class="pbr-label">Built</span>
-                            <p>A zero-dependency Python Lambda calling the Claude API, locked to portfolio topics with
-                                per-IP daily DynamoDB limits, input/output caps, and origin-locked CORS.</p>
-                        </div>
-                        <div class="pbr-box">
-                            <span class="pbr-label">Result</span>
-                            <p>Live recruiter assistant with a hard cost ceiling by design: 20 requests/IP/day,
-                                500-character inputs, 400-token replies, and CloudWatch telemetry.</p>
-                        </div>
+                <div class="tech-stack-pills">
+                    <span class="tech-chip">Python</span>
+                    <span class="tech-chip">AWS Lambda</span>
+                    <span class="tech-chip">DynamoDB</span>
+                    <span class="tech-chip">CloudWatch</span>
+                    <span class="tech-chip">Claude API</span>
+                </div>
+
+                <p class="project-desc">
+                    The live conversational assistant running in the bottom-right corner of this page&mdash;built to answer recruiter questions at any hour and never run up a surprise bill.
+                </p>
+
+                <div class="pbr-grid">
+                    <div class="pbr-box">
+                        <span class="pbr-label">Problem</span>
+                        <p>Recruiters visit at all hours with questions about experience, while an unprotected public LLM endpoint is an easy way to run up runaway token spend.</p>
                     </div>
+                    <div class="pbr-box">
+                        <span class="pbr-label">Built</span>
+                        <p>A zero-dependency Python Lambda calling the Claude API, locked to portfolio topics with per-IP daily DynamoDB limits, payload caps, and origin-locked CORS.</p>
+                    </div>
+                    <div class="pbr-box">
+                        <span class="pbr-label">Result</span>
+                        <p>Live recruiter assistant with a hard cost ceiling by design: 20 requests/IP/day, 500-character inputs, 400-token replies, and CloudWatch telemetry.</p>
+                    </div>
+                </div>
 
+                <div class="project-actions-row">
+                    <button type="button" class="drawer-toggle-btn" aria-expanded="false" aria-controls="drawer-agent">
+                        <span>Inspect 2 Build Phases &amp; 6 Artifacts</span>
+                        <svg class="drawer-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="project-quick-links">
+                        <button type="button" class="btn btn-primary btn-sm js-open-chat">Try Live Assistant</button>
+                        <a href="#economics" class="btn btn-secondary btn-sm js-open-sim" data-sim-tab="agent">Simulate Cost Ceiling</a>
+                    </div>
+                </div>
+
+                <div id="drawer-agent" class="phases-drawer">
                     <div class="phases-container">
-                        <!-- Phase 1: Infrastructure & Cost Guardrails -->
                         <div class="phase active-phase">
                             <div class="phase-indicator"></div>
                             <div class="phase-details">
                                 <h4>Phase 1: Production Infrastructure &amp; Cost Guardrails</h4>
-                                <p>Powered by a zero-dependency Python AWS Lambda handler utilizing native
-                                    <code>urllib</code> and <code>boto3</code> to invoke Anthropic's Claude API without
-                                    deployment bloat. Protected against abuse via atomic daily IP rate-limiting in
-                                    DynamoDB (<code>ip_date</code> composite keys), reserved concurrency caps, strict
-                                    origin-locked CORS policies, and full CloudWatch telemetry.
-                                </p>
-
+                                <p>Zero-dependency Python AWS Lambda handler using native <code>urllib</code> and <code>boto3</code>. Protected via atomic daily IP rate-limiting in DynamoDB (<code>ip_date</code> composite keys), reserved concurrency caps, origin-locked CORS, and CloudWatch telemetry.</p>
                                 <div class="hardware-showcase">
-                                    <div class="hardware-item">
-                                        <div class="img-wrapper"
-                                            style="background-image: url('assets/images/agent/lambda-function.jpg');">
-                                        </div>
-                                        <p>AWS Lambda Compute</p>
-                                    </div>
-                                    <div class="hardware-item">
-                                        <div class="img-wrapper"
-                                            style="background-image: url('assets/images/agent/dynamodb-ratelimit.jpg');">
-                                        </div>
-                                        <p>DynamoDB Rate Limiter</p>
-                                    </div>
-                                    <div class="hardware-item">
-                                        <div class="img-wrapper"
-                                            style="background-image: url('assets/images/agent/cloudwatch-logs.jpg');">
-                                        </div>
-                                        <p>CloudWatch Telemetry</p>
-                                    </div>
+                                    <button type="button" class="media-thumb" data-lightbox-group="agent" data-lightbox-src="assets/images/agent/lambda-function.jpg" data-lightbox-title="AI Agent • Phase 1" data-lightbox-caption="AWS Lambda Compute Configuration">
+                                        <span class="media-thumb-frame">
+                                            <img src="assets/images/agent/lambda-function.jpg" alt="AWS Lambda Compute" loading="lazy">
+                                            <span class="zoom-badge">Zoom</span>
+                                        </span>
+                                        <span class="media-thumb-caption">AWS Lambda Compute</span>
+                                    </button>
+                                    <button type="button" class="media-thumb" data-lightbox-group="agent" data-lightbox-src="assets/images/agent/dynamodb-ratelimit.jpg" data-lightbox-title="AI Agent • Phase 1" data-lightbox-caption="DynamoDB Atomic IP Rate Limiter">
+                                        <span class="media-thumb-frame">
+                                            <img src="assets/images/agent/dynamodb-ratelimit.jpg" alt="DynamoDB Rate Limiter" loading="lazy">
+                                            <span class="zoom-badge">Zoom</span>
+                                        </span>
+                                        <span class="media-thumb-caption">DynamoDB Rate Limiter</span>
+                                    </button>
+                                    <button type="button" class="media-thumb" data-lightbox-group="agent" data-lightbox-src="assets/images/agent/cloudwatch-logs.jpg" data-lightbox-title="AI Agent • Phase 1" data-lightbox-caption="CloudWatch Telemetry &amp; Invocation Logs">
+                                        <span class="media-thumb-frame">
+                                            <img src="assets/images/agent/cloudwatch-logs.jpg" alt="CloudWatch Telemetry" loading="lazy">
+                                            <span class="zoom-badge">Zoom</span>
+                                        </span>
+                                        <span class="media-thumb-caption">CloudWatch Telemetry</span>
+                                    </button>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Phase 2: Context Boundaries & Prompt Guardrails -->
                         <div class="phase active-phase">
                             <div class="phase-indicator"></div>
                             <div class="phase-details">
                                 <h4>Phase 2: Context Boundaries &amp; Prompt Guardrails</h4>
-                                <p>Engineered deterministic system instructions and payload constraints (500-character
-                                    input caps, 400-token output ceilings) to lock the model strictly to portfolio
-                                    context. Prevents prompt injection and off-topic token drain by politely deflecting
-                                    unrelated queries while delivering grounded answers on engineering experience and
-                                    availability.</p>
-
+                                <p>Deterministic system instructions and strict payload constraints (500-character input caps, 400-token output ceilings) lock the assistant to Mitchell&rsquo;s engineering and finance background while deflecting off-topic drain.</p>
                                 <div class="hardware-showcase">
-                                    <div class="hardware-item">
-                                        <div class="img-wrapper"
-                                            style="background-image: url('assets/images/agent/welcome-prompt.png'); background-size: contain; background-repeat: no-repeat; background-color: #f8fafc;">
-                                        </div>
-                                        <p>System Assistant Welcome</p>
-                                    </div>
-                                    <div class="hardware-item">
-                                        <div class="img-wrapper"
-                                            style="background-image: url('assets/images/agent/guardrail-offtopic.png'); background-size: contain; background-repeat: no-repeat; background-color: #f8fafc;">
-                                        </div>
-                                        <p>Off-Topic Scope Deflection</p>
-                                    </div>
-                                    <div class="hardware-item">
-                                        <div class="img-wrapper"
-                                            style="background-image: url('assets/images/agent/guardrail-recruiter.png'); background-size: contain; background-repeat: no-repeat; background-color: #f8fafc;">
-                                        </div>
-                                        <p>Grounded Recruiter Context</p>
-                                    </div>
+                                    <button type="button" class="media-thumb" data-lightbox-group="agent" data-lightbox-src="assets/images/agent/welcome-prompt.png" data-lightbox-title="AI Agent • Phase 2" data-lightbox-caption="System Assistant Welcome">
+                                        <span class="media-thumb-frame">
+                                            <img src="assets/images/agent/welcome-prompt.png" alt="System Assistant Welcome" class="img-contain" loading="lazy">
+                                            <span class="zoom-badge">Zoom</span>
+                                        </span>
+                                        <span class="media-thumb-caption">System Assistant Welcome</span>
+                                    </button>
+                                    <button type="button" class="media-thumb" data-lightbox-group="agent" data-lightbox-src="assets/images/agent/guardrail-offtopic.png" data-lightbox-title="AI Agent • Phase 2" data-lightbox-caption="Off-Topic Scope Deflection">
+                                        <span class="media-thumb-frame">
+                                            <img src="assets/images/agent/guardrail-offtopic.png" alt="Off-Topic Scope Deflection" class="img-contain" loading="lazy">
+                                            <span class="zoom-badge">Zoom</span>
+                                        </span>
+                                        <span class="media-thumb-caption">Off-Topic Scope Deflection</span>
+                                    </button>
+                                    <button type="button" class="media-thumb" data-lightbox-group="agent" data-lightbox-src="assets/images/agent/guardrail-recruiter.png" data-lightbox-title="AI Agent • Phase 2" data-lightbox-caption="Grounded Recruiter Context">
+                                        <span class="media-thumb-frame">
+                                            <img src="assets/images/agent/guardrail-recruiter.png" alt="Grounded Recruiter Context" class="img-contain" loading="lazy">
+                                            <span class="zoom-badge">Zoom</span>
+                                        </span>
+                                        <span class="media-thumb-caption">Grounded Recruiter Context</span>
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <!-- Section Divider -->
-        <div class="container">
-            <hr style="border: 0; height: 1px; background: #e5e7eb; margin: 4rem 0 2rem 0;">
-        </div>
-
-        <!-- CU Boulder Projects Section -->
-        <section id="academic-projects" class="container">
-            <h2 class="section-title">CU Boulder Projects</h2>
+            </article>
 
             <!-- Project 3: Match Play -->
-            <div id="project-matchplay" class="card featured-card">
-                <div class="card-content">
-                    <div class="card-header">
-                        <h3>Match Play</h3>
-                        <div class="badge-group">
-                            <span class="status-pill status-live"><span class="status-dot"></span>Live</span>
-                            <span class="badge">Full-Stack Web App</span>
-                        </div>
+            <article id="project-matchplay" class="card featured-card" data-category="fullstack" data-skills="python postgresql aws sql">
+                <div class="card-header">
+                    <h3>Match Play <span style="font-size: 0.85rem; font-weight: 500; color: var(--text-secondary);">| CU Boulder CSPB 3308</span></h3>
+                    <div class="badge-group">
+                        <span class="status-pill status-live"><span class="status-dot" aria-hidden="true"></span> Live MVP</span>
+                        <span class="badge">Full-Stack Web App</span>
                     </div>
-                    <p class="tech-stack">Python &nbsp;•&nbsp; Flask &nbsp;•&nbsp; PostgreSQL &nbsp;•&nbsp; Gunicorn
-                        &nbsp;•&nbsp; Tailwind CSS</p>
-                    <p class="project-desc">A real-time social golf matchmaking and round scheduling application
-                        utilizing a custom NumPy mathematical engine to pair users based on handicap, pace of play, and
-                        course vibe.</p>
+                </div>
 
-                    <!-- Problem / Built / Result Summary -->
-                    <div class="pbr-grid">
-                        <div class="pbr-box">
-                            <span class="pbr-label">Problem</span>
-                            <p>Coordinating compatible golf rounds across skill levels, pace preferences, and local
-                                courses relies on scattered texts and guesswork.</p>
-                        </div>
-                        <div class="pbr-box">
-                            <span class="pbr-label">Built</span>
-                            <p>A full-stack Flask, React, and PostgreSQL web application featuring a custom NumPy
-                                compatibility engine and interactive course mapping.</p>
-                        </div>
-                        <div class="pbr-box">
-                            <span class="pbr-label">Result</span>
-                            <p>Deployed live MVP on Render + Neon PostgreSQL with an enterprise AWS VPC, ECS Fargate,
-                                and Aurora read-replica scale-up blueprint.</p>
-                        </div>
+                <div class="tech-stack-pills">
+                    <span class="tech-chip">Python / Flask</span>
+                    <span class="tech-chip">React</span>
+                    <span class="tech-chip">PostgreSQL (Neon)</span>
+                    <span class="tech-chip">NumPy</span>
+                    <span class="tech-chip">Leaflet Maps</span>
+                    <span class="tech-chip">Tailwind CSS</span>
+                </div>
+
+                <p class="project-desc">
+                    A real-time social golf matchmaking and round scheduling application utilizing a custom NumPy compatibility engine to pair golfers by handicap, pace of play, and course vibe.
+                </p>
+
+                <div class="pbr-grid">
+                    <div class="pbr-box">
+                        <span class="pbr-label">Problem</span>
+                        <p>Coordinating compatible golf rounds across skill levels, pace preferences, and local courses relies on scattered group texts and guesswork.</p>
                     </div>
+                    <div class="pbr-box">
+                        <span class="pbr-label">Built</span>
+                        <p>A full-stack Flask, React, and PostgreSQL web application featuring a custom NumPy weighted scoring engine and interactive Leaflet course mapping.</p>
+                    </div>
+                    <div class="pbr-box">
+                        <span class="pbr-label">Result</span>
+                        <p>Deployed live MVP on Render + Neon PostgreSQL alongside an enterprise AWS VPC, CloudFront, ECS Fargate, and Aurora read-replica scale-up blueprint.</p>
+                    </div>
+                </div>
 
+                <div class="project-actions-row">
+                    <button type="button" class="drawer-toggle-btn" aria-expanded="false" aria-controls="drawer-matchplay">
+                        <span>Inspect 4 Build Phases &amp; 9 Artifacts</span>
+                        <svg class="drawer-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="project-quick-links">
+                        <a href="https://github.com/mitchandrade8" target="_blank" rel="noopener noreferrer" class="btn btn-ghost btn-sm">GitHub Profile</a>
+                    </div>
+                </div>
+
+                <div id="drawer-matchplay" class="phases-drawer">
                     <div class="phases-container">
-                        <!-- Phase 0: Vision & Brainstorming -->
                         <div class="phase active-phase">
                             <div class="phase-indicator"></div>
                             <div class="phase-details">
-                                <h4>Phase 0: Vision &amp; Brainstorming</h4>
-                                <p>Conceptualized to bridge the gap between a traditional golf scorecard and a modern
-                                    social platform. These early agile planning sprints, architecture diagrams, and
-                                    handicap algorithm mapping ensured the routing logic was sound before writing code.
-                                </p>
-
+                                <h4>Phase 0: Vision &amp; Architecture</h4>
+                                <p>Agile sprint planning, system architecture diagrams, and weighted handicap matchmaking logic designed before implementation.</p>
                                 <div class="hardware-showcase">
-                                    <div class="hardware-item">
-                                        <div class="img-wrapper"
-                                            style="background-image: url('assets/images/matchplay/matchplay-architecture.jpg');">
-                                        </div>
-                                        <p>System Architecture</p>
-                                    </div>
-                                    <div class="hardware-item">
-                                        <div class="img-wrapper"
-                                            style="background-image: url('assets/images/matchplay/matchplay-agile.jpg');">
-                                        </div>
-                                        <p>Agile Planning</p>
-                                    </div>
-                                    <div class="hardware-item">
-                                        <div class="img-wrapper"
-                                            style="background-image: url('assets/images/matchplay/matchplay-algorithm.jpg');">
-                                        </div>
-                                        <p>Algorithm Logic</p>
-                                    </div>
+                                    <button type="button" class="media-thumb" data-lightbox-group="matchplay" data-lightbox-src="assets/images/matchplay/matchplay-architecture.jpg" data-lightbox-title="Match Play • Phase 0" data-lightbox-caption="System Architecture">
+                                        <span class="media-thumb-frame">
+                                            <img src="assets/images/matchplay/matchplay-architecture.jpg" alt="Match Play System Architecture" loading="lazy">
+                                            <span class="zoom-badge">Zoom</span>
+                                        </span>
+                                        <span class="media-thumb-caption">System Architecture</span>
+                                    </button>
+                                    <button type="button" class="media-thumb" data-lightbox-group="matchplay" data-lightbox-src="assets/images/matchplay/matchplay-agile.jpg" data-lightbox-title="Match Play • Phase 0" data-lightbox-caption="Agile Planning">
+                                        <span class="media-thumb-frame">
+                                            <img src="assets/images/matchplay/matchplay-agile.jpg" alt="Agile Planning" loading="lazy">
+                                            <span class="zoom-badge">Zoom</span>
+                                        </span>
+                                        <span class="media-thumb-caption">Agile Planning</span>
+                                    </button>
+                                    <button type="button" class="media-thumb" data-lightbox-group="matchplay" data-lightbox-src="assets/images/matchplay/matchplay-algorithm.jpg" data-lightbox-title="Match Play • Phase 0" data-lightbox-caption="Matchmaking Algorithm Logic">
+                                        <span class="media-thumb-frame">
+                                            <img src="assets/images/matchplay/matchplay-algorithm.jpg" alt="Algorithm Logic" loading="lazy">
+                                            <span class="zoom-badge">Zoom</span>
+                                        </span>
+                                        <span class="media-thumb-caption">Algorithm Logic</span>
+                                    </button>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Phase 1: Agile Methodology & Team Infrastructure -->
                         <div class="phase active-phase">
                             <div class="phase-indicator"></div>
                             <div class="phase-details">
                                 <h4>Phase 1: Agile Methodology &amp; Team Infrastructure</h4>
-                                <p>To ensure efficient collaboration and structured development for the Match Play
-                                    application, the team implemented a comprehensive project management and
-                                    communication infrastructure. This phase establishes the core workflows used
-                                    throughout the CSPB 3308 software engineering lifecycle.</p>
-
+                                <p>Structured Kanban workflow, SQL milestone tracking, and team communication cadence across the CSPB 3308 software engineering lifecycle.</p>
                                 <div class="hardware-showcase">
-                                    <div class="hardware-item">
-                                        <div class="img-wrapper"
-                                            style="background-image: url('assets/images/matchplay/AgileScrumFramework.jpg');">
-                                        </div>
-                                        <p>Agile &amp; Kanban Workflow</p>
-                                    </div>
-                                    <div class="hardware-item">
-                                        <div class="img-wrapper"
-                                            style="background-image: url('assets/images/matchplay/DeliverablesForMilestone.jpg');">
-                                        </div>
-                                        <p>Milestone Tracking</p>
-                                    </div>
-                                    <div class="hardware-item">
-                                        <div class="img-wrapper"
-                                            style="background-image: url('assets/images/matchplay/TeamCommunication.jpg');">
-                                        </div>
-                                        <p>Team Communication</p>
-                                    </div>
+                                    <button type="button" class="media-thumb" data-lightbox-group="matchplay" data-lightbox-src="assets/images/matchplay/AgileScrumFramework.jpg" data-lightbox-title="Match Play • Phase 1" data-lightbox-caption="Agile &amp; Kanban Workflow">
+                                        <span class="media-thumb-frame">
+                                            <img src="assets/images/matchplay/AgileScrumFramework.jpg" alt="Agile and Kanban Workflow" loading="lazy">
+                                            <span class="zoom-badge">Zoom</span>
+                                        </span>
+                                        <span class="media-thumb-caption">Agile &amp; Kanban Workflow</span>
+                                    </button>
+                                    <button type="button" class="media-thumb" data-lightbox-group="matchplay" data-lightbox-src="assets/images/matchplay/DeliverablesForMilestone.jpg" data-lightbox-title="Match Play • Phase 1" data-lightbox-caption="SQL Milestone Tracking">
+                                        <span class="media-thumb-frame">
+                                            <img src="assets/images/matchplay/DeliverablesForMilestone.jpg" alt="Milestone Tracking" loading="lazy">
+                                            <span class="zoom-badge">Zoom</span>
+                                        </span>
+                                        <span class="media-thumb-caption">Milestone Tracking</span>
+                                    </button>
+                                    <button type="button" class="media-thumb" data-lightbox-group="matchplay" data-lightbox-src="assets/images/matchplay/TeamCommunication.jpg" data-lightbox-title="Match Play • Phase 1" data-lightbox-caption="Team Communication">
+                                        <span class="media-thumb-frame">
+                                            <img src="assets/images/matchplay/TeamCommunication.jpg" alt="Team Communication" loading="lazy">
+                                            <span class="zoom-badge">Zoom</span>
+                                        </span>
+                                        <span class="media-thumb-caption">Team Communication</span>
+                                    </button>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Phase 2: Demo UI & Ideation -->
                         <div class="phase active-phase">
                             <div class="phase-indicator"></div>
                             <div class="phase-details">
-                                <h4>Phase 2: Demo UI &amp; Ideation</h4>
-                                <p>Demo UI, no backend yet or definitive decisions on user stories. Just brainstorming
-                                    and refining ideas with the team.</p>
-
+                                <h4>Phase 2: UI/UX Prototyping &amp; Product Flows</h4>
+                                <p>Early dark-mode interface prototypes and user-story refinement sessions that established the Compatibility Feed, Round Scheduling, and Golfer Profile workflows prior to full-stack backend integration.</p>
                                 <div class="hardware-showcase">
-                                    <div class="hardware-item">
-                                        <div class="img-wrapper"
-                                            style="background-image: url('assets/images/matchplay/matchplay-feed.jpg');">
-                                        </div>
-                                        <p>Compatibility Feed</p>
-                                    </div>
-                                    <div class="hardware-item">
-                                        <div class="img-wrapper"
-                                            style="background-image: url('assets/images/matchplay/matchplay-rounds.jpg');">
-                                        </div>
-                                        <p>Round Scheduling</p>
-                                    </div>
-                                    <div class="hardware-item">
-                                        <div class="img-wrapper"
-                                            style="background-image: url('assets/images/matchplay/matchplay-profile.jpg');">
-                                        </div>
-                                        <p>Golfer Profiles</p>
-                                    </div>
+                                    <button type="button" class="media-thumb" data-lightbox-group="matchplay" data-lightbox-src="assets/images/matchplay/matchplay-feed.jpg" data-lightbox-title="Match Play • Phase 2" data-lightbox-caption="Compatibility Feed UI">
+                                        <span class="media-thumb-frame">
+                                            <img src="assets/images/matchplay/matchplay-feed.jpg" alt="Compatibility Feed UI" loading="lazy">
+                                            <span class="zoom-badge">Zoom</span>
+                                        </span>
+                                        <span class="media-thumb-caption">Compatibility Feed</span>
+                                    </button>
+                                    <button type="button" class="media-thumb" data-lightbox-group="matchplay" data-lightbox-src="assets/images/matchplay/matchplay-rounds.jpg" data-lightbox-title="Match Play • Phase 2" data-lightbox-caption="Round Scheduling UI">
+                                        <span class="media-thumb-frame">
+                                            <img src="assets/images/matchplay/matchplay-rounds.jpg" alt="Round Scheduling UI" loading="lazy">
+                                            <span class="zoom-badge">Zoom</span>
+                                        </span>
+                                        <span class="media-thumb-caption">Round Scheduling</span>
+                                    </button>
+                                    <button type="button" class="media-thumb" data-lightbox-group="matchplay" data-lightbox-src="assets/images/matchplay/matchplay-profile.jpg" data-lightbox-title="Match Play • Phase 2" data-lightbox-caption="Golfer Profiles UI">
+                                        <span class="media-thumb-frame">
+                                            <img src="assets/images/matchplay/matchplay-profile.jpg" alt="Golfer Profiles UI" loading="lazy">
+                                            <span class="zoom-badge">Zoom</span>
+                                        </span>
+                                        <span class="media-thumb-caption">Golfer Profiles</span>
+                                    </button>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Phase 3: Architecture & Deployment Strategy -->
-                        <div class="phase future-phase">
+                        <div class="phase active-phase">
                             <div class="phase-indicator"></div>
                             <div class="phase-details">
-                                <h4>Phase 3: Architecture &amp; Deployment Strategy</h4>
-                                <p><strong>Current Infrastructure (Bootstrapped):</strong> To optimize for rapid
-                                    prototyping and zero-cost deployment, the application utilizes
-                                    <strong>Render</strong> for hosting the Flask REST API and React frontend, paired
-                                    with <strong>Neon</strong> for serverless PostgreSQL. While this allows for fast
-                                    iteration, it introduces cold-start latency and network hops between disparate cloud
-                                    providers.
-                                </p>
-                                <p style="margin-top: 0.5rem;"><strong>The Scale-Up Plan (Enterprise
-                                        Architecture):</strong> With an active user base, the infrastructure would be
-                                    migrated entirely into a single <strong>AWS Virtual Private Cloud (VPC)</strong> to
-                                    minimize latency. The frontend would be distributed via <strong>CloudFront
-                                        (CDN)</strong>, the Flask API containerized on <strong>AWS ECS
-                                        (Fargate)</strong> for elastic auto-scaling, and the database migrated to
-                                    <strong>Amazon Aurora PostgreSQL</strong> to support high-throughput read replicas.
-                                </p>
+                                <h4>Phase 3: Bootstrapped Production &amp; AWS Scale-Up Blueprint</h4>
+                                <p><strong>Bootstrapped MVP:</strong> Flask REST API + React hosted on Render, paired with Neon serverless PostgreSQL for rapid iteration.<br><strong>Enterprise Scale-Up Plan:</strong> Consolidated inside a single AWS VPC using CloudFront CDN, containerized Flask on AWS ECS Fargate, and Amazon Aurora PostgreSQL with read replicas.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Additional Resume Projects -->
+            <h3 class="subprojects-heading">Additional Engineering &amp; FinTech Builds</h3>
+            <div class="mini-projects-grid">
+                <article class="card mini-project-card" data-category="cloud" data-skills="python">
+                    <div>
+                        <div class="card-header">
+                            <h3>AI Agent Dispatch Prototype</h3>
+                            <span class="mini-project-meta">Sep 2026</span>
+                        </div>
+                        <div class="tech-stack-pills">
+                            <span class="tech-chip">Python</span>
+                            <span class="tech-chip">FastAPI</span>
+                            <span class="tech-chip">WebSockets</span>
+                            <span class="tech-chip">OpenAI API</span>
+                        </div>
+                        <p class="project-desc" style="margin-bottom: 0; font-size: 0.96rem;">
+                            Developed and tested a live agentic dispatch and triage system featuring real-time WebSocket event streaming and human-in-the-loop approval checkpoints for operational safety.
+                        </p>
+                    </div>
+                    <div class="project-actions-row" style="margin-top: 0.5rem;">
+                        <span class="badge">Human-in-the-Loop Orchestration</span>
+                        <a href="resume.html" class="btn btn-ghost btn-sm">View in Resume</a>
+                    </div>
+                </article>
+
+                <article class="card mini-project-card" data-category="fullstack" data-skills="python postgresql streamlit sql finance">
+                    <div>
+                        <div class="card-header">
+                            <h3>Real Estate Analytics Dashboard</h3>
+                            <span class="mini-project-meta">Mar 2026</span>
+                        </div>
+                        <div class="tech-stack-pills">
+                            <span class="tech-chip">Python</span>
+                            <span class="tech-chip">PostgreSQL</span>
+                            <span class="tech-chip">Streamlit</span>
+                            <span class="tech-chip">Data Warehousing</span>
+                        </div>
+                        <p class="project-desc" style="margin-bottom: 0; font-size: 0.96rem;">
+                            Designed a relational PostgreSQL data warehouse and interactive Streamlit BI dashboard to ingest, normalize, and analyze Colorado real estate market valuation trends.
+                        </p>
+                    </div>
+                    <div class="project-actions-row" style="margin-top: 0.5rem;">
+                        <span class="badge">Data Warehouse &amp; Valuation</span>
+                        <a href="resume.html" class="btn btn-ghost btn-sm">View in Resume</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Interactive Unit Economics & Cost Guardrail Simulator -->
+        <section id="economics" class="container">
+            <div class="section-header">
+                <span class="section-eyebrow">Engineering + Finance</span>
+                <h2 class="section-title">Architecture Unit Economics Simulator</h2>
+                <p class="section-subtitle">
+                    Interactive models illustrating how edge filtering and DynamoDB rate guardrails translate directly into predictable cloud unit economics.
+                </p>
+            </div>
+
+            <div class="card simulator-card">
+                <div class="sim-tabs" role="tablist" aria-label="Architecture Economics Models">
+                    <button type="button" class="sim-tab-btn active" role="tab" aria-selected="true" data-sim-target="lockedin">
+                        LockedIn Edge-AI vs. Cloud Streaming
+                    </button>
+                    <button type="button" class="sim-tab-btn" role="tab" aria-selected="false" data-sim-target="agent">
+                        Serverless AI Agent Cost Ceiling
+                    </button>
+                </div>
+
+                <!-- Tab 1: LockedIn -->
+                <div id="sim-panel-lockedin" class="sim-panel active" role="tabpanel">
+                    <div class="sim-controls">
+                        <div class="slider-group">
+                            <label for="sim-courts">
+                                <span>Active Courts Deployed</span>
+                                <span id="sim-courts-val" class="slider-val">12 courts</span>
+                            </label>
+                            <input id="sim-courts" class="sim-range" type="range" min="1" max="100" value="12">
+                        </div>
+                        <div class="slider-group">
+                            <label for="sim-hours">
+                                <span>Recording Hours / Court / Day</span>
+                                <span id="sim-hours-val" class="slider-val">4 hrs/day</span>
+                            </label>
+                            <input id="sim-hours" class="sim-range" type="range" min="1" max="16" value="4">
+                        </div>
+                        <div class="sim-assumption">
+                            <strong>Model Assumptions:</strong> Dual-IMX477 stereo H.265 stream (~4.5 GB/hr raw) across 30 days/mo; AWS S3 ingress, Firehose telemetry &amp; MediaConvert transcoding modeled at ~$0.095/GB. Local Jetson Orin Nano filtering eliminates ~50% of dead-court cloud ingress.
+                        </div>
+                    </div>
+
+                    <div class="sim-results">
+                        <div class="sim-kpi-grid">
+                            <div class="sim-kpi">
+                                <div class="sim-kpi-label">Naive Cloud Ingress / Mo</div>
+                                <div id="out-naive-gb" class="sim-kpi-num">6,480 GB</div>
+                            </div>
+                            <div class="sim-kpi">
+                                <div class="sim-kpi-label">Edge-Filtered Ingress / Mo</div>
+                                <div id="out-edge-gb" class="sim-kpi-num">3,240 GB</div>
+                            </div>
+                            <div class="sim-kpi sim-kpi-highlight">
+                                <div class="sim-kpi-label">Monthly AWS Cost Saved</div>
+                                <div id="out-monthly-save" class="sim-kpi-num">$308 / mo</div>
+                            </div>
+                            <div class="sim-kpi sim-kpi-highlight">
+                                <div class="sim-kpi-label">Annualized Margin Preserved</div>
+                                <div id="out-annual-save" class="sim-kpi-num">$3,694 / yr</div>
+                            </div>
+                        </div>
+
+                        <div class="sim-bars">
+                            <div class="bar-row">
+                                <div class="bar-meta">
+                                    <span>Naive Continuous Cloud Upload</span>
+                                    <span id="out-naive-cost">$616 / mo</span>
+                                </div>
+                                <div class="bar-track">
+                                    <div id="bar-naive-cost" class="bar-fill bar-fill-naive" style="width: 100%;"></div>
+                                </div>
+                            </div>
+                            <div class="bar-row">
+                                <div class="bar-meta">
+                                    <span>LockedIn Edge-Filtered Architecture (-50%)</span>
+                                    <span id="out-edge-cost">$308 / mo</span>
+                                </div>
+                                <div class="bar-track">
+                                    <div id="bar-edge-cost" class="bar-fill bar-fill-edge" style="width: 50%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 2: AI Agent -->
+                <div id="sim-panel-agent" class="sim-panel" role="tabpanel">
+                    <div class="sim-controls">
+                        <div class="slider-group">
+                            <label for="sim-visitors">
+                                <span>Daily Unique Visitors</span>
+                                <span id="sim-visitors-val" class="slider-val">150 / day</span>
+                            </label>
+                            <input id="sim-visitors" class="sim-range" type="range" min="10" max="2000" step="10" value="150">
+                        </div>
+                        <div class="slider-group">
+                            <label for="sim-reqs">
+                                <span>Avg. Requests / Visitor (DynamoDB Cap: 20)</span>
+                                <span id="sim-reqs-val" class="slider-val">5 reqs</span>
+                            </label>
+                            <input id="sim-reqs" class="sim-range" type="range" min="1" max="20" value="5">
+                        </div>
+                        <div class="sim-assumption">
+                            <strong>Guardrail Constraints:</strong> 500-char user input cap (~140 tokens + system prompt) &amp; 400-token max completion ceiling with atomic DynamoDB <code>ip_date</code> limiter (20 req/IP/day) vs. an unguarded public endpoint hit by an automated 200 req/IP scraping burst.
+                        </div>
+                    </div>
+
+                    <div class="sim-results">
+                        <div class="sim-kpi-grid">
+                            <div class="sim-kpi">
+                                <div class="sim-kpi-label">Monthly Capped Requests</div>
+                                <div id="out-agent-reqs" class="sim-kpi-num">22,500</div>
+                            </div>
+                            <div class="sim-kpi">
+                                <div class="sim-kpi-label">Hard-Capped Cost / Request</div>
+                                <div class="sim-kpi-num">~$0.0022</div>
+                            </div>
+                            <div class="sim-kpi sim-kpi-highlight">
+                                <div class="sim-kpi-label">Protected Monthly Spend</div>
+                                <div id="out-agent-safe" class="sim-kpi-num">$49.50 / mo</div>
+                            </div>
+                            <div class="sim-kpi">
+                                <div class="sim-kpi-label">Unguarded Bot Exposure</div>
+                                <div id="out-agent-risk" class="sim-kpi-num">$990+ / mo</div>
+                            </div>
+                        </div>
+
+                        <div class="sim-bars">
+                            <div class="bar-row">
+                                <div class="bar-meta">
+                                    <span>Unguarded Endpoint (Uncapped Prompt + No IP Limiter)</span>
+                                    <span id="out-agent-risk-bar">$990 / mo</span>
+                                </div>
+                                <div class="bar-track">
+                                    <div class="bar-fill bar-fill-naive" style="width: 100%;"></div>
+                                </div>
+                            </div>
+                            <div class="bar-row">
+                                <div class="bar-meta">
+                                    <span>DynamoDB + Payload Guardrails (Protected)</span>
+                                    <span id="out-agent-safe-bar">$49.50 / mo</span>
+                                </div>
+                                <div class="bar-track">
+                                    <div id="bar-agent-safe" class="bar-fill bar-fill-safe" style="width: 8%;"></div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -763,45 +1108,132 @@
             </div>
         </section>
 
-        <!-- Section Divider -->
-        <div class="container">
-            <hr style="border: 0; height: 1px; background: #e5e7eb; margin: 4rem 0 2rem 0;">
-        </div>
+        <!-- CliftonStrengths Top 5 -->
+        <section class="container">
+            <div class="section-header">
+                <span class="section-eyebrow">Official Assessment Feedback</span>
+                <h2 class="section-title">CliftonStrengths Top 5</h2>
+                <p class="section-subtitle">
+                    Gallup CliftonStrengths traits shaping my approach to software architecture, continuous learning, and engineering execution.
+                </p>
+            </div>
 
-        <!-- Skills Section -->
+            <div class="strengths-grid">
+                <div class="card strength-card">
+                    <div class="strength-header">
+                        <span class="strength-number">1</span>
+                        <h3 class="strength-name">Strategic</h3>
+                    </div>
+                    <p class="strength-desc">You create alternative ways to proceed. Faced with any given scenario, you can quickly spot the relevant patterns and issues to architect efficient solutions.</p>
+                </div>
+
+                <div class="card strength-card">
+                    <div class="strength-header">
+                        <span class="strength-number">2</span>
+                        <h3 class="strength-name">Competition</h3>
+                    </div>
+                    <p class="strength-desc">You are driven by a desire to reach high standards. You measure progress by benchmarking against top performance, constantly striving to elevate quality.</p>
+                </div>
+
+                <div class="card strength-card">
+                    <div class="strength-header">
+                        <span class="strength-number">3</span>
+                        <h3 class="strength-name">Achiever</h3>
+                    </div>
+                    <p class="strength-desc">You work hard and possess a great deal of stamina. You take immense satisfaction in being busy, productive, and delivering high-quality results.</p>
+                </div>
+
+                <div class="card strength-card">
+                    <div class="strength-header">
+                        <span class="strength-number">4</span>
+                        <h3 class="strength-name">Learner</h3>
+                    </div>
+                    <p class="strength-desc">You have a great desire to learn and want to continuously improve. The process of mastering new tech stacks and systems, rather than just the outcome, excites you.</p>
+                </div>
+
+                <div class="card strength-card">
+                    <div class="strength-header">
+                        <span class="strength-number">5</span>
+                        <h3 class="strength-name">Focus</h3>
+                    </div>
+                    <p class="strength-desc">You can take a direction, follow through and make the corrections necessary to stay on track. You prioritize effectively, then act deliberately.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Technical Expertise -->
         <section id="skills" class="container">
-            <h2 class="section-title">Technical Expertise</h2>
+            <div class="section-header">
+                <span class="section-eyebrow">Interactive Stack Matrix</span>
+                <h2 class="section-title">Technical Expertise</h2>
+                <p class="section-subtitle">
+                    Select any technology below to highlight the projects and roles where it was applied in production.
+                </p>
+            </div>
+
+            <div id="skills-filter-status" class="skills-filter-status" aria-live="polite">
+                <span id="skills-filter-label">Highlighting matches</span>
+                <button type="button" id="clear-skill-filter" class="btn btn-secondary btn-sm">Clear Selection</button>
+            </div>
+
             <div class="skills-wrapper">
-                <div class="skill-group card">
+                <div class="card skill-group">
                     <h3>Languages</h3>
-                    <p>Python, C++, Java, Swift, Scala, SQL</p>
+                    <div class="skill-pills-wrap">
+                        <button type="button" class="skill-pill" data-skill="python">Python</button>
+                        <button type="button" class="skill-pill" data-skill="c++">C++</button>
+                        <button type="button" class="skill-pill" data-skill="java">Java</button>
+                        <button type="button" class="skill-pill" data-skill="swift">Swift / SwiftUI</button>
+                        <button type="button" class="skill-pill" data-skill="scala">Scala</button>
+                        <button type="button" class="skill-pill" data-skill="sql">SQL</button>
+                    </div>
                 </div>
-                <div class="skill-group card">
-                    <h3>Infrastructure</h3>
-                    <p>AWS, Docker, Kubernetes, Terraform</p>
+
+                <div class="card skill-group">
+                    <h3>Cloud &amp; Infrastructure</h3>
+                    <div class="skill-pills-wrap">
+                        <button type="button" class="skill-pill" data-skill="aws">AWS (Lambda, DynamoDB, S3)</button>
+                        <button type="button" class="skill-pill" data-skill="docker">Docker</button>
+                        <button type="button" class="skill-pill" data-skill="kubernetes">Kubernetes</button>
+                        <button type="button" class="skill-pill" data-skill="terraform">Terraform</button>
+                    </div>
                 </div>
-                <div class="skill-group card">
-                    <h3>Data &amp; ML</h3>
-                    <p>PostgreSQL, MySQL, Supabase, PyTorch, TensorFlow</p>
+
+                <div class="card skill-group">
+                    <h3>Data, ML &amp; Edge AI</h3>
+                    <div class="skill-pills-wrap">
+                        <button type="button" class="skill-pill" data-skill="postgresql">PostgreSQL</button>
+                        <button type="button" class="skill-pill" data-skill="pytorch">PyTorch / TensorRT</button>
+                        <button type="button" class="skill-pill" data-skill="streamlit">Streamlit</button>
+                        <button type="button" class="skill-pill" data-skill="firebase">Firebase &amp; Supabase</button>
+                    </div>
+                </div>
+
+                <div class="card skill-group">
+                    <h3>Finance &amp; Quantitative Systems</h3>
+                    <div class="skill-pills-wrap">
+                        <button type="button" class="skill-pill" data-skill="finance">Portfolio Management ($3M)</button>
+                        <button type="button" class="skill-pill" data-skill="quant">Quantitative Backtesting</button>
+                        <button type="button" class="skill-pill" data-skill="operations">Logistics &amp; Operations</button>
+                    </div>
                 </div>
             </div>
         </section>
     </main>
 
+    <!-- Footer -->
     <footer class="container">
-        <div class="footer-content card">
+        <div class="card footer-content">
             <h2>Let's build something special.</h2>
             <p class="footer-subtitle">Open to opportunities in tech, data, and finance.</p>
-            <p class="footer-detail">Colorado or remote. Ready to contribute to high-ownership engineering or business
-                teams.</p>
+            <p class="footer-detail">Colorado or remote &bull; Open to all U.S. locations &bull; High-ownership engineering &amp; business teams.</p>
             <div class="footer-actions">
                 <a href="mailto:hello@mitchellandrade.com" class="btn btn-primary">Email Me</a>
-                <a href="https://www.linkedin.com/in/mitchandrade/" class="btn btn-secondary"
-                    target="_blank">LinkedIn</a>
-                <a href="https://github.com/mitchandrade8" class="btn btn-secondary" target="_blank">GitHub</a>
-                <button type="button" class="btn btn-secondary share-btn js-share-portfolio">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
-                        stroke-linecap="round" stroke-linejoin="round" style="vertical-align: -2px; margin-right: 6px;">
+                <a href="https://www.linkedin.com/in/mitchandrade/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">LinkedIn</a>
+                <a href="https://github.com/mitchandrade8" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">GitHub</a>
+                <a href="resume.html" class="btn btn-secondary">Interactive Resume</a>
+                <button type="button" class="btn btn-ghost js-share-portfolio">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
                         <polyline points="16 6 12 2 8 6"></polyline>
                         <line x1="12" y1="2" x2="12" y2="15"></line>
@@ -809,73 +1241,95 @@
                     <span class="js-share-label">Share Portfolio</span>
                 </button>
             </div>
-            <p class="copyright">© 2026 Mitchell Andrade.</p>
+            <p class="copyright">&copy; 2026 Mitchell Andrade.</p>
         </div>
     </footer>
 
-    <!-- AI Chat Widget (Wrapped Bottom Pills + Interactive Drag Sheet) -->
+    <!-- Full-Screen Image Lightbox Modal -->
+    <div id="lightbox-modal" class="lightbox-modal hidden" role="dialog" aria-modal="true" aria-labelledby="lightbox-title">
+        <div class="lightbox-dialog">
+            <div class="lightbox-topbar">
+                <div class="lightbox-meta">
+                    <span id="lightbox-title" class="badge">Project Artifact</span>
+                    <span id="lightbox-counter" class="lightbox-counter">1 / 1</span>
+                </div>
+                <button type="button" id="lightbox-close" class="lightbox-close" aria-label="Close image preview">&times;</button>
+            </div>
+            <div class="lightbox-stage">
+                <img id="lightbox-img" src="" alt="">
+            </div>
+            <div class="lightbox-footer">
+                <div id="lightbox-caption" class="lightbox-caption">Caption</div>
+                <div class="lightbox-nav">
+                    <button type="button" id="lightbox-prev" class="btn btn-secondary btn-sm" aria-label="Previous image">&larr; Prev</button>
+                    <button type="button" id="lightbox-next" class="btn btn-secondary btn-sm" aria-label="Next image">Next &rarr;</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Chat Widget -->
     <div class="chat-widget-container">
-        <!-- Chat Button -->
-        <button id="chat-widget-toggle" class="chat-widget-button" aria-label="Open Chat">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round">
+        <button id="chat-widget-toggle" class="chat-widget-button" type="button" aria-label="Open Chat">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
             </svg>
         </button>
 
-        <!-- Chat Window -->
-        <div id="chat-widget-window" class="chat-window hidden">
+        <div id="chat-widget-window" class="chat-window hidden" role="dialog" aria-label="Mitchell's Assistant Chat">
             <div class="chat-sheet-handle" role="button" tabindex="0" aria-label="Drag or tap to resize chat"></div>
             <div class="chat-header">
                 <div class="chat-header-info">
                     <div class="chat-avatar">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="white" stroke="none">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="white" stroke="none" aria-hidden="true">
                             <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"></path>
                         </svg>
                     </div>
-                    <span class="chat-title">Mitchell’s Assistant</span>
+                    <div class="chat-title-wrap">
+                        <span class="chat-title">Mitchell&rsquo;s Assistant</span>
+                        <span id="chat-mode-badge" class="chat-subtitle">AWS Lambda &bull; Claude API</span>
+                    </div>
                 </div>
                 <div class="chat-header-actions">
-                    <button type="button" id="chat-widget-expand" class="chat-icon-btn"
-                        aria-label="Expand or minimize chat" title="Expand / Minimize">
-                        <svg id="chat-expand-icon" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <button id="chat-widget-expand" class="chat-icon-btn" type="button" aria-label="Expand or minimize chat">
+                        <svg id="chat-expand-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                             <polyline points="15 3 21 3 21 9"></polyline>
                             <polyline points="9 21 3 21 3 15"></polyline>
                             <line x1="21" y1="3" x2="14" y2="10"></line>
                             <line x1="3" y1="21" x2="10" y2="14"></line>
                         </svg>
                     </button>
-                    <button type="button" id="chat-widget-close" class="chat-close-btn" aria-label="Close chat"
-                        title="Close &amp; Clear">&times;</button>
+                    <button id="chat-widget-close" class="chat-close-btn" type="button" aria-label="Close chat">&times;</button>
                 </div>
             </div>
 
             <div id="chat-messages" class="chat-messages">
                 <div class="message ai-message">
-                    Hi! I can answer questions about Mitchell’s projects, skills, and availability.
+                    Hi! I can answer questions about Mitchell&rsquo;s projects, finance background, skills, and availability.
                 </div>
             </div>
 
-            <!-- Wrapped Pill Bar Pinned Above Input -->
             <div id="chat-suggestions" class="chat-suggestions-bar">
-                <button type="button" class="suggestion-pill" data-prompt="What has Mitchell built?">What has Mitchell
-                    built?</button>
-                <button type="button" class="suggestion-pill" data-prompt="Is he available for work?">Is he available
-                    for work?</button>
-                <button type="button" class="suggestion-pill" data-prompt="How is this chat kept affordable?">How is
-                    this chat kept affordable?</button>
+                <button type="button" class="suggestion-pill" data-prompt="What has Mitchell built?">What has Mitchell built?</button>
+                <button type="button" class="suggestion-pill" data-prompt="Tell me about his finance and $3M portfolio experience.">Finance &amp; $3M portfolio</button>
+                <button type="button" class="suggestion-pill" data-prompt="How is this chat kept affordable?">How is this chat kept affordable?</button>
+                <button type="button" class="suggestion-pill" data-prompt="Is he available for work?">Availability &amp; roles</button>
             </div>
 
-            <div class="chat-input-area">
-                <input type="text" id="chat-input" placeholder="Ask Mitch's assistant..." autocomplete="off">
-                <button type="button" id="chat-send-btn" class="chat-send-btn" aria-label="Send message">
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="22" y1="2" x2="11" y2="13"></line>
-                        <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-                    </svg>
-                </button>
+            <div class="chat-input-wrapper">
+                <div class="chat-input-area">
+                    <input type="text" id="chat-input" maxlength="500" placeholder="Ask Mitch's assistant..." aria-label="Ask Mitch's assistant">
+                    <button id="chat-send-btn" class="chat-send-btn" type="button" aria-label="Send message">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        </svg>
+                    </button>
+                </div>
+                <div class="chat-input-meta">
+                    <span>20 req/IP/day guardrail</span>
+                    <span id="chat-char-count">0 / 500</span>
+                </div>
             </div>
         </div>
     </div>

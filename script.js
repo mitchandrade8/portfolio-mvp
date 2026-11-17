@@ -1,53 +1,61 @@
 document.addEventListener('DOMContentLoaded', () => {
     // ==========================================
-    // 1. Navigation Active State Logic
+    // 1. Dark / Light Theme Toggle
     // ==========================================
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav-links a');
-
-    function removeActiveClasses() {
-        navLinks.forEach(link => link.classList.remove('active'));
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    if (themeToggleBtn) {
+        themeToggleBtn.addEventListener('click', () => {
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            const nextTheme = isDark ? 'light' : 'dark';
+            if (nextTheme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            } else {
+                document.documentElement.removeAttribute('data-theme');
+            }
+            try {
+                localStorage.setItem('ma-theme', nextTheme);
+            } catch (e) {}
+        });
     }
 
-    navLinks.forEach(link => {
-        link.addEventListener('click', function () {
-            if (this.getAttribute('href').startsWith('#')) {
-                removeActiveClasses();
-                this.classList.add('active');
-            }
+    // ==========================================
+    // 2. Navigation Scroll-Spy
+    // ==========================================
+    const sections = document.querySelectorAll('main section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+
+    if (sections.length > 0 && navLinks.length > 0) {
+        const setActiveNav = (id) => {
+            navLinks.forEach((link) => {
+                link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+            });
+        };
+
+        navLinks.forEach((link) => {
+            link.addEventListener('click', () => {
+                const targetId = link.getAttribute('href').slice(1);
+                setActiveNav(targetId);
+            });
         });
-    });
 
-    const observerOptions = {
-        root: null,
-        rootMargin: '-30% 0px -70% 0px',
-        threshold: 0
-    };
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        setActiveNav(entry.target.getAttribute('id'));
+                    }
+                });
+            },
+            { root: null, rootMargin: '-28% 0px -65% 0px', threshold: 0 }
+        );
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const currentId = entry.target.getAttribute('id');
-                const activeLink = document.querySelector(`.nav-links a[href="#${currentId}"]`);
-
-                if (activeLink) {
-                    removeActiveClasses();
-                    activeLink.classList.add('active');
-                }
-            }
-        });
-    }, observerOptions);
-
-    sections.forEach(section => {
-        observer.observe(section);
-    });
+        sections.forEach((section) => observer.observe(section));
+    }
 
     // ==========================================
-    // 2. Clean Share Portfolio Logic (URL Only — Rich Preview Card in Messages)
+    // 3. Share Portfolio Logic
     // ==========================================
-    const shareButtons = document.querySelectorAll('.js-share-portfolio');
-
-    shareButtons.forEach((btn) => {
+    document.querySelectorAll('.js-share-portfolio').forEach((btn) => {
         btn.addEventListener('click', async () => {
             const label = btn.querySelector('.js-share-label');
             const shareData = {
@@ -58,27 +66,346 @@ document.addEventListener('DOMContentLoaded', () => {
             if (navigator.share) {
                 try {
                     await navigator.share(shareData);
-                } catch (err) {
-                    // User canceled native share sheet
+                    return;
+                } catch (err) {}
+            }
+
+            try {
+                await navigator.clipboard.writeText(shareData.url);
+                if (label) {
+                    label.textContent = 'Link Copied!';
+                    setTimeout(() => {
+                        label.textContent = 'Share Portfolio';
+                    }, 2200);
                 }
-            } else {
-                try {
-                    await navigator.clipboard.writeText(shareData.url);
-                    if (label) {
-                        label.textContent = 'Link Copied!';
-                        setTimeout(() => {
-                            label.textContent = 'Share Portfolio';
-                        }, 2200);
-                    }
-                } catch (err) {
-                    window.prompt('Copy portfolio link:', shareData.url);
-                }
+            } catch (err) {
+                window.prompt('Copy portfolio link:', shareData.url);
             }
         });
     });
 
     // ==========================================
-    // 3. AI Chat Widget Logic (Minimize/Expand + Touch Drag + Auto-Clear)
+    // 4. Collapsible Build Drawers & Project Filters
+    // ==========================================
+    const setDrawerState = (toggleBtn, open) => {
+        if (!toggleBtn) return;
+        const drawerId = toggleBtn.getAttribute('aria-controls');
+        const drawer = drawerId ? document.getElementById(drawerId) : null;
+        if (!drawer) return;
+
+        toggleBtn.setAttribute('aria-expanded', String(open));
+        drawer.classList.toggle('open', open);
+    };
+
+    const drawerToggles = document.querySelectorAll('.drawer-toggle-btn');
+    drawerToggles.forEach((btn) => {
+        btn.addEventListener('click', () => {
+            const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+            setDrawerState(btn, !isExpanded);
+        });
+    });
+
+    const toggleAllBtn = document.getElementById('toggle-all-phases');
+    if (toggleAllBtn && drawerToggles.length > 0) {
+        let allExpanded = false;
+        toggleAllBtn.addEventListener('click', () => {
+            allExpanded = !allExpanded;
+            drawerToggles.forEach((btn) => setDrawerState(btn, allExpanded));
+            toggleAllBtn.textContent = allExpanded ? 'Compact View (Collapse Logs)' : 'Expand All Build Logs';
+        });
+    }
+
+    // Auto-expand project drawer when jumped to from "What's running right now"
+    document.querySelectorAll('[data-jump-project]').forEach((row) => {
+        row.addEventListener('click', () => {
+            const projectId = row.getAttribute('data-jump-project');
+            const card = document.getElementById(projectId);
+            if (!card) return;
+            const toggleBtn = card.querySelector('.drawer-toggle-btn');
+            setDrawerState(toggleBtn, true);
+        });
+    });
+
+    // Project Category Filtering
+    const filterPills = document.querySelectorAll('.filter-pill');
+    const filterableCards = document.querySelectorAll('[data-category]');
+
+    filterPills.forEach((pill) => {
+        pill.addEventListener('click', () => {
+            const selected = pill.getAttribute('data-filter');
+            filterPills.forEach((p) => p.classList.toggle('active', p === pill));
+
+            filterableCards.forEach((card) => {
+                const match = selected === 'all' || card.getAttribute('data-category') === selected;
+                card.classList.toggle('is-hidden-filter', !match);
+            });
+        });
+    });
+
+    // ==========================================
+    // 5. Architecture Unit Economics Simulator
+    // ==========================================
+    const simTabBtns = document.querySelectorAll('.sim-tab-btn[data-sim-target]');
+    const switchSimTab = (targetName) => {
+        simTabBtns.forEach((btn) => {
+            const active = btn.getAttribute('data-sim-target') === targetName;
+            btn.classList.toggle('active', active);
+            btn.setAttribute('aria-selected', String(active));
+        });
+        document.querySelectorAll('.sim-panel').forEach((panel) => {
+            panel.classList.toggle('active', panel.id === `sim-panel-${targetName}`);
+        });
+    };
+
+    simTabBtns.forEach((btn) => {
+        btn.addEventListener('click', () => switchSimTab(btn.getAttribute('data-sim-target')));
+    });
+
+    document.querySelectorAll('.js-open-sim').forEach((link) => {
+        link.addEventListener('click', () => {
+            const tab = link.getAttribute('data-sim-tab');
+            if (tab) switchSimTab(tab);
+        });
+    });
+
+    // LockedIn Sliders
+    const courtsInput = document.getElementById('sim-courts');
+    const hoursInput = document.getElementById('sim-hours');
+    const updateLockedInSim = () => {
+        if (!courtsInput || !hoursInput) return;
+        const courts = Number(courtsInput.value);
+        const hours = Number(hoursInput.value);
+
+        const gbPerHr = 4.5;
+        const costPerGb = 0.095;
+        const naiveGb = Math.round(courts * hours * 30 * gbPerHr);
+        const edgeGb = Math.round(naiveGb * 0.5);
+        const naiveCost = Math.round(naiveGb * costPerGb);
+        const edgeCost = Math.round(edgeGb * costPerGb);
+        const monthlySave = naiveCost - edgeCost;
+        const annualSave = monthlySave * 12;
+
+        document.getElementById('sim-courts-val').textContent = `${courts} ${courts === 1 ? 'court' : 'courts'}`;
+        document.getElementById('sim-hours-val').textContent = `${hours} ${hours === 1 ? 'hr/day' : 'hrs/day'}`;
+        document.getElementById('out-naive-gb').textContent = `${naiveGb.toLocaleString()} GB`;
+        document.getElementById('out-edge-gb').textContent = `${edgeGb.toLocaleString()} GB`;
+        document.getElementById('out-monthly-save').textContent = `$${monthlySave.toLocaleString()} / mo`;
+        document.getElementById('out-annual-save').textContent = `$${annualSave.toLocaleString()} / yr`;
+        document.getElementById('out-naive-cost').textContent = `$${naiveCost.toLocaleString()} / mo`;
+        document.getElementById('out-edge-cost').textContent = `$${edgeCost.toLocaleString()} / mo`;
+    };
+
+    if (courtsInput && hoursInput) {
+        courtsInput.addEventListener('input', updateLockedInSim);
+        hoursInput.addEventListener('input', updateLockedInSim);
+        updateLockedInSim();
+    }
+
+    // AI Agent Cost Guardrail Sliders
+    const visitorsInput = document.getElementById('sim-visitors');
+    const reqsInput = document.getElementById('sim-reqs');
+    const updateAgentSim = () => {
+        if (!visitorsInput || !reqsInput) return;
+        const visitors = Number(visitorsInput.value);
+        const reqs = Number(reqsInput.value);
+
+        const monthlyReqs = visitors * reqs * 30;
+        const costPerReq = 0.0022;
+        const safeCost = monthlyReqs * costPerReq;
+        // Unguarded endpoint assumes larger uncapped completions + 200 req/IP scraping bursts
+        const riskCost = Math.max(safeCost * 4, visitors * 30 * 200 * 0.0011);
+        const safePct = Math.min(100, Math.max(4, Math.round((safeCost / riskCost) * 100)));
+
+        document.getElementById('sim-visitors-val').textContent = `${visitors.toLocaleString()} / day`;
+        document.getElementById('sim-reqs-val').textContent = `${reqs} ${reqs === 1 ? 'req' : 'reqs'}`;
+        document.getElementById('out-agent-reqs').textContent = monthlyReqs.toLocaleString();
+        document.getElementById('out-agent-safe').textContent = `$${safeCost.toFixed(2)} / mo`;
+        document.getElementById('out-agent-risk').textContent = `$${Math.round(riskCost).toLocaleString()}+ / mo`;
+        document.getElementById('out-agent-risk-bar').textContent = `$${Math.round(riskCost).toLocaleString()} / mo`;
+        document.getElementById('out-agent-safe-bar').textContent = `$${safeCost.toFixed(2)} / mo`;
+        document.getElementById('bar-agent-safe').style.width = `${safePct}%`;
+    };
+
+    if (visitorsInput && reqsInput) {
+        visitorsInput.addEventListener('input', updateAgentSim);
+        reqsInput.addEventListener('input', updateAgentSim);
+        updateAgentSim();
+    }
+
+    // ==========================================
+    // 6. Interactive Technical Expertise Filter
+    // ==========================================
+    const skillPills = document.querySelectorAll('.skill-pill');
+    const skillTargets = document.querySelectorAll('[data-skills]');
+    const skillStatusBanner = document.getElementById('skills-filter-status');
+    const skillStatusLabel = document.getElementById('skills-filter-label');
+    const clearSkillBtn = document.getElementById('clear-skill-filter');
+    let activeSkill = null;
+
+    const applySkillHighlight = (skillKey, pillLabel) => {
+        activeSkill = skillKey;
+        skillPills.forEach((p) => {
+            p.classList.toggle('active', skillKey !== null && p.getAttribute('data-skill') === skillKey);
+        });
+
+        if (!skillKey) {
+            skillTargets.forEach((el) => {
+                el.classList.remove('skill-matched', 'skill-dimmed');
+            });
+            if (skillStatusBanner) skillStatusBanner.classList.remove('visible');
+            return;
+        }
+
+        let matchCount = 0;
+        skillTargets.forEach((el) => {
+            const tokens = (el.getAttribute('data-skills') || '').split(/\s+/);
+            const matched = tokens.includes(skillKey);
+            el.classList.toggle('skill-matched', matched);
+            el.classList.toggle('skill-dimmed', !matched);
+            if (matched) matchCount += 1;
+        });
+
+        if (skillStatusBanner && skillStatusLabel) {
+            skillStatusLabel.textContent = `Highlighted ${matchCount} matching ${matchCount === 1 ? 'item' : 'items'} in Experience & Projects for "${pillLabel}"`;
+            skillStatusBanner.classList.add('visible');
+        }
+    };
+
+    skillPills.forEach((pill) => {
+        pill.addEventListener('click', () => {
+            const key = pill.getAttribute('data-skill');
+            if (activeSkill === key) {
+                applySkillHighlight(null, '');
+            } else {
+                applySkillHighlight(key, pill.textContent.trim());
+            }
+        });
+    });
+
+    if (clearSkillBtn) {
+        clearSkillBtn.addEventListener('click', () => applySkillHighlight(null, ''));
+    }
+
+    // ==========================================
+    // 7. Full-Screen Image Lightbox Modal
+    // ==========================================
+    const lightboxModal = document.getElementById('lightbox-modal');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxTitle = document.getElementById('lightbox-title');
+    const lightboxCaption = document.getElementById('lightbox-caption');
+    const lightboxCounter = document.getElementById('lightbox-counter');
+    const lightboxClose = document.getElementById('lightbox-close');
+    const lightboxPrev = document.getElementById('lightbox-prev');
+    const lightboxNext = document.getElementById('lightbox-next');
+
+    let currentGroupItems = [];
+    let currentIndex = 0;
+
+    const renderLightboxItem = () => {
+        const trigger = currentGroupItems[currentIndex];
+        if (!trigger || !lightboxImg) return;
+        const src = trigger.getAttribute('data-lightbox-src');
+        const title = trigger.getAttribute('data-lightbox-title') || 'Artifact Preview';
+        const caption = trigger.getAttribute('data-lightbox-caption') || '';
+
+        lightboxImg.src = src;
+        lightboxImg.alt = caption;
+        lightboxTitle.textContent = title;
+        lightboxCaption.textContent = caption;
+        lightboxCounter.textContent = `${currentIndex + 1} / ${currentGroupItems.length}`;
+    };
+
+    const closeLightbox = () => {
+        if (!lightboxModal) return;
+        lightboxModal.classList.add('hidden');
+        document.body.style.overflow = '';
+    };
+
+    if (lightboxModal) {
+        const triggers = Array.from(document.querySelectorAll('[data-lightbox-src]'));
+        triggers.forEach((btn) => {
+            btn.addEventListener('click', () => {
+                const group = btn.getAttribute('data-lightbox-group');
+                currentGroupItems = group
+                    ? triggers.filter((item) => item.getAttribute('data-lightbox-group') === group)
+                    : [btn];
+                currentIndex = Math.max(0, currentGroupItems.indexOf(btn));
+                renderLightboxItem();
+                lightboxModal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        lightboxClose.addEventListener('click', closeLightbox);
+        lightboxPrev.addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + currentGroupItems.length) % currentGroupItems.length;
+            renderLightboxItem();
+        });
+        lightboxNext.addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % currentGroupItems.length;
+            renderLightboxItem();
+        });
+
+        lightboxModal.addEventListener('click', (e) => {
+            if (e.target === lightboxModal) closeLightbox();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (lightboxModal.classList.contains('hidden')) return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') lightboxPrev.click();
+            if (e.key === 'ArrowRight') lightboxNext.click();
+        });
+    }
+
+    // ==========================================
+    // 8. Resume Page Controls (HTML vs PDF Mode)
+    // ==========================================
+    const btnModeHtml = document.getElementById('btn-mode-html');
+    const btnModePdf = document.getElementById('btn-mode-pdf');
+    const resumeHtmlView = document.getElementById('resume-html-view');
+    const resumePdfView = document.getElementById('resume-pdf-view');
+    const copyEmailBtn = document.getElementById('copy-email-btn');
+    const printResumeBtn = document.getElementById('print-resume-btn');
+
+    if (btnModeHtml && btnModePdf && resumeHtmlView && resumePdfView) {
+        btnModeHtml.addEventListener('click', () => {
+            btnModeHtml.classList.add('active');
+            btnModePdf.classList.remove('active');
+            btnModeHtml.setAttribute('aria-selected', 'true');
+            btnModePdf.setAttribute('aria-selected', 'false');
+            resumeHtmlView.classList.remove('hidden-mode');
+            resumePdfView.classList.remove('active');
+        });
+
+        btnModePdf.addEventListener('click', () => {
+            btnModePdf.classList.add('active');
+            btnModeHtml.classList.remove('active');
+            btnModePdf.setAttribute('aria-selected', 'true');
+            btnModeHtml.setAttribute('aria-selected', 'false');
+            resumeHtmlView.classList.add('hidden-mode');
+            resumePdfView.classList.add('active');
+        });
+    }
+
+    if (copyEmailBtn) {
+        copyEmailBtn.addEventListener('click', async () => {
+            try {
+                await navigator.clipboard.writeText('hello@mitchellandrade.com');
+                copyEmailBtn.textContent = 'Copied Email!';
+                setTimeout(() => {
+                    copyEmailBtn.textContent = 'Copy Email';
+                }, 2000);
+            } catch (e) {}
+        });
+    }
+
+    if (printResumeBtn) {
+        printResumeBtn.addEventListener('click', () => window.print());
+    }
+
+    // ==========================================
+    // 9. AI Chat Widget (+ Localhost Fallback)
     // ==========================================
     const chatToggleBtn = document.getElementById('chat-widget-toggle');
     const chatWindow = document.getElementById('chat-widget-window');
@@ -91,13 +418,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const chatSendBtn = document.getElementById('chat-send-btn');
     const chatMessages = document.getElementById('chat-messages');
     const suggestionsBar = document.getElementById('chat-suggestions');
+    const charCountEl = document.getElementById('chat-char-count');
+    const modeBadgeEl = document.getElementById('chat-mode-badge');
 
-    // The Live AWS Lambda Endpoint
-    const AGENT_URL = "https://qk2fyfnjaaecnydulxasuo3fdi0rfalk.lambda-url.us-east-1.on.aws/";
+    if (!chatToggleBtn || !chatWindow) return;
 
+    const AGENT_URL = 'https://qk2fyfnjaaecnydulxasuo3fdi0rfalk.lambda-url.us-east-1.on.aws/';
     const INITIAL_MESSAGE_HTML = `
         <div class="message ai-message">
-            Hi! I can answer questions about Mitchell’s projects, skills, and availability.
+            Hi! I can answer questions about Mitchell&rsquo;s projects, finance background, skills, and availability.
         </div>
     `;
 
@@ -117,7 +446,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let isSending = false;
 
-    function setExpandedState(expanded) {
+    const updateCharCount = () => {
+        if (charCountEl && chatInput) {
+            charCountEl.textContent = `${chatInput.value.length} / 500`;
+        }
+    };
+
+    if (chatInput) {
+        chatInput.addEventListener('input', updateCharCount);
+    }
+
+    const scrollToBottom = () => {
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    };
+
+    const setExpandedState = (expanded) => {
         chatWindow.style.height = '';
         chatWindow.style.maxHeight = '';
         chatWindow.classList.toggle('expanded', expanded);
@@ -125,114 +468,95 @@ document.addEventListener('DOMContentLoaded', () => {
             chatExpandIcon.innerHTML = expanded ? MINIMIZE_SVG : EXPAND_SVG;
         }
         scrollToBottom();
-    }
+    };
 
-    function toggleExpandState() {
+    const toggleExpandState = () => {
         setExpandedState(!chatWindow.classList.contains('expanded'));
-    }
+    };
 
     if (chatExpandBtn) {
         chatExpandBtn.addEventListener('click', toggleExpandState);
     }
 
-    if (chatSheetHandle) {
-        chatSheetHandle.addEventListener('click', () => {
-            if (!wasDragged) {
-                toggleExpandState();
-            }
-        });
-    }
-
-    function resetChat() {
+    const resetChat = () => {
         chatMessages.innerHTML = INITIAL_MESSAGE_HTML;
-        if (suggestionsBar) {
-            suggestionsBar.style.display = 'flex';
-        }
+        if (suggestionsBar) suggestionsBar.style.display = 'flex';
         chatWindow.classList.remove('expanded', 'dragging');
         chatWindow.style.height = '';
         chatWindow.style.maxHeight = '';
-        if (chatExpandIcon) {
-            chatExpandIcon.innerHTML = EXPAND_SVG;
-        }
+        if (chatExpandIcon) chatExpandIcon.innerHTML = EXPAND_SVG;
         chatInput.value = '';
+        updateCharCount();
         isSending = false;
         chatSendBtn.disabled = false;
-    }
+    };
 
-    // Open/Close Chat (clears chat when toggled closed)
+    const openChatWindow = () => {
+        chatWindow.style.height = '';
+        chatWindow.style.maxHeight = '';
+        chatWindow.classList.remove('hidden');
+        chatInput.focus();
+    };
+
     chatToggleBtn.addEventListener('click', () => {
-        const isCurrentlyHidden = chatWindow.classList.contains('hidden');
-        if (isCurrentlyHidden) {
-            chatWindow.style.height = '';
-            chatWindow.style.maxHeight = '';
-            chatWindow.classList.remove('hidden');
-            chatInput.focus();
+        if (chatWindow.classList.contains('hidden')) {
+            openChatWindow();
         } else {
             chatWindow.classList.add('hidden');
             resetChat();
         }
     });
 
-    // Exit button closes and resets chat
     chatCloseBtn.addEventListener('click', () => {
         chatWindow.classList.add('hidden');
         resetChat();
     });
 
-    // ==========================================
-    // 4. Mobile Bottom-Sheet Touch Drag & Swipe Gestures
-    // ==========================================
+    document.querySelectorAll('.js-open-chat').forEach((btn) => {
+        btn.addEventListener('click', openChatWindow);
+    });
+
+    // Touch drag for mobile bottom sheet
     let dragStartY = 0;
     let dragStartHeight = 0;
     let dragDeltaY = 0;
     let isDraggingSheet = false;
     let wasDragged = false;
 
-    function handleSheetTouchStart(e) {
+    const handleSheetTouchStart = (e) => {
         if (window.innerWidth > 768) return;
         if (e.target.closest('button')) return;
-
         isDraggingSheet = true;
         wasDragged = false;
         dragStartY = e.touches[0].clientY;
         dragStartHeight = chatWindow.getBoundingClientRect().height;
         dragDeltaY = 0;
         chatWindow.classList.add('dragging');
-    }
+    };
 
-    function handleSheetTouchMove(e) {
+    const handleSheetTouchMove = (e) => {
         if (!isDraggingSheet) return;
         e.preventDefault();
-
         dragDeltaY = e.touches[0].clientY - dragStartY;
-        if (Math.abs(dragDeltaY) >= 10) {
-            wasDragged = true;
-        }
-
+        if (Math.abs(dragDeltaY) >= 10) wasDragged = true;
         const minHeight = window.innerHeight * 0.25;
-        const maxHeight = window.innerHeight * 0.94;
+        const maxHeight = window.innerHeight * 0.92;
         const nextHeight = Math.min(maxHeight, Math.max(minHeight, dragStartHeight - dragDeltaY));
-
         chatWindow.style.height = `${nextHeight}px`;
         chatWindow.style.maxHeight = `${nextHeight}px`;
-    }
+    };
 
-    function handleSheetTouchEnd() {
+    const handleSheetTouchEnd = () => {
         if (!isDraggingSheet) return;
         isDraggingSheet = false;
         chatWindow.classList.remove('dragging');
-
-        // Tap (no drag distance) toggles expand/shrink cleanly
         if (!wasDragged) {
             toggleExpandState();
             return;
         }
-
-        // Swipe up -> expand to 94vh
         if (dragDeltaY < -45) {
             setExpandedState(true);
         } else if (dragDeltaY > 45) {
-            // Swipe down -> shrink to 60vh if expanded, or close & reset if already compact
             if (chatWindow.classList.contains('expanded')) {
                 setExpandedState(false);
             } else if (dragDeltaY > 110) {
@@ -242,10 +566,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 setExpandedState(false);
             }
         } else {
-            // Snap back to current state if release threshold wasn't crossed
             setExpandedState(chatWindow.classList.contains('expanded'));
         }
-    }
+    };
 
     [chatSheetHandle, chatHeader].forEach((el) => {
         if (!el) return;
@@ -254,85 +577,100 @@ document.addEventListener('DOMContentLoaded', () => {
         el.addEventListener('touchend', handleSheetTouchEnd);
     });
 
-    // Handle sending message (supports both typed input and suggestion pills)
-    async function sendMessage(overrideText = null) {
-        if (isSending) return;
+    // Local preview fallback grounded strictly in Mitchell's verified portfolio & resume data
+    const getLocalPreviewAnswer = (query) => {
+        const q = query.toLowerCase();
+        if (q.includes('finance') || q.includes('portfolio') || q.includes('$3m') || q.includes('saff') || q.includes('quant')) {
+            return 'Mitchell holds a B.S. in Business Administration (Finance) from the University of Northern Colorado (Jul 2023) alongside his B.S. in Computer Science at CU Boulder.\n\nAt SAFF (2019–2020), he served as Portfolio Manager for a $3M equity portfolio—executing buy/sell orders and financial metric analysis. As an Independent Systems Engineer (2024–Present), he also builds C++/Python quantitative backtesting engines and PostgreSQL/Streamlit market data pipelines.';
+        }
+        if (q.includes('affordable') || q.includes('cost') || q.includes('guardrail') || q.includes('dynamodb') || q.includes('lambda')) {
+            return 'This assistant runs on a zero-dependency Python AWS Lambda calling the Claude API. Cost is hard-capped via:\n• Atomic per-IP daily rate limits in DynamoDB (20 requests/IP/day)\n• Strict 500-character input caps & 400-token output ceilings\n• Origin-locked CORS, reserved Lambda concurrency, and CloudWatch telemetry.';
+        }
+        if (q.includes('available') || q.includes('work') || q.includes('role') || q.includes('location') || q.includes('hire') || q.includes('contact')) {
+            return 'Mitchell is based in Colorado and open to opportunities across all U.S. locations (on-site or remote) in software engineering, backend/cloud systems, AI, data, or FinTech.\n\nYou can reach him directly at hello@mitchellandrade.com or view his Interactive Resume on /resume.html.';
+        }
+        if (q.includes('lockedin') || q.includes('edge') || q.includes('jetson') || q.includes('basketball')) {
+            return 'LockedIn is Mitchell’s Edge-AI basketball analytics system: an NVIDIA Jetson Orin Nano (1TB NVMe) paired with dual IMX477 cameras and a Raspberry Pi 5 AMOLED interface. Local inference filters video on-court, cutting projected AWS cloud ingress by up to 50% ahead of Milestone 01 court testing.';
+        }
+        if (q.includes('built') || q.includes('project') || q.includes('match play') || q.includes('dispatch') || q.includes('real estate')) {
+            return 'Mitchell has built:\n• LockedIn — Edge-AI basketball analytics on Jetson Orin Nano + AWS pipeline\n• Serverless Portfolio AI Agent — Python AWS Lambda + DynamoDB rate-limited Claude assistant\n• Match Play — Flask, React, PostgreSQL & NumPy golf compatibility app\n• AI Agent Dispatch Prototype — FastAPI, WebSockets & OpenAI human-in-the-loop triage\n• Real Estate Analytics Dashboard — PostgreSQL warehouse & Streamlit BI';
+        }
+        if (q.includes('skill') || q.includes('cert') || q.includes('aws') || q.includes('education') || q.includes('google')) {
+            return 'Mitchell is pursuing a B.S. in Computer Science at CU Boulder (where his academic standing earned an invitation to tour Google Boulder) and holds a Finance B.S. from UNC.\n\nCore stack: Python, C++, Java, Swift/SwiftUI, Scala, SQL, AWS, Docker, Kubernetes, Terraform, PostgreSQL, and PyTorch/TensorFlow. He also has 3 AWS certifications in progress (Solutions Architect, ML Engineer, GenAI Engineer).';
+        }
+        return 'Mitchell is a backend, cloud, and AI software engineer with a Finance degree and $3M portfolio management background. Ask me about LockedIn, Match Play, his quantitative/finance experience, AWS architecture, or availability—or email him at hello@mitchellandrade.com!';
+    };
 
+    const appendMessage = (text, className) => {
+        const msgDiv = document.createElement('div');
+        msgDiv.className = `message ${className}`;
+        msgDiv.textContent = text;
+        chatMessages.appendChild(msgDiv);
+        scrollToBottom();
+    };
+
+    const showTypingIndicator = () => {
+        const typingDiv = document.createElement('div');
+        typingDiv.className = 'typing-indicator';
+        typingDiv.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
+        chatMessages.appendChild(typingDiv);
+        return typingDiv;
+    };
+
+    const sendMessage = async (overrideText = null) => {
+        if (isSending) return;
         const text = (overrideText !== null ? overrideText : chatInput.value).trim();
         if (!text) return;
 
-        // Hide bottom suggestion pills once conversation begins
-        if (suggestionsBar) {
-            suggestionsBar.style.display = 'none';
-        }
-
-        // Add user message to UI
+        if (suggestionsBar) suggestionsBar.style.display = 'none';
         appendMessage(text, 'user-message');
         if (overrideText === null) {
             chatInput.value = '';
+            updateCharCount();
         }
 
         isSending = true;
         chatSendBtn.disabled = true;
-
-        // Show typing indicator
         const typingIndicator = showTypingIndicator();
         scrollToBottom();
 
         try {
             const response = await fetch(AGENT_URL, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ message: text })
             });
-
             const data = await response.json();
             typingIndicator.remove();
 
             if (response.ok && data.response) {
                 appendMessage(data.response, 'ai-message');
             } else {
-                appendMessage(data.error || "I'm having a little trouble connecting to my servers right now. Please email Mitch directly at hello@mitchellandrade.com!", 'ai-message');
+                appendMessage(data.error || getLocalPreviewAnswer(text), 'ai-message');
             }
         } catch (error) {
-            console.error("Error communicating with AI agent:", error);
+            // Production Lambda restricts CORS to mitchellandrade.com; fallback smoothly on local demo origins
             typingIndicator.remove();
-            appendMessage("I seem to be offline right now! Please reach out to Mitch at hello@mitchellandrade.com.", 'ai-message');
+            const isLocalPreview = ['localhost', '127.0.0.1', ''].includes(window.location.hostname);
+            if (isLocalPreview) {
+                if (modeBadgeEl) {
+                    modeBadgeEl.textContent = 'Local Demo Mode (CORS Fallback)';
+                }
+                setTimeout(() => {
+                    appendMessage(getLocalPreviewAnswer(text), 'ai-message');
+                }, 220);
+            } else {
+                console.error('Error communicating with AI agent:', error);
+                appendMessage("I seem to be offline right now! Please reach out to Mitch directly at hello@mitchellandrade.com.", 'ai-message');
+            }
         } finally {
             isSending = false;
             chatSendBtn.disabled = false;
             chatInput.focus();
             scrollToBottom();
         }
-    }
+    };
 
-    function appendMessage(text, className) {
-        const msgDiv = document.createElement('div');
-        msgDiv.className = `message ${className}`;
-        msgDiv.textContent = text;
-        chatMessages.appendChild(msgDiv);
-        scrollToBottom();
-    }
-
-    function showTypingIndicator() {
-        const typingDiv = document.createElement('div');
-        typingDiv.className = 'typing-indicator';
-        typingDiv.innerHTML = `
-            <div class="typing-dot"></div>
-            <div class="typing-dot"></div>
-            <div class="typing-dot"></div>
-        `;
-        chatMessages.appendChild(typingDiv);
-        return typingDiv;
-    }
-
-    function scrollToBottom() {
-        chatMessages.scrollTop = chatMessages.scrollHeight;
-    }
-
-    // Send on click or Enter key
     chatSendBtn.addEventListener('click', () => sendMessage());
     chatInput.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') {
@@ -341,11 +679,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Suggested prompt pill clicks
     document.querySelectorAll('.suggestion-pill').forEach((pill) => {
         pill.addEventListener('click', () => {
-            const promptText = pill.getAttribute('data-prompt');
-            sendMessage(promptText);
+            sendMessage(pill.getAttribute('data-prompt'));
         });
     });
 });

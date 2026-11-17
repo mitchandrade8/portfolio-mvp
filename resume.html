@@ -5,53 +5,317 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mitchell Andrade | Master Resume</title>
+    <meta name="description" content="Master Resume of Mitchell Andrade — Software Engineer (Backend, Edge-AI, Cloud) &amp; Finance.">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://mitchellandrade.com/apple-touch-icon.png?v=2">
+    <link rel="icon" type="image/png" sizes="192x192" href="https://mitchellandrade.com/apple-touch-icon.png?v=2">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://mitchellandrade.com/apple-touch-icon.png?v=2">
+    <link rel="apple-touch-icon-precomposed" sizes="180x180" href="https://mitchellandrade.com/apple-touch-icon.png?v=2">
     <link rel="stylesheet" href="style.css">
+
+    <script>
+        (function () {
+            try {
+                const saved = localStorage.getItem('ma-theme');
+                const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                if (saved === 'dark' || (!saved && prefersDark)) {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                }
+            } catch (e) {}
+        })();
+    </script>
 </head>
 
 <body>
+    <!-- Glassmorphic Navigation -->
     <header class="glass-nav">
-        <nav class="container">
-            <div class="logo">Mitchell Andrade</div>
-            <ul class="nav-links">
-                <li><a href="index.html#about">About</a></li>
-                <li><a href="index.html#projects">Projects</a></li>
-                <li><a href="index.html#skills">Skills</a></li>
-                <li><a href="resume.html" class="active">Resume</a></li>
-            </ul>
+        <nav class="container" aria-label="Primary Navigation">
+            <a href="index.html#about" class="logo">Mitchell Andrade</a>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="index.html#experience">Experience</a></li>
+                    <li><a href="index.html#projects">Projects</a></li>
+                    <li><a href="index.html#economics">Economics</a></li>
+                    <li><a href="index.html#skills">Skills</a></li>
+                    <li><a href="resume.html" class="active">Resume</a></li>
+                </ul>
+                <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle Light / Dark Mode">
+                    <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
         </nav>
     </header>
 
-    <main style="padding-top: 120px; padding-bottom: 60px;">
+    <main class="resume-main">
         <section class="container">
-            <h1 class="section-title">Master Resume</h1>
-            <p class="bio" style="text-align: center; margin-bottom: 2rem;">
-                A comprehensive overview of my technical projects, software engineering skills, and previous finance and
-                operational experience.
-            </p>
-
-            <div class="card" style="height: 850px; padding: 0; overflow: hidden; border-radius: 12px;">
-                <!-- This iframe displays your exported PDF -->
-                <iframe src="assets/resume.pdf" width="100%" height="100%" style="border: none;"></iframe>
+            <div class="resume-hero">
+                <span class="section-eyebrow">Interactive &amp; Print-Ready</span>
+                <h1>Master Resume</h1>
+                <p class="section-subtitle">
+                    A structured, recruiter-friendly view of my technical projects, backend &amp; edge-AI engineering skills, and finance experience.
+                </p>
             </div>
 
-            <div style="text-align: center; margin-top: 2rem;">
-                <a href="assets/resume.pdf" download="Mitchell_Andrade_Resume.pdf" class="btn btn-primary">Download
-                    PDF</a>
+            <div class="resume-mode-bar">
+                <div class="sim-tabs" style="margin-bottom: 0;" role="tablist" aria-label="Resume View Mode">
+                    <button type="button" id="btn-mode-html" class="sim-tab-btn active" role="tab" aria-selected="true">
+                        Interactive HTML Resume
+                    </button>
+                    <button type="button" id="btn-mode-pdf" class="sim-tab-btn" role="tab" aria-selected="false">
+                        Switch to Original PDF Preview
+                    </button>
+                </div>
+
+                <div class="project-quick-links">
+                    <button type="button" id="copy-email-btn" class="btn btn-secondary btn-sm">Copy Email</button>
+                    <button type="button" id="print-resume-btn" class="btn btn-secondary btn-sm">Print View</button>
+                    <a href="assets/resume.pdf" download="Mitchell_Andrade_Resume.pdf" class="btn btn-primary btn-sm">Download PDF</a>
+                </div>
+            </div>
+
+            <!-- Interactive HTML Resume (Default) -->
+            <article id="resume-html-view" class="card resume-sheet">
+                <div class="resume-doc-header">
+                    <div>
+                        <h2 class="resume-doc-name">Mitchell Andrade</h2>
+                        <p class="resume-doc-contact">
+                            <a href="mailto:hello@mitchellandrade.com">hello@mitchellandrade.com</a> &bull; Denver, CO (Open to all U.S. locations)
+                        </p>
+                    </div>
+                    <div class="badge-group">
+                        <a href="https://www.linkedin.com/in/mitchandrade/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">LinkedIn</a>
+                        <a href="https://github.com/mitchandrade8" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">GitHub</a>
+                    </div>
+                </div>
+
+                <div class="resume-block">
+                    <h3 class="resume-block-title">Education</h3>
+                    <div class="resume-entry">
+                        <div class="resume-entry-top">
+                            <span class="resume-entry-title">University of Colorado Boulder</span>
+                            <span class="resume-entry-date">Jan 2024 &ndash; 2027 (anticipated)</span>
+                        </div>
+                        <div class="resume-entry-sub">Bachelor of Science in Computer Science (Post-Baccalaureate)</div>
+                    </div>
+                    <div class="resume-entry">
+                        <div class="resume-entry-top">
+                            <span class="resume-entry-title">University of Northern Colorado</span>
+                            <span class="resume-entry-date">Graduated Jul 2023</span>
+                        </div>
+                        <div class="resume-entry-sub">Bachelor of Science in Business Administration, Finance</div>
+                    </div>
+                </div>
+
+                <div class="resume-block">
+                    <h3 class="resume-block-title">Technical Skills &amp; Certifications</h3>
+                    <div class="resume-entry">
+                        <ul>
+                            <li><strong>Languages:</strong> Python, C++, Java, Swift, Scala, SQL</li>
+                            <li><strong>Infrastructure &amp; Cloud:</strong> AWS, Docker, Kubernetes, Terraform</li>
+                            <li><strong>Data &amp; Machine Learning:</strong> PostgreSQL, MySQL, Supabase, PyTorch, TensorFlow</li>
+                            <li><strong>Certifications (In Progress):</strong> AWS Solutions Architect Associate, AWS Machine Learning Engineer Associate, Generative AI Engineer AWS</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="resume-block">
+                    <h3 class="resume-block-title">Engineering Projects</h3>
+
+                    <div class="resume-entry">
+                        <div class="resume-entry-top">
+                            <span class="resume-entry-title">LockedIn (Edge-AI Sports Analytics)</span>
+                            <span class="resume-entry-date">Mar 2026 &ndash; Oct 2026</span>
+                        </div>
+                        <ul>
+                            <li>Engineered a multi-platform app and portable edge-AI hardware companion to automate basketball tracking.</li>
+                            <li>Configured an NVIDIA Jetson Orin Nano with dual IMX477 camera modules and a Raspberry Pi 5 AMOLED interface for local computer vision processing, bypassing cloud latency.</li>
+                        </ul>
+                    </div>
+
+                    <div class="resume-entry">
+                        <div class="resume-entry-top">
+                            <span class="resume-entry-title">AI Agent Dispatch Prototype</span>
+                            <span class="resume-entry-date">Sep 2026</span>
+                        </div>
+                        <ul>
+                            <li>Developed and tested a live agentic dispatch and triage system utilizing Python, FastAPI, WebSockets, and the OpenAI API with human-in-the-loop workflows.</li>
+                        </ul>
+                    </div>
+
+                    <div class="resume-entry">
+                        <div class="resume-entry-top">
+                            <span class="resume-entry-title">Match Play (Web Application)</span>
+                            <span class="resume-entry-date">Sep 2026 &ndash; Oct 2026</span>
+                        </div>
+                        <ul>
+                            <li>Built a social golf compatibility web app for CSPB 3308 using React, HTML/CSS, a Python/Flask REST API, Leaflet maps, and PostgreSQL.</li>
+                        </ul>
+                    </div>
+
+                    <div class="resume-entry">
+                        <div class="resume-entry-top">
+                            <span class="resume-entry-title">Real Estate Analytics Dashboard</span>
+                            <span class="resume-entry-date">Mar 2026</span>
+                        </div>
+                        <ul>
+                            <li>Designed a PostgreSQL data warehouse and an interactive Streamlit dashboard utilizing Python to analyze Colorado real estate market data.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="resume-block">
+                    <h3 class="resume-block-title">Professional Experience</h3>
+
+                    <div class="resume-entry">
+                        <div class="resume-entry-top">
+                            <span class="resume-entry-title">Logistics &amp; Distribution Professional &mdash; Lanter</span>
+                            <span class="resume-entry-date">Fort Worth, TX &bull; 2025 &ndash; Feb 2026</span>
+                        </div>
+                        <ul>
+                            <li>Streamlined distribution workflows, reducing operational downtime and improving facility safety standards.</li>
+                        </ul>
+                    </div>
+
+                    <div class="resume-entry">
+                        <div class="resume-entry-top">
+                            <span class="resume-entry-title">Independent Systems Engineer</span>
+                            <span class="resume-entry-date">2024 &ndash; Present</span>
+                        </div>
+                        <ul>
+                            <li>Architected data ingestion pipelines utilizing PostgreSQL and Streamlit to monitor real-time market metrics.</li>
+                            <li>Engineered automated quantitative backtesting engines utilizing C++ and Python, focusing on logic optimization and high-reliability execution.</li>
+                        </ul>
+                    </div>
+
+                    <div class="resume-entry">
+                        <div class="resume-entry-top">
+                            <span class="resume-entry-title">Software Developer (Contract) &mdash; NebulasApps, LLC</span>
+                            <span class="resume-entry-date">Denver, CO &bull; 2019 &ndash; 2022</span>
+                        </div>
+                        <ul>
+                            <li>Engineered automated systems and data pipelines, utilizing object-oriented programming principles and robust data structures.</li>
+                            <li>Developed iOS apps using Swift, SwiftUI, and UIKit (MVC &amp; MVVM). Integrated Firebase, CoreData, MapKit, in-app purchases, and local notifications.</li>
+                        </ul>
+                    </div>
+
+                    <div class="resume-entry">
+                        <div class="resume-entry-top">
+                            <span class="resume-entry-title">Portfolio Manager &mdash; SAFF</span>
+                            <span class="resume-entry-date">Greeley, CO &bull; 2019 &ndash; 2020</span>
+                        </div>
+                        <ul>
+                            <li>Led asset management initiatives for a $3M portfolio, executing buy/sell orders and analyzing financial metrics to align with organizational guidelines.</li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Toggleable Original PDF Embed -->
+            <div id="resume-pdf-view" class="card pdf-viewer-card">
+                <object data="assets/resume.pdf" type="application/pdf" class="pdf-embed">
+                    <div class="pdf-fallback">
+                        <h3>PDF Preview Unavailable in This Browser</h3>
+                        <p class="section-subtitle" style="margin: 0.75rem 0 1.5rem 0;">
+                            You can open or download the original PDF resume directly below.
+                        </p>
+                        <a href="assets/resume.pdf" download="Mitchell_Andrade_Resume.pdf" class="btn btn-primary">Download Mitchell_Andrade_Resume.pdf</a>
+                    </div>
+                </object>
             </div>
         </section>
     </main>
 
     <footer class="container">
-        <div class="footer-content card" style="text-align: center; padding: 2rem;">
-            <p style="color: var(--text-secondary); font-size: 0.95rem;">
-                Ready to talk architecture, agents, or edge computing?
-            </p>
-            <a href="mailto:hello@mitchellandrade.com" class="btn btn-secondary"
-                style="margin-top: 1rem;">hello@mitchellandrade.com</a>
-            <p class="copyright" style="margin-top: 2rem; font-size: 0.85rem; color: #a1a1a6;">© 2026 Mitchell Andrade.
-            </p>
+        <div class="card footer-content">
+            <h2>Ready to talk architecture, agents, or edge computing?</h2>
+            <p class="footer-detail">Colorado or remote &bull; Open to all U.S. locations</p>
+            <div class="footer-actions">
+                <a href="mailto:hello@mitchellandrade.com" class="btn btn-primary">hello@mitchellandrade.com</a>
+                <a href="index.html" class="btn btn-secondary">Back to Portfolio</a>
+            </div>
+            <p class="copyright">&copy; 2026 Mitchell Andrade.</p>
         </div>
     </footer>
+
+    <!-- AI Chat Widget (Shared across pages) -->
+    <div class="chat-widget-container">
+        <button id="chat-widget-toggle" class="chat-widget-button" type="button" aria-label="Open Chat">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+        </button>
+
+        <div id="chat-widget-window" class="chat-window hidden" role="dialog" aria-label="Mitchell's Assistant Chat">
+            <div class="chat-sheet-handle" role="button" tabindex="0" aria-label="Drag or tap to resize chat"></div>
+            <div class="chat-header">
+                <div class="chat-header-info">
+                    <div class="chat-avatar">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="white" stroke="none" aria-hidden="true">
+                            <path d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"></path>
+                        </svg>
+                    </div>
+                    <div class="chat-title-wrap">
+                        <span class="chat-title">Mitchell&rsquo;s Assistant</span>
+                        <span id="chat-mode-badge" class="chat-subtitle">AWS Lambda &bull; Claude API</span>
+                    </div>
+                </div>
+                <div class="chat-header-actions">
+                    <button id="chat-widget-expand" class="chat-icon-btn" type="button" aria-label="Expand or minimize chat">
+                        <svg id="chat-expand-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <polyline points="15 3 21 3 21 9"></polyline>
+                            <polyline points="9 21 3 21 3 15"></polyline>
+                            <line x1="21" y1="3" x2="14" y2="10"></line>
+                            <line x1="3" y1="21" x2="10" y2="14"></line>
+                        </svg>
+                    </button>
+                    <button id="chat-widget-close" class="chat-close-btn" type="button" aria-label="Close chat">&times;</button>
+                </div>
+            </div>
+
+            <div id="chat-messages" class="chat-messages">
+                <div class="message ai-message">
+                    Hi! I can answer questions about Mitchell&rsquo;s resume, finance experience, projects, and availability.
+                </div>
+            </div>
+
+            <div id="chat-suggestions" class="chat-suggestions-bar">
+                <button type="button" class="suggestion-pill" data-prompt="What has Mitchell built?">What has Mitchell built?</button>
+                <button type="button" class="suggestion-pill" data-prompt="Tell me about his finance and $3M portfolio experience.">Finance &amp; $3M portfolio</button>
+                <button type="button" class="suggestion-pill" data-prompt="Is he available for work?">Availability &amp; roles</button>
+            </div>
+
+            <div class="chat-input-wrapper">
+                <div class="chat-input-area">
+                    <input type="text" id="chat-input" maxlength="500" placeholder="Ask Mitch's assistant..." aria-label="Ask Mitch's assistant">
+                    <button id="chat-send-btn" class="chat-send-btn" type="button" aria-label="Send message">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <line x1="22" y1="2" x2="11" y2="13"></line>
+                            <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                        </svg>
+                    </button>
+                </div>
+                <div class="chat-input-meta">
+                    <span>20 req/IP/day guardrail</span>
+                    <span id="chat-char-count">0 / 500</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 
 </html>
