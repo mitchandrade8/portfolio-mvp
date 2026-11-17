@@ -1901,6 +1901,125 @@ footer {
     background-color: var(--accent-soft);
 }
 
+.suggestion-pill-primary {
+    border-color: var(--accent-blue);
+    background-color: var(--accent-soft);
+    color: var(--accent-blue);
+}
+
+.suggestion-pill-primary:hover {
+    background-color: var(--accent-blue);
+    color: #ffffff;
+}
+
+.ai-message-intake {
+    max-width: 94%;
+    width: 100%;
+}
+
+.chat-intake-card {
+    margin-top: 0.7rem;
+    padding: 0.8rem;
+    background: var(--card-bg);
+    border: 1px solid var(--border-subtle);
+    border-radius: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.chat-intake-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.45rem;
+}
+
+.chat-intake-field {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.chat-intake-field-full {
+    grid-column: 1 / -1;
+}
+
+.chat-intake-input,
+.chat-intake-select,
+.chat-intake-textarea {
+    width: 100%;
+    padding: 0.48rem 0.65rem;
+    border: 1px solid var(--border-subtle);
+    border-radius: 10px;
+    background: var(--card-muted);
+    color: var(--text-primary);
+    font-size: 0.8rem;
+    font-family: inherit;
+    line-height: 1.35;
+    outline: none;
+    transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.chat-intake-input::placeholder,
+.chat-intake-textarea::placeholder {
+    color: var(--text-tertiary);
+}
+
+.chat-intake-input:focus,
+.chat-intake-select:focus,
+.chat-intake-textarea:focus {
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 0 2px var(--accent-soft);
+}
+
+.chat-intake-input:disabled,
+.chat-intake-select:disabled,
+.chat-intake-textarea:disabled {
+    opacity: 0.68;
+    cursor: not-allowed;
+}
+
+.chat-intake-textarea {
+    resize: vertical;
+    min-height: 48px;
+}
+
+.chat-intake-submit {
+    width: 100%;
+    margin-top: 0.15rem;
+    padding: 0.55rem 0.9rem;
+    border: none;
+    border-radius: 10px;
+    background: var(--accent-blue);
+    color: #ffffff;
+    font-size: 0.82rem;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background-color 0.18s ease, opacity 0.18s ease;
+}
+
+.chat-intake-submit:hover:not(:disabled) {
+    background: var(--accent-hover);
+}
+
+.chat-intake-submit:disabled {
+    opacity: 0.72;
+    cursor: not-allowed;
+}
+
+.chat-intake-hint {
+    font-size: 0.72rem;
+    line-height: 1.3;
+    color: var(--text-tertiary);
+    min-height: 0.95rem;
+}
+
+.chat-intake-hint.is-error {
+    color: #dc2626;
+    font-weight: 600;
+}
+
 .chat-input-wrapper {
     background: var(--card-bg);
     border-top: 1px solid var(--border-subtle);

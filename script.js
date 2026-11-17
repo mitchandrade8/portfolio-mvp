@@ -413,7 +413,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const AGENT_URL = 'https://qk2fyfnjaaecnydulxasuo3fdi0rfalk.lambda-url.us-east-1.on.aws/';
     const INITIAL_MESSAGE_HTML = `
         <div class="message ai-message">
-            Hi! I can answer questions about Mitchell&rsquo;s projects, finance background, skills, and availability.
+            Hi! I can answer questions about Mitchell&rsquo;s projects, finance background, skills, and availability&mdash;or help you schedule a meeting or consultation.
         </div>
     `;
 
@@ -467,9 +467,21 @@ document.addEventListener('DOMContentLoaded', () => {
         chatExpandBtn.addEventListener('click', toggleExpandState);
     }
 
+    const syncSuggestionsVisibility = () => {
+        if (!suggestionsBar) return;
+        const pills = Array.from(suggestionsBar.querySelectorAll('.suggestion-pill'));
+        const hasVisiblePill = pills.some((pill) => pill.style.display !== 'none');
+        suggestionsBar.style.display = hasVisiblePill ? 'flex' : 'none';
+    };
+
     const resetChat = () => {
         chatMessages.innerHTML = INITIAL_MESSAGE_HTML;
-        if (suggestionsBar) suggestionsBar.style.display = 'flex';
+        if (suggestionsBar) {
+            suggestionsBar.querySelectorAll('.suggestion-pill').forEach((pill) => {
+                pill.style.display = '';
+            });
+            suggestionsBar.style.display = 'flex';
+        }
         chatWindow.classList.remove('expanded', 'dragging');
         chatWindow.style.height = '';
         chatWindow.style.maxHeight = '';
@@ -511,9 +523,7 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.addEventListener('click', () => {
             openChatWindow();
             const promptText = btn.getAttribute('data-contact-prompt');
-            if (promptText && !isSending) {
-                sendMessage(promptText);
-            }
+            startScheduleIntake(promptText);
         });
     });
 
@@ -651,12 +661,233 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    const sendMessage = async (overrideText = null) => {
+    const buildIntakeCard = () => {
+        const form = document.createElement('form');
+        form.className = 'chat-intake-card';
+        form.noValidate = true;
+
+        const grid = document.createElement('div');
+        grid.className = 'chat-intake-grid';
+
+        const createFieldWrap = (fullWidth = false) => {
+            const wrap = document.createElement('div');
+            wrap.className = fullWidth ? 'chat-intake-field chat-intake-field-full' : 'chat-intake-field';
+            return wrap;
+        };
+
+        // Inquiry type select
+        const typeSelect = document.createElement('select');
+        typeSelect.name = 'inquiry_type';
+        typeSelect.className = 'chat-intake-select';
+        typeSelect.setAttribute('aria-label', 'Inquiry type');
+        [
+            ['meeting', 'Meeting'],
+            ['consultation', 'Consultation'],
+            ['opportunity', 'Job Opportunity / Interview'],
+            ['question', 'General Question']
+        ].forEach(([value, label]) => {
+            const opt = document.createElement('option');
+            opt.value = value;
+            opt.textContent = label;
+            typeSelect.appendChild(opt);
+        });
+        const typeWrap = createFieldWrap(true);
+        typeWrap.appendChild(typeSelect);
+        grid.appendChild(typeWrap);
+
+        // Visitor name
+        const nameInput = document.createElement('input');
+        nameInput.type = 'text';
+        nameInput.name = 'visitor_name';
+        nameInput.required = true;
+        nameInput.maxLength = 60;
+        nameInput.placeholder = 'Your name *';
+        nameInput.className = 'chat-intake-input';
+        nameInput.setAttribute('aria-label', 'Your name');
+        const nameWrap = createFieldWrap(false);
+        nameWrap.appendChild(nameInput);
+        grid.appendChild(nameWrap);
+
+        // Organization
+        const orgInput = document.createElement('input');
+        orgInput.type = 'text';
+        orgInput.name = 'organization';
+        orgInput.maxLength = 60;
+        orgInput.placeholder = 'Company / Org (optional)';
+        orgInput.className = 'chat-intake-input';
+        orgInput.setAttribute('aria-label', 'Company or organization');
+        const orgWrap = createFieldWrap(false);
+        orgWrap.appendChild(orgInput);
+        grid.appendChild(orgWrap);
+
+        // Visitor email
+        const emailInput = document.createElement('input');
+        emailInput.type = 'email';
+        emailInput.name = 'visitor_email';
+        emailInput.required = true;
+        emailInput.maxLength = 80;
+        emailInput.placeholder = 'Your email address *';
+        emailInput.className = 'chat-intake-input';
+        emailInput.setAttribute('aria-label', 'Your email address');
+        const emailWrap = createFieldWrap(false);
+        emailWrap.appendChild(emailInput);
+        grid.appendChild(emailWrap);
+
+        // Visitor phone
+        const phoneInput = document.createElement('input');
+        phoneInput.type = 'tel';
+        phoneInput.name = 'visitor_phone';
+        phoneInput.maxLength = 30;
+        phoneInput.placeholder = 'Phone (optional)';
+        phoneInput.className = 'chat-intake-input';
+        phoneInput.setAttribute('aria-label', 'Phone number');
+        const phoneWrap = createFieldWrap(false);
+        phoneWrap.appendChild(phoneInput);
+        grid.appendChild(phoneWrap);
+
+        // Preferred time
+        const timeInput = document.createElement('input');
+        timeInput.type = 'text';
+        timeInput.name = 'preferred_time';
+        timeInput.maxLength = 60;
+        timeInput.placeholder = 'Preferred day/time & timezone (e.g. Tue 2pm MT)';
+        timeInput.className = 'chat-intake-input';
+        timeInput.setAttribute('aria-label', 'Preferred day, time, and timezone');
+        const timeWrap = createFieldWrap(true);
+        timeWrap.appendChild(timeInput);
+        grid.appendChild(timeWrap);
+
+        // Summary
+        const summaryInput = document.createElement('textarea');
+        summaryInput.name = 'summary';
+        summaryInput.rows = 2;
+        summaryInput.required = true;
+        summaryInput.maxLength = 180;
+        summaryInput.placeholder = 'What would you like to discuss? *';
+        summaryInput.className = 'chat-intake-textarea';
+        summaryInput.setAttribute('aria-label', 'Summary of what you would like to discuss');
+        const summaryWrap = createFieldWrap(true);
+        summaryWrap.appendChild(summaryInput);
+        grid.appendChild(summaryWrap);
+
+        form.appendChild(grid);
+
+        const hintEl = document.createElement('div');
+        hintEl.className = 'chat-intake-hint';
+        hintEl.textContent = '* Required fields';
+        form.appendChild(hintEl);
+
+        const submitBtn = document.createElement('button');
+        submitBtn.type = 'submit';
+        submitBtn.className = 'chat-intake-submit';
+        submitBtn.textContent = 'Send Request to Mitch';
+        form.appendChild(submitBtn);
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (isSending) return;
+
+            const clean = (val) => (val || '').replace(/\s+/g, ' ').trim();
+            const inquiryType = clean(typeSelect.value) || 'meeting';
+            const visitorName = clean(nameInput.value);
+            const visitorEmail = clean(emailInput.value);
+            const visitorPhone = clean(phoneInput.value);
+            const organization = clean(orgInput.value);
+            const preferredTime = clean(timeInput.value);
+            const summary = clean(summaryInput.value);
+
+            const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(visitorEmail);
+
+            if (!visitorName) {
+                hintEl.textContent = 'Please enter your name.';
+                hintEl.classList.add('is-error');
+                nameInput.focus();
+                return;
+            }
+            if (!emailValid) {
+                hintEl.textContent = 'Please enter a valid email address (e.g. name@company.com).';
+                hintEl.classList.add('is-error');
+                emailInput.focus();
+                return;
+            }
+            if (!summary) {
+                hintEl.textContent = 'Please add a brief topic or summary.';
+                hintEl.classList.add('is-error');
+                summaryInput.focus();
+                return;
+            }
+
+            hintEl.textContent = 'Submitting directly to Mitch...';
+            hintEl.classList.remove('is-error');
+
+            const controls = form.querySelectorAll('input, select, textarea, button');
+            controls.forEach((ctrl) => {
+                ctrl.disabled = true;
+            });
+            submitBtn.textContent = 'Sending to Mitch...';
+
+            const formattedMessage = (
+                `Please save my ${inquiryType} request for Mitch. ` +
+                `Name: ${visitorName} | Email: ${visitorEmail}` +
+                (visitorPhone ? ` | Phone: ${visitorPhone}` : '') +
+                (organization ? ` | Org: ${organization}` : '') +
+                (preferredTime ? ` | Preferred Time: ${preferredTime}` : '') +
+                ` | Topic: ${summary}`
+            ).slice(0, 490);
+
+            await sendMessage(formattedMessage, { isIntakeSubmission: true });
+            submitBtn.textContent = 'Sent ✓';
+            hintEl.textContent = 'Details delivered via AI Assistant.';
+        });
+
+        return form;
+    };
+
+    const startScheduleIntake = (userPromptText) => {
+        if (isSending) return;
+        const promptText = (userPromptText || "I'd like to schedule a meeting or consultation with Mitch.").trim();
+
+        if (suggestionsBar) {
+            suggestionsBar.querySelectorAll('[data-intake-trigger="true"]').forEach((pill) => {
+                pill.style.display = 'none';
+            });
+            syncSuggestionsVisibility();
+        }
+
+        appendMessage(promptText, 'user-message');
+
+        const assistantIntakeText =
+            "I'd be happy to help you schedule a meeting or consultation with Mitch! " +
+            'Please fill out the quick form below—or simply type your Name, Email, preferred date/time, and topic right in the chat:';
+
+        recordTurn(promptText, assistantIntakeText);
+        localIntakeState.stage = 'awaiting_details';
+
+        const msgDiv = document.createElement('div');
+        msgDiv.className = 'message ai-message ai-message-intake';
+
+        const introP = document.createElement('p');
+        introP.style.margin = '0';
+        introP.textContent = assistantIntakeText;
+        msgDiv.appendChild(introP);
+        msgDiv.appendChild(buildIntakeCard());
+
+        chatMessages.appendChild(msgDiv);
+        scrollToBottom();
+    };
+
+    const sendMessage = async (overrideText = null, options = {}) => {
         if (isSending) return;
         const text = (overrideText !== null ? overrideText : chatInput.value).trim();
         if (!text) return;
 
-        if (suggestionsBar) suggestionsBar.style.display = 'none';
+        if (suggestionsBar) {
+            if (options.isIntakeSubmission) {
+                suggestionsBar.style.display = 'none';
+            } else {
+                syncSuggestionsVisibility();
+            }
+        }
         appendMessage(text, 'user-message');
         if (overrideText === null) {
             chatInput.value = '';
@@ -721,7 +952,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelectorAll('.suggestion-pill').forEach((pill) => {
         pill.addEventListener('click', () => {
-            sendMessage(pill.getAttribute('data-prompt'));
+            const promptText = pill.getAttribute('data-prompt');
+            if (pill.hasAttribute('data-intake-trigger')) {
+                startScheduleIntake(promptText);
+                return;
+            }
+            pill.style.display = 'none';
+            syncSuggestionsVisibility();
+            sendMessage(promptText);
         });
     });
 });
