@@ -232,6 +232,101 @@ document.addEventListener('DOMContentLoaded', () => {
         updateAgentSim();
     }
 
+    // Colorado Real Estate Hedonic AVM & 10-Yr IRR Simulator
+    const reMarketInput = document.getElementById('sim-re-market');
+    const reSqftInput = document.getElementById('sim-re-sqft');
+    const reRateInput = document.getElementById('sim-re-rate');
+    const RE_MARKETS = {
+        '80209': { ppsf: 612, rentPsf: 2.96, mill: 78.4 },
+        '80302': { ppsf: 735, rentPsf: 3.24, mill: 82.9 },
+        '80524': { ppsf: 356, rentPsf: 2.12, mill: 75.3 },
+        '80920': { ppsf: 268, rentPsf: 1.66, mill: 63.8 },
+        '80424': { ppsf: 915, rentPsf: 4.55, mill: 56.4 },
+        '81611': { ppsf: 1780, rentPsf: 7.10, mill: 44.6 },
+        '81501': { ppsf: 264, rentPsf: 1.62, mill: 68.4 },
+        '80751': { ppsf: 182, rentPsf: 1.32, mill: 72.1 }
+    };
+
+    const solveIrrJs = (cfs) => {
+        let lo = -0.4;
+        let hi = 0.8;
+        for (let i = 0; i < 50; i += 1) {
+            const mid = 0.5 * (lo + hi);
+            let npv = 0;
+            for (let t = 0; t < cfs.length; t += 1) {
+                npv += cfs[t] / Math.pow(1 + mid, t);
+            }
+            if (npv > 0) lo = mid; else hi = mid;
+        }
+        return (lo + hi) * 50;
+    };
+
+    const updateRealEstateSim = () => {
+        if (!reMarketInput || !reSqftInput || !reRateInput) return;
+        const m = RE_MARKETS[reMarketInput.value] || RE_MARKETS['80209'];
+        const sqft = Number(reSqftInput.value);
+        const ratePct = Number(reRateInput.value);
+
+        const fmv = Math.round((m.ppsf * sqft) / 1000) * 1000;
+        const monthlyRent = Math.round((m.rentPsf * sqft) / 10) * 10;
+        const down = fmv * 0.25;
+        const initEq = down + fmv * 0.02;
+        const loanAmt = fmv - down;
+        const mr = (ratePct / 100) / 12;
+        const n = 360;
+        const monthlyPi = loanAmt * (mr * Math.pow(1 + mr, n)) / (Math.pow(1 + mr, n) - 1);
+        const annualDs = monthlyPi * 12;
+        const effTaxRate = (0.067 * m.mill) / 1000;
+
+        let bal = loanAmt;
+        let cumCf = 0;
+        let yr1Noi = 0;
+        const cfs = [-initEq];
+
+        for (let yr = 1; yr <= 10; yr += 1) {
+            const egi = monthlyRent * 12 * Math.pow(1.035, yr - 1) * 0.95;
+            const propTax = fmv * Math.pow(1.035, yr - 1) * effTaxRate;
+            const opex = propTax + 2600 * Math.pow(1.025, yr - 1) + 1320 * Math.pow(1.02, yr - 1) + egi * 0.13;
+            const noi = egi - opex;
+            if (yr === 1) yr1Noi = noi;
+            const cf = noi - annualDs;
+            cumCf += cf;
+            for (let mo = 0; mo < 12; mo += 1) {
+                const intPmt = bal * mr;
+                bal = Math.max(0, bal - Math.max(0, monthlyPi - intPmt));
+            }
+            const exitVal = fmv * Math.pow(1.045, yr);
+            const netSale = exitVal * 0.945 - bal;
+            cfs.push(cf + (yr === 10 ? netSale : 0));
+        }
+
+        const cap = (yr1Noi / fmv) * 100;
+        const dscr = yr1Noi / annualDs;
+        const irr = solveIrrJs(cfs);
+        const totalRet = cfs.slice(1).reduce((a, b) => a + b, 0);
+        const moic = totalRet / initEq;
+        const yr10Val = fmv * Math.pow(1.045, 10);
+        const yr10Wealth = Math.max(initEq, (yr10Val - bal) + cumCf);
+        const initPct = Math.min(95, Math.max(12, Math.round((initEq / yr10Wealth) * 100)));
+
+        document.getElementById('sim-re-ppsf-badge').textContent = `$${m.ppsf.toLocaleString()} / sf`;
+        document.getElementById('sim-re-sqft-val').textContent = `${sqft.toLocaleString()} sq ft`;
+        document.getElementById('sim-re-rate-val').textContent = `${ratePct.toFixed(2)}%`;
+        document.getElementById('out-re-fmv').textContent = `$${fmv.toLocaleString()}`;
+        document.getElementById('out-re-cap').textContent = `${cap.toFixed(2)}% ($${monthlyRent.toLocaleString()}/mo)`;
+        document.getElementById('out-re-dscr').textContent = dscr >= 1.25 ? `${dscr.toFixed(2)}x (Pass)` : `${dscr.toFixed(2)}x`;
+        document.getElementById('out-re-irr').textContent = `${irr.toFixed(1)}% (${moic.toFixed(2)}x)`;
+        document.getElementById('out-re-wealth-bar').textContent = `$${Math.round(yr10Wealth).toLocaleString()}`;
+        document.getElementById('out-re-init-bar').textContent = `$${Math.round(initEq).toLocaleString()}`;
+        document.getElementById('bar-re-wealth').style.width = '100%';
+        document.getElementById('bar-re-init').style.width = `${initPct}%`;
+    };
+
+    if (reMarketInput && reSqftInput && reRateInput) {
+        [reMarketInput, reSqftInput, reRateInput].forEach((el) => el.addEventListener('input', updateRealEstateSim));
+        updateRealEstateSim();
+    }
+
     // ==========================================
     // 6. Interactive Technical Expertise Filter
     // ==========================================
@@ -629,7 +724,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return 'LockedIn is Mitchell’s Edge-AI basketball analytics system: an NVIDIA Jetson Orin Nano (1TB NVMe) paired with dual IMX477 cameras and a Raspberry Pi 5 AMOLED interface. Local inference filters video on-court, cutting projected AWS cloud ingress by up to 50% ahead of Milestone 01 court testing.';
         }
         if (q.includes('built') || q.includes('project') || q.includes('match play') || q.includes('dispatch') || q.includes('real estate')) {
-            return 'Mitchell has built:\n• LockedIn — Edge-AI basketball analytics on Jetson Orin Nano + AWS pipeline\n• Serverless Portfolio AI Agent — Python AWS Lambda + DynamoDB rate-limited Claude assistant with lead capture\n• Match Play — Flask, React, PostgreSQL & NumPy golf compatibility app\n• AI Agent Dispatch Prototype — FastAPI, WebSockets & OpenAI human-in-the-loop triage\n• Real Estate Analytics Dashboard — PostgreSQL warehouse & Streamlit BI';
+            return 'Mitchell has built:\n• LockedIn — Edge-AI basketball analytics on Jetson Orin Nano + AWS pipeline\n• Serverless Portfolio AI Agent — Python AWS Lambda + DynamoDB rate-limited Claude assistant with lead capture\n• Match Play — Flask, React, PostgreSQL & NumPy golf compatibility app\n• Real Estate Analytics & Valuation BI — 26-year (2000–2026) Kimball Star-Schema PostgreSQL warehouse across 7 Colorado regions & 26 markets, ETL pipeline, Hedonic AVM (R²=0.9965) & 10-yr Streamlit underwriting BI\n• AI Agent Dispatch Prototype — FastAPI, WebSockets & OpenAI human-in-the-loop triage';
         }
         if (q.includes('skill') || q.includes('cert') || q.includes('aws') || q.includes('education') || q.includes('google')) {
             return 'Mitchell is pursuing a B.S. in Computer Science at CU Boulder (anticipated 2027; his academic standing earned an invitation to tour Google Boulder) and holds a Finance B.S. from UNC.\n\nCore stack: Python, C++, Java, Swift/SwiftUI, Scala, SQL, AWS, Docker, Kubernetes, Terraform, PostgreSQL, and PyTorch/TensorFlow. He also has 3 AWS certifications in progress.';

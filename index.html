@@ -153,6 +153,13 @@
                         </span>
                         <span class="status-row-state state-live">Deployed, scale-up planned</span>
                     </a>
+                    <a href="#project-realestate" class="status-row" data-jump-project="project-realestate">
+                        <span class="status-row-name">
+                            <span class="pulse-dot pulse-live" aria-hidden="true"></span>
+                            Colorado Real Estate BI
+                        </span>
+                        <span class="status-row-state state-live">26-Yr Star Schema &bull; R&sup2; 0.9965</span>
+                    </a>
                 </div>
             </div>
 
@@ -907,10 +914,114 @@
                 </div>
             </article>
 
+            <!-- Project 4: Real Estate Analytics Dashboard -->
+            <article id="project-realestate" class="card featured-card" data-category="fullstack" data-skills="python postgresql streamlit sql finance">
+                <div class="card-header">
+                    <h3>Real Estate Analytics &amp; Valuation BI <span style="font-size: 0.85rem; font-weight: 500; color: var(--text-secondary);">| 2000&ndash;2026 Statewide</span></h3>
+                    <div class="badge-group">
+                        <span class="status-pill status-live"><span class="status-dot" aria-hidden="true"></span> Production Build</span>
+                        <span class="badge">Data Warehouse &amp; Valuation</span>
+                    </div>
+                </div>
+
+                <div class="tech-stack-pills">
+                    <span class="tech-chip">Python</span>
+                    <span class="tech-chip">PostgreSQL (Star Schema)</span>
+                    <span class="tech-chip">Streamlit BI</span>
+                    <span class="tech-chip">Hedonic OLS AVM (R&sup2;=0.9965)</span>
+                    <span class="tech-chip">SQLAlchemy</span>
+                    <span class="tech-chip">Docker</span>
+                </div>
+
+                <p class="project-desc">
+                    An institutional-grade 26-year (2000&ndash;2026) Colorado real estate data warehouse, automated valuation model (AVM), and 10-year investment underwriting platform spanning all 7 Colorado regions and 26 submarkets.
+                </p>
+
+                <div class="pbr-grid">
+                    <div class="pbr-box">
+                        <span class="pbr-label">Problem</span>
+                        <p>Multi-board MLS feeds contain cross-listed duplicates, missing parcel specs, and non-arm&rsquo;s-length outliers across 26 years of housing and interest-rate cycles.</p>
+                    </div>
+                    <div class="pbr-box">
+                        <span class="pbr-label">Built</span>
+                        <p>A Kimball Star-Schema PostgreSQL warehouse (with zero-config local SQL fallback), 3-stage ETL normalization pipeline, interactive 7-region Colorado GIS map, and 6-tab Streamlit BI workbench.</p>
+                    </div>
+                    <div class="pbr-box">
+                        <span class="pbr-label">Result</span>
+                        <p>Normalized 3,561 raw MLS records into 3,412 clean closings and 8,190 monthly macro rows (315 months); era-scaled Hedonic OLS achieved <strong>R&sup2; = 0.9965</strong> (3.96% MAPE) paired with DSCR &amp; IRR stress testing.</p>
+                    </div>
+                </div>
+
+                <div class="project-actions-row">
+                    <button type="button" class="drawer-toggle-btn" aria-expanded="false" aria-controls="drawer-realestate">
+                        <span>Inspect 3 Architecture Phases &amp; 3 Artifacts</span>
+                        <svg class="drawer-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="project-quick-links">
+                        <a href="#economics" class="btn btn-primary btn-sm js-open-sim" data-sim-tab="realestate">Simulate Valuation &amp; IRR</a>
+                        <a href="resume.html" class="btn btn-secondary btn-sm">View in Resume</a>
+                        <a href="https://github.com/mitchandrade8" target="_blank" rel="noopener noreferrer" class="btn btn-ghost btn-sm">GitHub Profile</a>
+                    </div>
+                </div>
+
+                <div id="drawer-realestate" class="phases-drawer">
+                    <div class="phases-container">
+                        <div class="phase active-phase">
+                            <div class="phase-indicator"></div>
+                            <div class="phase-details">
+                                <h4>Phase 1: 26-Year Kimball Star-Schema Warehouse &amp; ETL Normalization</h4>
+                                <p>Architected <code>raw_mls_staging</code>, conformed dimensions (<code>dim_submarket</code>, <code>dim_property</code>, <code>dim_date</code> across 315 months from 2000&ndash;2026), indexed fact tables, and CTE/window-function SQL views. Purged 149 cross-board MLS duplicates, imputed 181 missing specs by cohort median, and Winsorized 84 time-normalized 3&sigma; outliers.</p>
+                                <div class="hardware-showcase">
+                                    <button type="button" class="media-thumb" data-lightbox-group="realestate" data-lightbox-src="assets/images/realestate/realestate-warehouse-etl.png" data-lightbox-title="Real Estate BI • Phase 1" data-lightbox-caption="Star-Schema ETL &amp; 26-Year Regional Trajectory (2000–2026)">
+                                        <span class="media-thumb-frame">
+                                            <img src="assets/images/realestate/realestate-warehouse-etl.png" alt="Star-Schema ETL Pipeline and 26-Year Colorado Price Trajectory" loading="lazy">
+                                            <span class="zoom-badge">Zoom</span>
+                                        </span>
+                                        <span class="media-thumb-caption">Star-Schema ETL &amp; 26-Yr Cycles</span>
+                                    </button>
+                                    <button type="button" class="media-thumb" data-lightbox-group="realestate" data-lightbox-src="assets/images/realestate/realestate-hedonic-avm.png" data-lightbox-title="Real Estate BI • Phase 2" data-lightbox-caption="Time-Adjusted Hedonic AVM (R² = 0.9965) &amp; Waterfall">
+                                        <span class="media-thumb-frame">
+                                            <img src="assets/images/realestate/realestate-hedonic-avm.png" alt="Hedonic AVM Parity Plot and Waterfall Bridge" loading="lazy">
+                                            <span class="zoom-badge">Zoom</span>
+                                        </span>
+                                        <span class="media-thumb-caption">Hedonic AVM &amp; Waterfall</span>
+                                    </button>
+                                    <button type="button" class="media-thumb" data-lightbox-group="realestate" data-lightbox-src="assets/images/realestate/realestate-underwriting-irr.png" data-lightbox-title="Real Estate BI • Phase 3" data-lightbox-caption="10-Year Underwriting &amp; Rate Shock IRR Matrix">
+                                        <span class="media-thumb-frame">
+                                            <img src="assets/images/realestate/realestate-underwriting-irr.png" alt="10-Year Real Estate Underwriting and IRR Stress Matrix" loading="lazy">
+                                            <span class="zoom-badge">Zoom</span>
+                                        </span>
+                                        <span class="media-thumb-caption">10-Yr Underwriting &amp; IRR Matrix</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="phase active-phase">
+                            <div class="phase-indicator"></div>
+                            <div class="phase-details">
+                                <h4>Phase 2: Era-Scaled Hedonic AVM &amp; Comparable Sales Engine</h4>
+                                <p>Implemented a piecewise time-spline OLS hedonic valuation model across 3,328 outlier-clean transactions (<strong>R&sup2; = 0.9965</strong>, <strong>MAPE = 3.96%</strong>, <strong>MedAE = $14,097</strong>) producing 90% prediction intervals, feature attribution waterfalls, and weighted top-8 comparable sales.</p>
+                            </div>
+                        </div>
+
+                        <div class="phase active-phase">
+                            <div class="phase-indicator"></div>
+                            <div class="phase-details">
+                                <h4>Phase 3: 7-Region Colorado GIS Map, Underwriting &amp; Live SQL Workbench</h4>
+                                <p>Built a 6-tab top-navigated Streamlit BI platform featuring a gap-free 7-region Colorado GIS map, 10-year pro-forma amortization (Cap Rate, DSCR, Cash-on-Cash, Levered IRR, MOIC), a 5&times;5 mortgage-rate stress matrix, a read-only SQL workbench, and a dedicated Plain-English Glossary.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
             <!-- Additional Resume Projects -->
             <h3 class="subprojects-heading">Additional Engineering &amp; FinTech Builds</h3>
             <div class="mini-projects-grid">
-                <article class="card mini-project-card" data-category="cloud" data-skills="python">
+                <article class="card mini-project-card" style="grid-column: 1 / -1;" data-category="cloud" data-skills="python">
                     <div>
                         <div class="card-header">
                             <h3>AI Agent Dispatch Prototype</h3>
@@ -931,28 +1042,6 @@
                         <a href="resume.html" class="btn btn-ghost btn-sm">View in Resume</a>
                     </div>
                 </article>
-
-                <article class="card mini-project-card" data-category="fullstack" data-skills="python postgresql streamlit sql finance">
-                    <div>
-                        <div class="card-header">
-                            <h3>Real Estate Analytics Dashboard</h3>
-                            <span class="mini-project-meta">Mar 2026</span>
-                        </div>
-                        <div class="tech-stack-pills">
-                            <span class="tech-chip">Python</span>
-                            <span class="tech-chip">PostgreSQL</span>
-                            <span class="tech-chip">Streamlit</span>
-                            <span class="tech-chip">Data Warehousing</span>
-                        </div>
-                        <p class="project-desc" style="margin-bottom: 0; font-size: 0.96rem;">
-                            Designed a relational PostgreSQL data warehouse and interactive Streamlit BI dashboard to ingest, normalize, and analyze Colorado real estate market valuation trends.
-                        </p>
-                    </div>
-                    <div class="project-actions-row" style="margin-top: 0.5rem;">
-                        <span class="badge">Data Warehouse &amp; Valuation</span>
-                        <a href="resume.html" class="btn btn-ghost btn-sm">View in Resume</a>
-                    </div>
-                </article>
             </div>
         </section>
 
@@ -960,9 +1049,9 @@
         <section id="economics" class="container">
             <div class="section-header">
                 <span class="section-eyebrow">Engineering + Finance</span>
-                <h2 class="section-title">Architecture Unit Economics Simulator</h2>
+                <h2 class="section-title">Architecture Unit Economics &amp; Valuation Simulator</h2>
                 <p class="section-subtitle">
-                    Interactive models illustrating how edge filtering and DynamoDB rate guardrails translate directly into predictable cloud unit economics.
+                    Interactive models illustrating how edge filtering, DynamoDB rate guardrails, and hedonic real estate underwriting translate directly into predictable unit economics.
                 </p>
             </div>
 
@@ -973,6 +1062,9 @@
                     </button>
                     <button type="button" class="sim-tab-btn" role="tab" aria-selected="false" data-sim-target="agent">
                         Serverless AI Agent Cost Ceiling
+                    </button>
+                    <button type="button" class="sim-tab-btn" role="tab" aria-selected="false" data-sim-target="realestate">
+                        Colorado Real Estate Hedonic AVM &amp; IRR
                     </button>
                 </div>
 
@@ -1100,6 +1192,87 @@
                                 </div>
                                 <div class="bar-track">
                                     <div id="bar-agent-safe" class="bar-fill bar-fill-safe" style="width: 8%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab 3: Colorado Real Estate Hedonic AVM & IRR -->
+                <div id="sim-panel-realestate" class="sim-panel" role="tabpanel">
+                    <div class="sim-controls">
+                        <div class="slider-group">
+                            <label for="sim-re-market">
+                                <span>Colorado Region &amp; Submarket (7 Regions)</span>
+                                <span id="sim-re-ppsf-badge" class="slider-val">$612 / sf</span>
+                            </label>
+                            <select id="sim-re-market" style="width: 100%; padding: 0.62rem 0.85rem; border-radius: 10px; background: var(--card-muted); color: var(--text-primary); border: 1px solid var(--border-subtle); font-family: inherit; font-size: 0.88rem; font-weight: 600; cursor: pointer;">
+                                <option value="80209">Denver Metro &bull; Washington Park (80209)</option>
+                                <option value="80302">Boulder &amp; US-36 &bull; Downtown Boulder (80302)</option>
+                                <option value="80524">N. Front Range &bull; Old Town Fort Collins (80524)</option>
+                                <option value="80920">Pikes Peak &bull; Briargate / CO Springs (80920)</option>
+                                <option value="80424">High Country Resorts &bull; Breckenridge (80424)</option>
+                                <option value="81611">High Country Resorts &bull; Aspen / Roaring Fork (81611)</option>
+                                <option value="81501">Western Slope &bull; Grand Junction (81501)</option>
+                                <option value="80751">Eastern Plains &bull; Sterling NE Plains (80751)</option>
+                            </select>
+                        </div>
+                        <div class="slider-group">
+                            <label for="sim-re-sqft">
+                                <span>Living Area</span>
+                                <span id="sim-re-sqft-val" class="slider-val">2,200 sq ft</span>
+                            </label>
+                            <input id="sim-re-sqft" class="sim-range" type="range" min="900" max="4500" step="50" value="2200">
+                        </div>
+                        <div class="slider-group">
+                            <label for="sim-re-rate">
+                                <span>30-Yr Fixed Mortgage Rate</span>
+                                <span id="sim-re-rate-val" class="slider-val">6.08%</span>
+                            </label>
+                            <input id="sim-re-rate" class="sim-range" type="range" min="4.0" max="8.0" step="0.05" value="6.08">
+                        </div>
+                        <div class="sim-assumption">
+                            <strong>Underwriting Model (R&sup2; = 0.9965):</strong> Hedonic Fair Market Value derived from 26-year (2000&ndash;2026) Colorado warehouse regression; 10-year pro-forma assumes 25% down + 2% closing, 5% vacancy, CO county mill levy (~6.7% assessment), 3.5% rent growth, and 4.5% appreciation.
+                        </div>
+                    </div>
+
+                    <div class="sim-results">
+                        <div class="sim-kpi-grid">
+                            <div class="sim-kpi">
+                                <div class="sim-kpi-label">Hedonic Fair Market Value</div>
+                                <div id="out-re-fmv" class="sim-kpi-num">$1,346,000</div>
+                            </div>
+                            <div class="sim-kpi">
+                                <div class="sim-kpi-label">Est. Rent &amp; Going-In Cap</div>
+                                <div id="out-re-cap" class="sim-kpi-num">4.25% Cap</div>
+                            </div>
+                            <div class="sim-kpi sim-kpi-highlight">
+                                <div class="sim-kpi-label">Debt Coverage (DSCR)</div>
+                                <div id="out-re-dscr" class="sim-kpi-num">0.78x</div>
+                            </div>
+                            <div class="sim-kpi sim-kpi-highlight">
+                                <div class="sim-kpi-label">10-Yr Levered IRR &amp; MOIC</div>
+                                <div id="out-re-irr" class="sim-kpi-num">10.4% (2.68x)</div>
+                            </div>
+                        </div>
+
+                        <div class="sim-bars">
+                            <div class="bar-row">
+                                <div class="bar-meta">
+                                    <span>10-Yr Total Wealth (Net Equity + Cash Flow)</span>
+                                    <span id="out-re-wealth-bar">$1,095,000</span>
+                                </div>
+                                <div class="bar-track">
+                                    <div id="bar-re-wealth" class="bar-fill bar-fill-safe" style="width: 72%;"></div>
+                                </div>
+                            </div>
+                            <div class="bar-row">
+                                <div class="bar-meta">
+                                    <span>Initial Cash Invested (25% Down + Closing)</span>
+                                    <span id="out-re-init-bar">$363,420</span>
+                                </div>
+                                <div class="bar-track">
+                                    <div id="bar-re-init" class="bar-fill bar-fill-edge" style="width: 33%;"></div>
                                 </div>
                             </div>
                         </div>
