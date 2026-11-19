@@ -136,7 +136,8 @@ document.addEventListener('DOMContentLoaded', () => {
             filterPills.forEach((p) => p.classList.toggle('active', p === pill));
 
             filterableCards.forEach((card) => {
-                const match = selected === 'all' || card.getAttribute('data-category') === selected;
+                const categories = (card.getAttribute('data-category') || '').split(/\s+/).filter(Boolean);
+                const match = selected === 'all' || categories.includes(selected);
                 card.classList.toggle('is-hidden-filter', !match);
             });
         });

@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Agent Dispatch &amp; Plain-English Guide | Mitchell Andrade</title>
+    <meta name="description" content="Interactive portfolio walkthrough and plain-English guide for Mitchell Andrade's AI Agent Dispatch Prototype with Human-in-the-Loop safety gates.">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://mitchellandrade.com/apple-touch-icon.png?v=2">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://mitchellandrade.com/apple-touch-icon.png?v=2">
+    <link rel="stylesheet" href="style.css?v=3">
+    <link rel="stylesheet" href="dispatch.css?v=2">
+
+    <script>
+        (function () {
+            try {
+                const saved = localStorage.getItem('ma-theme');
+                const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                if (saved === 'dark' || (!saved && prefersDark)) {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                }
+            } catch (e) {}
+        })();
+    </script>
+</head>
+
+<body>
+    <!-- Glassmorphic Navigation -->
+    <header class="glass-nav">
+        <nav class="container" aria-label="Primary Navigation">
+            <a href="index.html#about" class="logo">Mitchell Andrade</a>
+            <div class="nav-right">
+                <ul class="nav-links">
+                    <li><a href="index.html#about">About</a></li>
+                    <li><a href="index.html#experience">Experience</a></li>
+                    <li><a href="index.html#projects">Projects</a></li>
+                    <li><a href="dispatch.html" class="active">AI Dispatch Demo</a></li>
+                    <li><a href="index.html#economics">Economics</a></li>
+                    <li><a href="resume.html">Resume</a></li>
+                </ul>
+                <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle dark mode" title="Toggle Light / Dark Mode">
+                    <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="dispatch-main">
+        <!-- Section 1: Hero & 4-Step Plain-English Overview -->
+        <section class="container dispatch-hero">
+            <div class="dispatch-hero-top">
+                <span class="section-eyebrow">Live Interactive Showcase &amp; Plain-English Guide</span>
+                <div class="dispatch-hero-links">
+                    <a href="index.html#project-dispatch" class="btn btn-ghost btn-sm">&larr; Back to Portfolio</a>
+                </div>
+            </div>
+
+            <h1>AI Agent Dispatch: Safe Automation with a Human Co-Pilot</h1>
+            <p class="dispatch-lead">
+                Most AI chatbots just answer questions. An <strong>AI Agent</strong> takes a goal, breaks it into real engineering steps, checks its own work, and asks a human for permission before making any risky live change. Click any <span class="inline-info-hint" aria-hidden="true">i</span> icon below or try the interactive simulator yourself &mdash; zero technical background required.
+            </p>
+
+            <div class="story-grid">
+                <article class="card story-card">
+                    <div class="story-card-head">
+                        <span class="story-step">Step 1</span>
+                        <button type="button" class="info-btn" data-info-key="step_goal" aria-label="Learn more about giving a goal">i</button>
+                    </div>
+                    <h3>Give a Plain-English Goal</h3>
+                    <p>You describe what you need &mdash; like building a new alert service or checking why a website slowed down.</p>
+                </article>
+
+                <article class="card story-card">
+                    <div class="story-card-head">
+                        <span class="story-step">Step 2</span>
+                        <button type="button" class="info-btn" data-info-key="step_plan" aria-label="Learn more about planning and self-checks">i</button>
+                    </div>
+                    <h3>AI Plans &amp; Self-Checks</h3>
+                    <p>The agent maps out a step-by-step checklist, writes code in an isolated sandbox, and runs syntax checks first.</p>
+                </article>
+
+                <article class="card story-card">
+                    <div class="story-card-head">
+                        <span class="story-step">Step 3</span>
+                        <button type="button" class="info-btn" data-info-key="step_gate" aria-label="Learn more about the human safety gate">i</button>
+                    </div>
+                    <h3>Human Safety Checkpoint</h3>
+                    <p>Like airplane autopilot, the system freezes right before touching live customers or servers and asks a human to confirm.</p>
+                </article>
+
+                <article class="card story-card">
+                    <div class="story-card-head">
+                        <span class="story-step">Step 4</span>
+                        <button type="button" class="info-btn" data-info-key="step_pivot" aria-label="Learn more about approving or safe pivoting">i</button>
+                    </div>
+                    <h3>Approve or Safe Pivot</h3>
+                    <p>Click <strong>Approve</strong>, tweak the numbers first, or <strong>Reject</strong> &mdash; and watch the AI automatically take a safe staging detour.</p>
+                </article>
+            </div>
+        </section>
+
+        <!-- Section 2: Interactive Browser Sandbox -->
+        <section id="interactive-sandbox" class="container dispatch-section">
+            <div class="section-header-row">
+                <div>
+                    <span class="section-eyebrow">Interactive Preview (Runs Safely in Your Browser)</span>
+                    <h2 class="section-title" style="margin-bottom: 0.25rem;">Try the Live Agent Dispatch Console</h2>
+                    <p class="section-subtitle">Pick a scenario, press <strong>Run Interactive Demo</strong>, watch the AI think and build its checklist, and test the Human-in-the-Loop controls.</p>
+                </div>
+            </div>
+
+            <div class="card sandbox-shell">
+                <!-- Controls Toolbar -->
+                <div class="sandbox-toolbar">
+                    <div class="scenario-picker" role="tablist" aria-label="Interactive Scenarios">
+                        <button type="button" class="sc-pill" data-scenario="webhook">
+                            Webhook Alert Service
+                        </button>
+                        <button type="button" class="sc-pill active" data-scenario="ratelimiter">
+                            Rate Limiter Refactor (Try Rejecting!)
+                        </button>
+                        <button type="button" class="sc-pill" data-scenario="aws">
+                            Phase 2 Preview: AWS &amp; Website Monitor
+                        </button>
+                    </div>
+
+                    <div class="sandbox-actions">
+                        <span id="demo-status-pill" class="demo-status status-ready">READY</span>
+                        <button type="button" id="btn-run-demo" class="btn btn-primary btn-sm">Run Interactive Demo</button>
+                        <button type="button" id="btn-reset-demo" class="btn btn-ghost btn-sm">Reset</button>
+                    </div>
+                </div>
+
+                <!-- Goal Strip -->
+                <div class="sandbox-goal-bar">
+                    <span class="goal-prefix">&gt;_ Goal:</span>
+                    <span id="demo-goal-text" class="goal-text"></span>
+                </div>
+
+                <!-- Dark Studio Console Grid -->
+                <div id="sim-console" class="sim-console">
+                    <!-- Left Column: Triage + Live Thinking -->
+                    <div class="console-col console-left">
+                        <div class="console-box">
+                            <div class="console-box-head">
+                                <span class="console-title">Triage &amp; Risk</span>
+                                <div class="console-head-right">
+                                    <span id="demo-triage-badge" class="console-tag">Standby</span>
+                                    <button type="button" class="info-btn info-btn-dark" data-info-key="panel_triage" aria-label="What is Triage Assessment?">i</button>
+                                </div>
+                            </div>
+                            <div id="demo-triage-body" class="console-box-body console-muted">
+                                Press <strong>Run Interactive Demo</strong> to watch the agent score risk and plan tools.
+                            </div>
+                        </div>
+
+                        <div class="console-box console-grow">
+                            <div class="console-box-head">
+                                <span class="console-title">
+                                    <span id="demo-think-dot" class="pulse-dot"></span>
+                                    Thinking Stream
+                                </span>
+                                <div class="console-head-right">
+                                    <span id="demo-thought-count" class="console-tag">0 notes</span>
+                                    <button type="button" class="info-btn info-btn-dark" data-info-key="panel_thinking" aria-label="What is the Agent Thinking Stream?">i</button>
+                                </div>
+                            </div>
+                            <div id="demo-thoughts-feed" class="console-scroll thoughts-list">
+                                <div class="console-muted">Live step-by-step reasoning streams here in plain English...</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Center Column: Visual Task DAG + Generated Artifact -->
+                    <div class="console-col console-center">
+                        <div class="console-box">
+                            <div class="console-box-head">
+                                <span class="console-title">Visual Task Builder (DAG)</span>
+                                <div class="console-head-right">
+                                    <span class="dag-legend-pill"><i class="dot dot-blue"></i> Auto</span>
+                                    <span class="dag-legend-pill"><i class="dot dot-amber"></i> Human Gate</span>
+                                    <span class="dag-legend-pill"><i class="dot dot-green"></i> Safe Fallback</span>
+                                    <button type="button" class="info-btn info-btn-dark" data-info-key="panel_dag" aria-label="What is the Visual Task Builder DAG?">i</button>
+                                </div>
+                            </div>
+                            <div id="demo-dag-stage" class="dag-stage">
+                                <svg id="demo-dag-svg" class="demo-dag-svg" aria-hidden="true"></svg>
+                                <div id="demo-dag-grid" class="demo-dag-grid">
+                                    <div class="console-muted" style="grid-column: 1 / -1; text-align: center; padding: 1.5rem;">
+                                        Task steps appear here node-by-node as the agent plans.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="console-box console-grow">
+                            <div class="console-box-head">
+                                <span class="console-title">Generated Artifact &amp; Check</span>
+                                <div class="console-head-right">
+                                    <span id="demo-verified-badge" class="console-tag tag-green hidden">AST Verified &#10003;</span>
+                                    <button type="button" class="info-btn info-btn-dark" data-info-key="panel_artifact" aria-label="What is AST Verification and Generated Artifact?">i</button>
+                                </div>
+                            </div>
+                            <div id="demo-artifact-tabs" class="artifact-tab-bar"></div>
+                            <div id="demo-artifact-body" class="console-scroll artifact-code-wrap">
+                                <div class="console-muted">Code or incident reports built by the agent appear here with automatic safety checks.</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Human-in-the-Loop Gate + WebSocket Feed -->
+                    <div class="console-col console-right">
+                        <div id="demo-hitl-box" class="console-box hitl-box">
+                            <div class="console-box-head">
+                                <span class="console-title">HITL Safety Gate</span>
+                                <div class="console-head-right">
+                                    <span id="demo-hitl-badge" class="console-tag">Armed</span>
+                                    <button type="button" class="info-btn info-btn-dark" data-info-key="panel_hitl" aria-label="What is a Human-in-the-Loop Safety Gate?">i</button>
+                                </div>
+                            </div>
+                            <div id="demo-hitl-body" class="console-box-body">
+                                <div class="hitl-standby">
+                                    <span class="hitl-shield" aria-hidden="true">&#128737;</span>
+                                    <p>When the AI reaches a high-impact action (like updating production limits), execution freezes here until you decide.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="console-box console-grow">
+                            <div class="console-box-head">
+                                <span class="console-title">WebSocket Event Stream</span>
+                                <div class="console-head-right">
+                                    <span id="demo-ws-count" class="console-tag">0 events</span>
+                                    <button type="button" class="info-btn info-btn-dark" data-info-key="panel_ws" aria-label="What is the WebSocket Event Stream?">i</button>
+                                </div>
+                            </div>
+                            <div id="demo-ws-feed" class="console-scroll ws-list">
+                                <div class="console-muted">Every action, pause, and human decision is logged live with timestamps.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Plain-English Glossary for Non-Technical Readers -->
+        <section class="container dispatch-section">
+            <div class="section-header" style="margin-bottom: 1.5rem;">
+                <span class="section-eyebrow">No Jargon Required</span>
+                <h2 class="section-title">What Each Part Means in Plain English</h2>
+                <p class="section-subtitle">Built for engineers to inspect under the hood, and for leaders, clients, and recruiters to understand at a glance.</p>
+            </div>
+
+            <div class="glossary-grid">
+                <article class="card glossary-card">
+                    <div class="glossary-head">
+                        <h3>AI Agent &amp; Orchestration</h3>
+                        <button type="button" class="info-btn" data-info-key="glossary_agent" aria-label="More details on AI Agents">i</button>
+                    </div>
+                    <p class="glossary-plain"><strong>Plain English:</strong> Software that plans multi-step work and runs tools instead of only replying with text.</p>
+                    <p class="glossary-analogy"><strong>Analogy:</strong> A junior analyst who drafts a plan, checks the spreadsheets, and brings you the final recommendation.</p>
+                    <p class="glossary-biz"><strong>Why It Matters:</strong> Saves hours of repetitive engineering setup while keeping humans in charge of final decisions.</p>
+                </article>
+
+                <article class="card glossary-card">
+                    <div class="glossary-head">
+                        <h3>Task Graph (DAG)</h3>
+                        <button type="button" class="info-btn" data-info-key="panel_dag" aria-label="More details on Task Graphs">i</button>
+                    </div>
+                    <p class="glossary-plain"><strong>Plain English:</strong> A visual flow diagram showing the exact order of steps and what happens if one step is blocked.</p>
+                    <p class="glossary-analogy"><strong>Analogy:</strong> A recipe checklist where you must mix and bake before you frost &mdash; and if an ingredient is out, switch to backup.</p>
+                    <p class="glossary-biz"><strong>Why It Matters:</strong> No "black box" &mdash; anyone can see which steps succeeded, which paused, and why.</p>
+                </article>
+
+                <article class="card glossary-card">
+                    <div class="glossary-head">
+                        <h3>Human-in-the-Loop (HITL)</h3>
+                        <button type="button" class="info-btn" data-info-key="panel_hitl" aria-label="More details on Human-in-the-Loop">i</button>
+                    </div>
+                    <p class="glossary-plain"><strong>Plain English:</strong> A mandatory pause button before the AI changes anything important on live systems.</p>
+                    <p class="glossary-analogy"><strong>Analogy:</strong> Airplane autopilot flying the route while waiting for the human captain to press confirm before landing.</p>
+                    <p class="glossary-biz"><strong>Why It Matters:</strong> Prevents accidental outages, runaway spending, or unintended customer-facing changes.</p>
+                </article>
+
+                <article class="card glossary-card">
+                    <div class="glossary-head">
+                        <h3>WebSockets (Real-Time Stream)</h3>
+                        <button type="button" class="info-btn" data-info-key="panel_ws" aria-label="More details on WebSockets">i</button>
+                    </div>
+                    <p class="glossary-plain"><strong>Plain English:</strong> A two-way live connection so updates appear instantly without refreshing the page.</p>
+                    <p class="glossary-analogy"><strong>Analogy:</strong> Watching a live package tracker or phone call instead of refreshing your email every 10 seconds.</p>
+                    <p class="glossary-biz"><strong>Why It Matters:</strong> Operators see problems the millisecond they occur and can abort or approve immediately.</p>
+                </article>
+
+                <article class="card glossary-card">
+                    <div class="glossary-head">
+                        <h3>AST Code Verification</h3>
+                        <button type="button" class="info-btn" data-info-key="panel_artifact" aria-label="More details on AST Code Verification">i</button>
+                    </div>
+                    <p class="glossary-plain"><strong>Plain English:</strong> An automatic grammar and structure inspection run on every file the AI writes.</p>
+                    <p class="glossary-analogy"><strong>Analogy:</strong> Spellcheck + structural building inspection before a blueprint ever goes to the construction crew.</p>
+                    <p class="glossary-biz"><strong>Why It Matters:</strong> Catches broken AI outputs automatically before a human even spends time reviewing them.</p>
+                </article>
+
+                <article class="card glossary-card">
+                    <div class="glossary-head">
+                        <h3>SQLite Audit Trail</h3>
+                        <button type="button" class="info-btn" data-info-key="glossary_audit" aria-label="More details on SQLite Audit Trail">i</button>
+                    </div>
+                    <p class="glossary-plain"><strong>Plain English:</strong> A permanent record of every AI thought, file, approval, modification, or rejection.</p>
+                    <p class="glossary-analogy"><strong>Analogy:</strong> An airplane flight recorder ("black box") combined with a signed sign-off sheet.</p>
+                    <p class="glossary-biz"><strong>Why It Matters:</strong> Essential for compliance, debugging, and accountability in regulated tech and finance teams.</p>
+                </article>
+            </div>
+        </section>
+
+        <!-- Section 4: Full-Stack App Screenshot & Open-Source Expansion Roadmap -->
+        <section class="container dispatch-section">
+            <div class="roadmap-split">
+                <div class="card screenshot-showcase-card">
+                    <span class="section-eyebrow">Real Backend Running Locally</span>
+                    <h3>Full FastAPI + WebSocket Mission Control</h3>
+                    <p style="color: var(--text-secondary); font-size: 0.92rem; margin-bottom: 1rem;">
+                        The interactive sandbox above previews the exact flow of the full Python backend (which connects to OpenAI API, writes sandboxed Python modules, and pauses live coroutines in SQLite).
+                    </p>
+                    <a href="assets/images/dispatch/mission-control-hitl.png" target="_blank" rel="noopener noreferrer" class="shot-preview-link">
+                        <img src="assets/images/dispatch/mission-control-hitl.png" alt="Full FastAPI and WebSocket Mission Control app paused at HITL checkpoint" loading="lazy">
+                    </a>
+                </div>
+
+                <div class="card roadmap-card">
+                    <span class="section-eyebrow">Built to Grow Over Time</span>
+                    <h3>GitHub &amp; Portfolio Expansion Roadmap</h3>
+                    <div class="roadmap-list">
+                        <div class="roadmap-item">
+                            <span class="roadmap-ver ver-done">v0.1 Live</span>
+                            <div>
+                                <h4>Agentic Task Builder + Interactive Portfolio Demo</h4>
+                                <p>Visual task DAG, AST verification, HITL Approve/Modify/Reject branching, SQLite audit log, and this plain-English interactive portfolio guide.</p>
+                            </div>
+                        </div>
+                        <div class="roadmap-item">
+                            <span class="roadmap-ver">v0.2 Next</span>
+                            <div>
+                                <h4>Live AWS &amp; Website Observability</h4>
+                                <p>Connects read-only CloudWatch Logs, Lambda throttle metrics, and live website health probes for <code>mitchellandrade.com</code> behind HITL rollback gates.</p>
+                            </div>
+                        </div>
+                        <div class="roadmap-item">
+                            <span class="roadmap-ver">v0.3</span>
+                            <div>
+                                <h4>Automated Incident Triggers</h4>
+                                <p>Scheduled health checks and CloudWatch SNS webhooks that auto-triage anomalies and notify an operator before taking action.</p>
+                            </div>
+                        </div>
+                        <div class="roadmap-item">
+                            <span class="roadmap-ver">v0.4</span>
+                            <div>
+                                <h4>Hosted Live Backend (Railway)</h4>
+                                <p>Deploy the FastAPI + WebSocket server to Railway so portfolio visitors can launch a live hosted session right alongside this instant preview.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Accessible Floating Info Popover -->
+    <div id="info-popover" class="info-popover hidden" role="dialog" aria-live="polite">
+        <div class="info-popover-head">
+            <strong id="info-popover-title">Info</strong>
+            <button type="button" id="info-popover-close" class="info-popover-close" aria-label="Close explanation">&times;</button>
+        </div>
+        <p id="info-popover-plain" class="info-popover-plain"></p>
+        <p id="info-popover-why" class="info-popover-why"></p>
+    </div>
+
+    <script src="dispatch-demo.js?v=1"></script>
+</body>
+
+</html>
