@@ -151,7 +151,7 @@
                             <span class="pulse-dot pulse-live" aria-hidden="true"></span>
                             Match Play
                         </span>
-                        <span class="status-row-state state-live">Deployed, scale-up planned</span>
+                        <span class="status-row-state state-live">Live on Render &bull; Neon DB</span>
                     </a>
                     <a href="#project-realestate" class="status-row" data-jump-project="project-realestate">
                         <span class="status-row-name">
@@ -776,47 +776,49 @@
                 <div class="card-header">
                     <h3>Match Play <span style="font-size: 0.85rem; font-weight: 500; color: var(--text-secondary);">| CU Boulder CSPB 3308</span></h3>
                     <div class="badge-group">
-                        <span class="status-pill status-live"><span class="status-dot" aria-hidden="true"></span> Live MVP</span>
+                        <span class="status-pill status-live"><span class="status-dot" aria-hidden="true"></span> Live on Render</span>
                         <span class="badge">Full-Stack Web App</span>
                     </div>
                 </div>
 
                 <div class="tech-stack-pills">
                     <span class="tech-chip">Python / Flask</span>
-                    <span class="tech-chip">React</span>
                     <span class="tech-chip">PostgreSQL (Neon)</span>
-                    <span class="tech-chip">NumPy</span>
-                    <span class="tech-chip">Leaflet Maps</span>
+                    <span class="tech-chip">NumPy Engine</span>
+                    <span class="tech-chip">Leaflet &amp; Esri GIS</span>
                     <span class="tech-chip">Tailwind CSS</span>
+                    <span class="tech-chip">Pytest (36 Tests)</span>
                 </div>
 
                 <p class="project-desc">
-                    A real-time social golf matchmaking and round scheduling application utilizing a custom NumPy compatibility engine to pair golfers by handicap, pace of play, and course vibe.
+                    A live full-stack social golf matchmaking and round scheduling platform powered by a customizable 3-slider NumPy compatibility engine (Skill, Style, Schedule), an interactive multi-layer Esri &amp; Leaflet course radar map, and real-time group round management.
                 </p>
 
                 <div class="pbr-grid">
                     <div class="pbr-box">
                         <span class="pbr-label">Problem</span>
-                        <p>Coordinating compatible golf rounds across skill levels, pace preferences, and local courses relies on scattered group texts and guesswork.</p>
+                        <p>Coordinating compatible golf rounds across skill levels, pace preferences, and local Front Range courses relies on scattered group texts and guesswork.</p>
                     </div>
                     <div class="pbr-box">
                         <span class="pbr-label">Built</span>
-                        <p>A full-stack Flask, React, and PostgreSQL web application featuring a custom NumPy weighted scoring engine and interactive Leaflet course mapping.</p>
+                        <p>A full-stack Python/Flask and hardened 7-table Neon PostgreSQL web application (B-Tree indexes, PL/pgSQL triggers, Werkzeug password hashing, parameterized Psycopg v3 queries) backed by 1,100+ lines of formal engineering specs, customizable NumPy scoring, and interactive Esri &amp; Leaflet course radar mapping.</p>
                     </div>
                     <div class="pbr-box">
                         <span class="pbr-label">Result</span>
-                        <p>Deployed live MVP on Render + Neon PostgreSQL alongside an enterprise AWS VPC, CloudFront, ECS Fargate, and Aurora read-replica scale-up blueprint.</p>
+                        <p>Deployed live on Render + Neon PostgreSQL verified by a 36-test automated Pytest unit/system suite (100% passing) alongside full SQL/page specifications and an enterprise AWS VPC, CloudFront, ECS Fargate, and Aurora read-replica scale-up blueprint.</p>
                     </div>
                 </div>
 
                 <div class="project-actions-row">
                     <button type="button" class="drawer-toggle-btn" aria-expanded="false" aria-controls="drawer-matchplay">
-                        <span>Inspect 4 Build Phases &amp; 9 Artifacts</span>
+                        <span>Inspect 7 Build Phases &amp; 21 Artifacts</span>
                         <svg class="drawer-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                             <polyline points="6 9 12 15 18 9"></polyline>
                         </svg>
                     </button>
                     <div class="project-quick-links">
+                        <a href="https://cspb3308-team-4.onrender.com/" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm">Launch Live App &nearr;</a>
+                        <a href="resume.html" class="btn btn-secondary btn-sm">View in Resume</a>
                         <a href="https://github.com/mitchandrade8" target="_blank" rel="noopener noreferrer" class="btn btn-ghost btn-sm">GitHub Profile</a>
                     </div>
                 </div>
@@ -919,8 +921,124 @@
                         <div class="phase active-phase">
                             <div class="phase-indicator"></div>
                             <div class="phase-details">
-                                <h4>Phase 3: Bootstrapped Production &amp; AWS Scale-Up Blueprint</h4>
-                                <p><strong>Bootstrapped MVP:</strong> Flask REST API + React hosted on Render, paired with Neon serverless PostgreSQL for rapid iteration.<br><strong>Enterprise Scale-Up Plan:</strong> Consolidated inside a single AWS VPC using CloudFront CDN, containerized Flask on AWS ECS Fargate, and Amazon Aurora PostgreSQL with read replicas.</p>
+                                <h4>Phase 3: Technical Documentation &amp; Engineering Specifications</h4>
+                                <p>Authored 1,100+ lines of developer specifications across <code>SCHEMA.md</code>, <code>SQL_TESTING.md</code>, <code>PAGE_TESTING.md</code>, <code>TESTING.md</code>, <code>Lab3-Sizing.md</code>, <code>WEEKLY_STATUS.md</code>, and architecture docs&mdash;defining strict table enums, route contracts, ASCII UI wireframes, Given/When/Then user stories, and risk mitigation plans.</p>
+                                <div class="hardware-showcase">
+                                    <button type="button" class="media-thumb" data-lightbox-group="matchplay" data-lightbox-src="assets/images/matchplay/matchplay-doc-schema-spec.png" data-lightbox-title="Match Play • Phase 3 (Documentation)" data-lightbox-caption="Database Schema Dictionary &amp; 414-Line SQL Verification Specs (SCHEMA.md &amp; SQL_TESTING.md)">
+                                        <span class="media-thumb-frame">
+                                            <img src="assets/images/matchplay/matchplay-doc-schema-spec.png" alt="Match Play Schema Dictionary and SQL Verification Specs" loading="lazy">
+                                            <span class="zoom-badge">Zoom</span>
+                                        </span>
+                                        <span class="media-thumb-caption">Schema &amp; SQL Specs</span>
+                                    </button>
+                                    <button type="button" class="media-thumb" data-lightbox-group="matchplay" data-lightbox-src="assets/images/matchplay/matchplay-doc-page-contracts.png" data-lightbox-title="Match Play • Phase 3 (Documentation)" data-lightbox-caption="Route Contracts, Wireframe Specs &amp; Page-to-DB Dependency Matrix (PAGE_TESTING.md &amp; page_design.md)">
+                                        <span class="media-thumb-frame">
+                                            <img src="assets/images/matchplay/matchplay-doc-page-contracts.png" alt="Match Play Route Contracts and UI Wireframe Specs" loading="lazy">
+                                            <span class="zoom-badge">Zoom</span>
+                                        </span>
+                                        <span class="media-thumb-caption">Route &amp; Wireframe Specs</span>
+                                    </button>
+                                    <button type="button" class="media-thumb" data-lightbox-group="matchplay" data-lightbox-src="assets/images/matchplay/matchplay-doc-agile-stories.png" data-lightbox-title="Match Play • Phase 3 (Documentation)" data-lightbox-caption="Formal Given/When/Then User Stories, Effort Sizing &amp; Risk Governance (Lab3-Sizing.md &amp; WEEKLY_STATUS.md)">
+                                        <span class="media-thumb-frame">
+                                            <img src="assets/images/matchplay/matchplay-doc-agile-stories.png" alt="Match Play User Stories Effort Sizing and Risk Matrix" loading="lazy">
+                                            <span class="zoom-badge">Zoom</span>
+                                        </span>
+                                        <span class="media-thumb-caption">User Stories &amp; Risk Log</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="phase active-phase">
+                            <div class="phase-indicator"></div>
+                            <div class="phase-details">
+                                <h4>Phase 4: Neon PostgreSQL Backend Architecture &amp; Security Hardening</h4>
+                                <p>Engineered a 7-table relational schema (<code>database/schema.sql</code> + idempotent <code>ensure_schema()</code>) with <code>CHECK</code> constraints, <code>UNIQUE</code> slot guards, cascading FKs, 4 B-Tree indexes, and PL/pgSQL audit triggers. Hardened the Flask REST engine (<code>server/app.py</code> &amp; <code>server/db.py</code>) with Werkzeug salted password hashing, 100% parameterized Psycopg v3 <code>dict_row</code> queries, atomic <code>ON CONFLICT</code> upserts, secret isolation via <code>.env</code>/Render, and session-gated 401/403 route protection.</p>
+                                <div class="hardware-showcase">
+                                    <button type="button" class="media-thumb" data-lightbox-group="matchplay" data-lightbox-src="assets/images/matchplay/matchplay-pg-schema-erd.png" data-lightbox-title="Match Play • Phase 4 (PostgreSQL)" data-lightbox-caption="7-Table Neon PostgreSQL Schema, B-Tree Performance Indexes &amp; PL/pgSQL Triggers (schema.sql)">
+                                        <span class="media-thumb-frame">
+                                            <img src="assets/images/matchplay/matchplay-pg-schema-erd.png" alt="Neon PostgreSQL 7-Table Relational Schema and B-Tree Indexes" loading="lazy">
+                                            <span class="zoom-badge">Zoom</span>
+                                        </span>
+                                        <span class="media-thumb-caption">7-Table PostgreSQL DDL</span>
+                                    </button>
+                                    <button type="button" class="media-thumb" data-lightbox-group="matchplay" data-lightbox-src="assets/images/matchplay/matchplay-security-hardening.png" data-lightbox-title="Match Play • Phase 4 (Security)" data-lightbox-caption="Security Architecture: Werkzeug Password Hashing, Parameterized SQLi Defense &amp; Secret Isolation">
+                                        <span class="media-thumb-frame">
+                                            <img src="assets/images/matchplay/matchplay-security-hardening.png" alt="Flask and Neon PostgreSQL Security Hardening" loading="lazy">
+                                            <span class="zoom-badge">Zoom</span>
+                                        </span>
+                                        <span class="media-thumb-caption">Security &amp; SQLi Defense</span>
+                                    </button>
+                                    <button type="button" class="media-thumb" data-lightbox-group="matchplay" data-lightbox-src="assets/images/matchplay/matchplay-backend-transactions.png" data-lightbox-title="Match Play • Phase 4 (Backend Engine)" data-lightbox-caption="Transactional Flask REST Engine: Atomic Profile Upserts, Capacity Locking &amp; Group Cancellation Logic">
+                                        <span class="media-thumb-frame">
+                                            <img src="assets/images/matchplay/matchplay-backend-transactions.png" alt="Atomic Upserts Slot Capacity Locking and Group Cancellation Logic" loading="lazy">
+                                            <span class="zoom-badge">Zoom</span>
+                                        </span>
+                                        <span class="media-thumb-caption">Transactions &amp; State Machine</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="phase active-phase">
+                            <div class="phase-indicator"></div>
+                            <div class="phase-details">
+                                <h4>Phase 5: Automated Pytest Verification &amp; Coverage Suite (36 Tests)</h4>
+                                <p>Validated core math, cloud DB connectivity, API auth boundaries, schedule syncing, and round invite/cancellation flows across 5 automated Pytest suites (<strong>36/36 passed in 0.81s</strong>) paired with <code>pytest-cov</code> reporting (<code>tests/pytest-cov-report.md</code>).</p>
+                                <div class="hardware-showcase">
+                                    <button type="button" class="media-thumb" data-lightbox-group="matchplay" data-lightbox-src="assets/images/matchplay/matchplay-pytest-suite.png" data-lightbox-title="Match Play • Phase 5 (Testing)" data-lightbox-caption="Full 36-Test Pytest Execution Suite Across 5 Modules (36 Passed in 0.81s)">
+                                        <span class="media-thumb-frame">
+                                            <img src="assets/images/matchplay/matchplay-pytest-suite.png" alt="36 Passed Pytest Execution Suite Across 5 Modules" loading="lazy">
+                                            <span class="zoom-badge">Zoom</span>
+                                        </span>
+                                        <span class="media-thumb-caption">36/36 Pytest Suite</span>
+                                    </button>
+                                    <button type="button" class="media-thumb" data-lightbox-group="matchplay" data-lightbox-src="assets/images/matchplay/matchplay-pytest-algorithm.png" data-lightbox-title="Match Play • Phase 5 (Unit Tests)" data-lightbox-caption="NumPy Compatibility Engine Unit Tests: Handicap, Jaccard Similarity &amp; Weighting (test_algorithm.py • 18 Tests)">
+                                        <span class="media-thumb-frame">
+                                            <img src="assets/images/matchplay/matchplay-pytest-algorithm.png" alt="NumPy Matchmaking Algorithm Unit Tests" loading="lazy">
+                                            <span class="zoom-badge">Zoom</span>
+                                        </span>
+                                        <span class="media-thumb-caption">Algorithm Unit Tests (18)</span>
+                                    </button>
+                                    <button type="button" class="media-thumb" data-lightbox-group="matchplay" data-lightbox-src="assets/images/matchplay/matchplay-pytest-integration.png" data-lightbox-title="Match Play • Phase 5 (Integration)" data-lightbox-caption="System &amp; Integration Tests: Neon Cloud DB, Auth Guards, Availability &amp; Invites (18 Tests)">
+                                        <span class="media-thumb-frame">
+                                            <img src="assets/images/matchplay/matchplay-pytest-integration.png" alt="Neon DB and Flask API Integration Tests" loading="lazy">
+                                            <span class="zoom-badge">Zoom</span>
+                                        </span>
+                                        <span class="media-thumb-caption">Cloud DB &amp; API Tests (18)</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="phase active-phase">
+                            <div class="phase-indicator"></div>
+                            <div class="phase-details">
+                                <h4>Phase 6: Live Render Production Build &amp; AWS Scale-Up Blueprint</h4>
+                                <p><strong>Live Production MVP (<a href="https://cspb3308-team-4.onrender.com/" target="_blank" rel="noopener noreferrer" style="color: var(--accent-primary); text-decoration: underline;">cspb3308-team-4.onrender.com</a>):</strong> Gunicorn + Flask REST API on Render paired with Neon serverless PostgreSQL, customizable 3-slider matchmaking priority weights, multi-layer Esri &amp; Leaflet course radar with pulsing markers, and group-aware round cancellation alerts.<br><strong>Enterprise Scale-Up Plan:</strong> Consolidated inside a single AWS VPC using CloudFront CDN, containerized Flask on AWS ECS Fargate, and Amazon Aurora PostgreSQL with read replicas.</p>
+                                <div class="hardware-showcase">
+                                    <button type="button" class="media-thumb" data-lightbox-group="matchplay" data-lightbox-src="assets/images/matchplay/matchplay-live-dashboard.png" data-lightbox-title="Match Play • Phase 6 (Live)" data-lightbox-caption="Live Clubhouse Dashboard, Active Rounds &amp; Group-Aware Spot Reopened Notification">
+                                        <span class="media-thumb-frame">
+                                            <img src="assets/images/matchplay/matchplay-live-dashboard.png" alt="Live Match Play Clubhouse Dashboard" loading="lazy">
+                                            <span class="zoom-badge">Zoom</span>
+                                        </span>
+                                        <span class="media-thumb-caption">Live Clubhouse Dashboard</span>
+                                    </button>
+                                    <button type="button" class="media-thumb" data-lightbox-group="matchplay" data-lightbox-src="assets/images/matchplay/matchplay-live-radar-map.png" data-lightbox-title="Match Play • Phase 6 (Live)" data-lightbox-caption="Interactive Esri Dark Radar Course Directory with Pulsing Match Markers &amp; Quick-Invite Popups">
+                                        <span class="media-thumb-frame">
+                                            <img src="assets/images/matchplay/matchplay-live-radar-map.png" alt="Interactive Esri Dark Radar Course Map" loading="lazy">
+                                            <span class="zoom-badge">Zoom</span>
+                                        </span>
+                                        <span class="media-thumb-caption">Interactive Course Radar Map</span>
+                                    </button>
+                                    <button type="button" class="media-thumb" data-lightbox-group="matchplay" data-lightbox-src="assets/images/matchplay/matchplay-live-satellite-map.png" data-lightbox-title="Match Play • Phase 6 (Live)" data-lightbox-caption="Multi-Layer Esri Satellite Fairways View with Front Range Course Ratings &amp; Par">
+                                        <span class="media-thumb-frame">
+                                            <img src="assets/images/matchplay/matchplay-live-satellite-map.png" alt="Esri Satellite Fairways Map Layer" loading="lazy">
+                                            <span class="zoom-badge">Zoom</span>
+                                        </span>
+                                        <span class="media-thumb-caption">Satellite Fairways GIS Layer</span>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
